@@ -1,1 +1,1 @@
-# DCIS
+# Distributed Context Management System
