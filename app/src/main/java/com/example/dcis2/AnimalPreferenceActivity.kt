@@ -1,58 +1,67 @@
-package com.example.dcis2
-
-import android.content.pm.PackageManager
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.AdapterView
+import android.widget.Button
+import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import android.Manifest
+import com.example.dcis2.Model.AnimalCategory
+import com.example.dcis2.R
 
-class AnimalPreferenceActivity : AppCompatActivity(){
-    private val HEALTH_PERMISSION_REQUEST_CODE = 2000
+class AnimalPreferenceActivity : AppCompatActivity() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var selectedCategories: MutableSet<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animal_preference)
 
-        // Initialize your layout and any necessary logic for displaying animal preferences
-        requestHealthServices()
-    }
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
 
-    private fun requestHealthServices() {
-        // Check if permission is granted
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.BODY_SENSORS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Request permission
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.BODY_SENSORS),
-                HEALTH_PERMISSION_REQUEST_CODE
-            )
-        } else {
-            // Permission already granted
-            Toast.makeText(this, "Health permission already granted", Toast.LENGTH_SHORT).show()
-        }
-    }
+        // Load previously selected categories if available
+        selectedCategories = sharedPreferences.getStringSet("PreferredAnimalCategories", mutableSetOf())!!.toMutableSet()
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == HEALTH_PERMISSION_REQUEST_CODE) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Permission granted
-                Toast.makeText(this, "Health permission granted", Toast.LENGTH_SHORT).show()
+        // List of animal categories with drawable resources (replace with actual drawable names)
+        val animalCategories = listOf(
+            AnimalCategory("Growing Wild", R.drawable.growing_wild_icon),
+            AnimalCategory("Birds", R.drawable.birds_icon),
+            AnimalCategory("Sea Creatures", R.drawable.sea_creatures_icon),
+            AnimalCategory("Predators", R.drawable.predators_icon),
+            AnimalCategory("Reptiles", R.drawable.reptiles_icon),
+            AnimalCategory("Australian Natives", R.drawable.australian_natives_icon),
+            AnimalCategory("Rainforest", R.drawable.rainforest_icon),
+            AnimalCategory("Apes and Monkeys", R.drawable.apes_monkeys_icon)
+        )
+
+        val gridView = findViewById<GridView>(R.id.gridViewAnimalCategories)
+        val adapter = AnimalAdapter(this, animalCategories, selectedCategories)
+        gridView.adapter = adapter
+
+        // Handle item clicks for multiple selection
+        gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            val selectedCategory = animalCategories[position].name
+            if (selectedCategories.contains(selectedCategory)) {
+                selectedCategories.remove(selectedCategory)
             } else {
-                // Permission denied
-                Toast.makeText(this, "Health permission denied", Toast.LENGTH_SHORT).show()
+                selectedCategories.add(selectedCategory)
             }
+            adapter.notifyDataSetChanged() // Refresh the grid view
+        }
+
+        // Save preferences button (optional)
+        val btnSavePreferences = findViewById<Button>(R.id.btnSavePreferences)
+        btnSavePreferences.setOnClickListener {
+            saveAnimalPreferences()
+            Toast.makeText(this, "Preferences Saved", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun saveAnimalPreferences() {
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("PreferredAnimalCategories", selectedCategories)
+        editor.apply()
+    }
 }

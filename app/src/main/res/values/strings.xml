@@ -10,5 +10,7 @@
     <string name="result_not_found">Result Not Found</string>
     <string name="show_scanner_from_fragment">Show Scanner From Fragment</string>
     <string name="go_to_animal_preference">Go to Animal Preference</string>
+    <string name="next">Next</string>
+    <string name="animal_image_desc">Animal Description\n</string>
 
 </resources>

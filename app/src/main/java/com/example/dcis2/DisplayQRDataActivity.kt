@@ -17,15 +17,23 @@ import com.google.android.gms.location.LocationServices
 import android.Manifest
 import android.content.Intent
 import android.widget.Button
+import android.content.Context
+import android.content.SharedPreferences
+import android.view.View
+import android.widget.AdapterView
 
 class DisplayQRDataActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    private lateinit var btnSwitchToAnimalPreference: Button
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.display_result)
+        sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
 
         // Initialize the location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -53,6 +61,7 @@ class DisplayQRDataActivity : AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.container)
         // Parse the JSON string to extract data
         val ageRanges = arrayOf("18-25", "25-45", "45-75", "75-100")
+        val childrenAgeRanges = arrayOf("0-5", "5-10", "10-15", "15-18")
 
         val dataList = mutableListOf<String>()
         jsonObject.keys().forEach { key ->
@@ -76,6 +85,20 @@ class DisplayQRDataActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             adultSpinner.adapter = adapter
             container.addView(adultSpinner)
+
+            // Save selected age range when changed
+            adultSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long
+                ) {
+                    val selectedAgeRange = ageRanges[position]
+                    saveAgeRangeToPreferences("adult_$i", selectedAgeRange)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Do nothing
+                }
+            }
         }
 
         // Dynamically create components for each child
@@ -90,10 +113,24 @@ class DisplayQRDataActivity : AppCompatActivity() {
 
             // Create a Spinner for selecting age range
             val childSpinner = Spinner(this)
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ageRanges)
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, childrenAgeRanges)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             childSpinner.adapter = adapter
             container.addView(childSpinner)
+
+            // Save selected age range when changed
+            childSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long
+                ) {
+                    val selectedAgeRange = childrenAgeRanges[position]
+                    saveAgeRangeToPreferences("child_$i", selectedAgeRange)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Do nothing
+                }
+            }
         }
         // Initialize the button and set up the click listener
         val btnSwitchToAnimalPreference = findViewById<Button>(R.id.bSuttonGoButton)
@@ -104,6 +141,13 @@ class DisplayQRDataActivity : AppCompatActivity() {
 
             // Request Health Services Permission (triggered after switch)
         }
+    }
+
+    private fun saveAgeRangeToPreferences(key: String, ageRange: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(key, ageRange)
+        editor.apply() // Save asynchronously
+        Toast.makeText(this, "Saved age range for $key: $ageRange", Toast.LENGTH_SHORT).show()
     }
 
     private fun fetchLocation() {
@@ -136,6 +180,12 @@ class DisplayQRDataActivity : AppCompatActivity() {
                 fetchLocation()
             } else {
                 // Permission denied
+                Toast.makeText(
+                    this,
+                    "Location permission is required for the application to function correctly.",
+                    Toast.LENGTH_LONG
+                ).show()
+                btnSwitchToAnimalPreference.isEnabled = false
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show()
             }
         }

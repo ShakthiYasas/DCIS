@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-
         <!-- Other static elements can go here -->
         <Button
             android:id="@+id/bSuttonGoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go to ban mach" />
+            android:text="@string/next" />
+
     </LinearLayout>
 
 </ScrollView>
