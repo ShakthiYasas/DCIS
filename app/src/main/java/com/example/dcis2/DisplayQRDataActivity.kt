@@ -34,7 +34,7 @@ class DisplayQRDataActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.display_result)
         sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
-
+        btnSwitchToAnimalPreference = findViewById(R.id.bSuttonGoButton)
         // Initialize the location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         // Request location permission
