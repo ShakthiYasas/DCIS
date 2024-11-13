@@ -1,3 +1,6 @@
+package com.example.dcis2
+
+import AnimalAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,7 +10,6 @@ import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dcis2.Model.AnimalCategory
-import com.example.dcis2.R
 
 class AnimalPreferenceActivity : AppCompatActivity() {
 

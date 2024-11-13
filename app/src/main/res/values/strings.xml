@@ -12,5 +12,6 @@
     <string name="go_to_animal_preference">Go to Animal Preference</string>
     <string name="next">Next</string>
     <string name="animal_image_desc">Animal Description\n</string>
+    <string name="save_preferences">Save Preferences</string>
 
 </resources>
