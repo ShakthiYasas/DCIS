@@ -1,21 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:gravity="center">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="8dp">
 
     <ImageView
-        android:id="@+id/animal_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop" />
+        android:id="@+id/animalImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerInside"
+        android:contentDescription="@string/animal_image_desc" />
 
     <TextView
-        android:id="@+id/animal_name"
+        android:id="@+id/animalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="4dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
 </LinearLayout>
