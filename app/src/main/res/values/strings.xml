@@ -13,5 +13,7 @@
     <string name="next">Next</string>
     <string name="animal_image_desc">Animal Description\n</string>
     <string name="save_preferences">Save Preferences</string>
+    <string name="zookeeper">ZooKeeper</string>
+    <string name="scan_qr_code_button">Scan QR Code</string>
 
 </resources>
