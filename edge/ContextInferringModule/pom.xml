@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.dcis</groupId>
+    <artifactId>ContextInferringModule</artifactId>
+    <version>1.0-DEV</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.siddhi</groupId>
+            <artifactId>siddhi-core</artifactId>
+            <version>5.1.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.siddhi</groupId>
+            <artifactId>siddhi-query-api</artifactId>
+            <version>5.1.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.siddhi</groupId>
+            <artifactId>siddhi-query-compiler</artifactId>
+            <version>5.1.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.siddhi</groupId>
+            <artifactId>siddhi-annotations</artifactId>
+            <version>5.1.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dcis</groupId>
+            <artifactId>GRPC</artifactId>
+            <version>1.0-DEV</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>csiro.perccom.csto</groupId>
+            <artifactId>cst-o</artifactId>
+            <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/resources/cst.jar</systemPath>
+        </dependency>
+    </dependencies>
+</project>

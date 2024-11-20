@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+
+package org.dcis.cim.proto;
+
+message CIMResponse {
+  string body = 1;
+  string status = 2;
+}
+
+message SiddhiRequest {
+  string json = 1;
+  repeated string function = 2;
+}
+
+service CIMService {
+  rpc registerInSiddhi (SiddhiRequest) returns (CIMResponse);
+}
