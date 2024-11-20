@@ -1,7 +1,7 @@
 package org.dcis;
 
 public class ContextCordinator {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static String health()  {
+        return "Ping from the library.";
     }
 }
