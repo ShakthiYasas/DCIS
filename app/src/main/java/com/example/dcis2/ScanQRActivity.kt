@@ -17,7 +17,7 @@ class ScanQRActivity: AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_scan_qr)
 
         // Initialize the barcode view
         barcodeView = findViewById(R.id.barcode_scanner)
