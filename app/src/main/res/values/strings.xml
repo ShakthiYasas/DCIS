@@ -15,5 +15,6 @@
     <string name="save_preferences">Save Preferences</string>
     <string name="zookeeper">ZooKeeper</string>
     <string name="scan_qr_code_button">Scan QR Code</string>
-
+    <string name="welcome_to_zoo_map_finder">Welcome to Zoo Map Finder</string>
+    <string name="scan_qr_code_btn">Scan QR Code</string>
 </resources>
