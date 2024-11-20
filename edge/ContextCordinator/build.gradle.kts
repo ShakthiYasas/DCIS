@@ -1,4 +1,6 @@
 plugins {
+    id("idea")
+    id("java")
     id("java-library")
     id("maven-publish")
 }
@@ -11,13 +13,16 @@ repositories {
 }
 
 dependencies {
+    implementation("org.json:json:20240303")
     api("com.fasterxml.jackson.core:jackson-databind:2.18.1")
-    implementation("com.google.http-client:google-http-client:1.45.1")
+
+    testCompileOnly("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 publishing {
     publications {
-        create<MavenPublication>("mobileedge") {
+        create<MavenPublication>("contextcordinator") {
             from(components["java"])
         }
     }
