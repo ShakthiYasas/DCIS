@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 import io.siddhi.core.event.Event;
 import io.siddhi.core.SiddhiManager;
-import io.siddhi.query.api.SiddhiApp;
 import io.siddhi.core.SiddhiAppRuntime;
 import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.stream.output.StreamCallback;
@@ -37,8 +36,12 @@ public final class SiddhiWrapper {
     public CIMResponse createSiddhiApp(String name) {
         try{
             this.appName = name;
+            String appString =
+                    "@app:name(\"" + name + "\")" +
+                    "define stream LocStream (latitude double, longitude double);" +
+                    "define stream BioStream (temperature double, heart_rate double);";
             SiddhiAppRuntime siddhiAppRuntime = siddhiManager
-                    .createSiddhiAppRuntime(new SiddhiApp(name));
+                    .createSiddhiAppRuntime(appString);
             siddhiAppRuntime.start();
             return CIMResponse.newBuilder().setStatus(200).build();
         }
@@ -61,7 +64,8 @@ public final class SiddhiWrapper {
                 inputHandler.send(new Object[]{
                         event.getDouble("latitude"),
                         event.getDouble("longitude"),
-                        event.getLong("timestamp")
+                        event.getLong("timestamp"),
+                        event.getString("animal")
                 });
             }
             case DOMAIN.HEALTH -> {
@@ -82,7 +86,13 @@ public final class SiddhiWrapper {
         SiddhiAppRuntime siddhiApp = siddhiManager.getSiddhiAppRuntime(this.appName);
         switch (domain) {
             case DOMAIN.LOCATION -> {
-                siddhiApp.query("from LocStream select latitude, longitude insert into " +
+
+            }
+            case DOMAIN.HEALTH -> {
+                // Visitor may be exhausted event.
+                siddhiApp.query("from BioStream#window.timeBatch(10 min, 0) " +
+                        "select avg(heart_rate) as avgHeartRate, max(heart_rate) as maxHeartRate " +
+                        "having avgHeartRate > 120.0 insert into " +
                         event.getString("callback_name") + ";");
                 StreamCallback callback_ref = new StreamCallback() {
                     @Override
@@ -92,9 +102,6 @@ public final class SiddhiWrapper {
                 };
                 siddhiApp.addCallback(event.getString("callback_name"), callback_ref);
                 callbacks.put(event.getString("callback_name"), callback_ref);
-            }
-            case DOMAIN.HEALTH -> {
-                // TODO: Monitoring health.
             }
         }
     }
