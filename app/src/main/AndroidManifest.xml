@@ -33,6 +33,7 @@
         <activity android:name=".DisplayQRDataActivity" />
         <activity android:name=".AnimalPreferenceActivity" />
         <activity android:name=".ScanQRActivity" />
+        <activity android:name=".TestDataRetrievalActivity" />
 
 
     </application>
