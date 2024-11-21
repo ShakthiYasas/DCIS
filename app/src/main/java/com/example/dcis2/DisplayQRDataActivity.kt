@@ -22,7 +22,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.view.View
 import android.widget.AdapterView
-import android.widget.CheckBox
 
 class DisplayQRDataActivity : AppCompatActivity() {
 
@@ -178,7 +177,6 @@ class DisplayQRDataActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 Toast.makeText(this@DisplayQRDataActivity, "Please complete all required fields.", Toast.LENGTH_LONG).show()
-                btnSwitchToAnimalPreference.isEnabled = false
             }
         }
     }
