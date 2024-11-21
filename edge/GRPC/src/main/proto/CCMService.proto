@@ -7,7 +7,7 @@ package org.dcis.ccm.proto;
 
 message CCMResponse {
   string body = 1;
-  string status = 2;
+  int32 status = 2;
 }
 
 message CCMRequest {
@@ -15,6 +15,6 @@ message CCMRequest {
   string operation = 2;
 }
 
-service CREService {
+service CCMService {
   rpc lookupCache (CCMRequest) returns (CCMResponse);
 }
