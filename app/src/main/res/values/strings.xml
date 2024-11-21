@@ -10,5 +10,11 @@
     <string name="result_not_found">Result Not Found</string>
     <string name="show_scanner_from_fragment">Show Scanner From Fragment</string>
     <string name="go_to_animal_preference">Go to Animal Preference</string>
-
+    <string name="next">Next</string>
+    <string name="animal_image_desc">Animal Description\n</string>
+    <string name="save_preferences">Save Preferences</string>
+    <string name="zookeeper">ZooKeeper</string>
+    <string name="scan_qr_code_button">Scan QR Code</string>
+    <string name="welcome_to_zoo_map_finder">Welcome to Zoo Map Finder</string>
+    <string name="scan_qr_code_btn">Scan QR Code</string>
 </resources>

@@ -3,20 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DisplayQRDataActivity">
-
     <LinearLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Other static elements can go here -->
+        <!-- Header TextView -->
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Age Range"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
+
+        <!-- Container for dynamically generated content -->
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"/>
+
+        <!-- Button to go to the next screen -->
         <Button
             android:id="@+id/bSuttonGoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go to ban mach" />
+            android:text="@string/next"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp" />
+
     </LinearLayout>
+
 
 </ScrollView>
