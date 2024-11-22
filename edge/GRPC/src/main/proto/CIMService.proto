@@ -21,7 +21,27 @@ message SiddhiRequest {
   optional string function = 4;
 }
 
+message SituationDescription {
+  string situationName = 1;
+  repeated WeightedAttributeDescription attributes = 2;
+}
+
+message WeightedAttributeDescription {
+  AttributeDescription attribute = 1;
+  int32 weight = 2;
+}
+
+message AttributeDescription {
+  string attributeName = 1;
+  repeated RegionDescription regions = 2;
+}
+
+message RegionDescription {
+  string regionValue = 1;
+  double regionBelief = 2;
+}
+
 service CIMService {
-  rpc startSiddhi (SiddhiRequest) returns (CIMResponse);
   rpc addEvent (SiddhiRequest) returns (CIMResponse);
+  rpc startSiddhi (SiddhiRequest) returns (CIMResponse);
 }

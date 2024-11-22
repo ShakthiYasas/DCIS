@@ -2,8 +2,11 @@ package org.dcis.cim.handler;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.siddhi.core.event.Event;
 import io.siddhi.core.SiddhiManager;
@@ -13,15 +16,19 @@ import io.siddhi.core.stream.output.StreamCallback;
 
 import org.dcis.cim.proto.CIMResponse;
 import org.dcis.cim.proto.SiddhiRequest.DOMAIN;
+import org.dcis.cim.proto.SituationDescription;
 
 public final class SiddhiWrapper {
     private String appName;
+    private ExecutorService executor;
     private static SiddhiWrapper instance;
     private static SiddhiManager siddhiManager;
+
 
     private final Map<String,StreamCallback> callbacks;
     private SiddhiWrapper() {
         callbacks = new HashMap<>();
+        executor = Executors.newSingleThreadExecutor();
     }
 
     public static synchronized SiddhiWrapper getInstance() {
@@ -37,9 +44,10 @@ public final class SiddhiWrapper {
         try{
             this.appName = name;
             String appString =
-                    "@app:name(\"" + name + "\")" +
-                    "define stream LocStream (latitude double, longitude double);" +
-                    "define stream BioStream (temperature double, heart_rate double);";
+                    "@app:name(\"" + name + "\") \n" +
+                    "define stream LocStream (latitude double, longitude double); \n" +
+                    "define stream BioStream (temperature double, heart_rate double); \n" +
+                    "define stream ContextStream (exhaustProb double);";
             SiddhiAppRuntime siddhiAppRuntime = siddhiManager
                     .createSiddhiAppRuntime(appString);
             siddhiAppRuntime.start();
@@ -75,6 +83,21 @@ public final class SiddhiWrapper {
                         event.getDouble("heart_rate"),
                         event.getLong("timestamp")
                 });
+
+                executor.submit(() -> {
+                    try {
+                        // TODO: This static description should be retrieved from cache.
+                        SituationDescription description = SituationDescription.newBuilder().build();
+
+                        HashMap<String,Object> dataMap = new ObjectMapper().readValue(data, HashMap.class);
+                        double prob = ContextReasoner.infer(description, dataMap);
+                        InputHandler contextHandler =
+                                siddhiApp.getInputHandler("ContextStream");
+                        contextHandler.send(new Object[]{prob, event.getLong("timestamp")});
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             }
         }
     }
@@ -89,17 +112,38 @@ public final class SiddhiWrapper {
 
             }
             case DOMAIN.HEALTH -> {
-                // Visitor may be exhausted event.
-                siddhiApp.query("from BioStream#window.timeBatch(10 min, 0) " +
-                        "select avg(heart_rate) as avgHeartRate, max(heart_rate) as maxHeartRate " +
-                        "having avgHeartRate > 120.0 insert into " +
-                        event.getString("callback_name") + ";");
-                StreamCallback callback_ref = new StreamCallback() {
-                    @Override
-                    public void receive(Event[] events) {
-                        // TODO: Invoke relevant method.
-                    }
-                };
+                StreamCallback callback_ref = null;
+                String topic = event.getString("callback_name").toLowerCase();
+
+                if(topic.equals("abnormalheart")) {
+                    // Abnormal heart rate warning.
+                    siddhiApp.query("from BioStream#window.timeBatch(10 min, 0) \n" +
+                            "select avg(heart_rate) as avgHeartRate, max(heart_rate) as maxHeartRate \n" +
+                            "having avgHeartRate > 120.0 \n" +
+                            "insert into " + event.getString("callback_name") + ";");
+                    callback_ref = new StreamCallback() {
+                        @Override
+                        public void receive(Event[] events) {
+                            // TODO: Invoke relevant method.
+                        }
+                    };
+
+                }
+                else if(topic.equals("exhausted")) {
+                    // Exhaustion warning based on probability.
+                    siddhiApp.query("from every e1=ContextStream, " +
+                            "e2=ContextStream[e1.exhaustProb < exhaustProb and (timestamp - e1.timestamp) < 300000], " +
+                            "e3=ContextStream[(timestamp - e1.timestamp) > 300000 " +
+                            "and e1.exhaustProb < exhaustProb and exhaustProb > 0.8] \n" +
+                            "select e1.exhaustProb as startProb, e3.exhaustProb as finProb, e3.timestamp \n" +
+                            "insert into " + event.getString("callback_name") + ";");
+                    callback_ref = new StreamCallback() {
+                        @Override
+                        public void receive(Event[] events) {
+                            // TODO: Invoke relevant method.
+                        }
+                    };
+                }
                 siddhiApp.addCallback(event.getString("callback_name"), callback_ref);
                 callbacks.put(event.getString("callback_name"), callback_ref);
             }

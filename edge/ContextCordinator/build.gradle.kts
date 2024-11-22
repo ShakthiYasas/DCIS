@@ -1,5 +1,4 @@
 plugins {
-    id("idea")
     id("java")
     id("java-library")
     id("maven-publish")
@@ -10,9 +9,13 @@ version = "1.0-DEV"
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs("lib")
+    }
 }
 
 dependencies {
+    implementation(fileTree("lib"))
     implementation("org.json:json:20240303")
     api("com.fasterxml.jackson.core:jackson-databind:2.18.1")
 

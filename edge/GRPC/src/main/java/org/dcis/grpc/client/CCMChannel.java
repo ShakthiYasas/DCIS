@@ -1,11 +1,11 @@
 package org.dcis.grpc.client;
 
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 
 public class CCMChannel {
-    private volatile CCMChannel instance;
-    private final ManagedChannel channel;
+    private static volatile CCMChannel instance;
+    private final Channel channel;
 
     private CCMChannel() {
         channel = ManagedChannelBuilder
@@ -14,7 +14,7 @@ public class CCMChannel {
                 .build();
     }
 
-    public CCMChannel getInstance() {
+    public static CCMChannel getInstance() {
         if (instance == null) {
             synchronized (CCMChannel.class) {
                 if (instance == null) {
@@ -25,7 +25,7 @@ public class CCMChannel {
         return instance;
     }
 
-    public ManagedChannel getChannel() {
+    public Channel getChannel() {
         return channel;
     }
 }

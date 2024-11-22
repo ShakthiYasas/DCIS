@@ -1,11 +1,11 @@
 package org.dcis.grpc.client;
 
-import io.grpc.ManagedChannel;
+import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 
 public class CIMChannel {
-    private volatile CIMChannel instance;
-    private final ManagedChannel channel;
+    private static volatile CIMChannel instance;
+    private final Channel channel;
 
     private CIMChannel() {
         channel = ManagedChannelBuilder
@@ -14,7 +14,7 @@ public class CIMChannel {
                 .build();
     }
 
-    public CIMChannel getInstance() {
+    public static CIMChannel getInstance() {
         if (instance == null) {
             synchronized (CIMChannel.class) {
                 if (instance == null) {
@@ -25,7 +25,7 @@ public class CIMChannel {
         return instance;
     }
 
-    public ManagedChannel getChannel() {
+    public Channel getChannel() {
         return channel;
     }
 }
