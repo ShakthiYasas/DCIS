@@ -1,20 +1,13 @@
 package com.example.dcis2
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import org.json.JSONObject
-import android.location.Location
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import android.Manifest
 import android.content.Intent
 import android.widget.Button
 import android.content.Context
@@ -22,13 +15,15 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.view.View
 import android.widget.AdapterView
+import com.example.dcis2.ultility.LocationUtils
+import com.example.dcis2.ultility.PreferencesUtils
+import com.example.dcis2.ultility.SpinnerValidationUtils
+import com.example.dcis2.utility.HealthServicesUtils
+
 
 class DisplayQRDataActivity : AppCompatActivity() {
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
     private lateinit var btnSwitchToAnimalPreference: Button
-
     private lateinit var sharedPreferences: SharedPreferences
     val spinnerRequiredPairs = mutableListOf<Pair<Spinner, TextView>>()
 
@@ -37,21 +32,14 @@ class DisplayQRDataActivity : AppCompatActivity() {
         setContentView(R.layout.display_result)
         sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
         btnSwitchToAnimalPreference = findViewById(R.id.bSuttonGoButton)
-        // Initialize the location client
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        // Request location permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted, request it
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-        } else {
-            // Permission already granted, fetch location
-            fetchLocation()
+
+        // Check and request location permissions
+        if (LocationUtils.checkAndRequestLocationPermission(this)) {
+            LocationUtils.fetchLocation(this) { latitude, longitude ->
+                Toast.makeText(this, "Location: $latitude, $longitude", Toast.LENGTH_LONG).show()
+            }
         }
+
         // Retrieve the JSON string passed from MainActivity
         val qrData = intent.getStringExtra("qr_data") ?: "{}"
 
@@ -170,53 +158,15 @@ class DisplayQRDataActivity : AppCompatActivity() {
         // Initialize the button and set up the click listener
         val btnSwitchToAnimalPreference = findViewById<Button>(R.id.bSuttonGoButton)
         btnSwitchToAnimalPreference.setOnClickListener {
-            if (validateSelections(spinnerRequiredPairs)) {
+            if (SpinnerValidationUtils.validateSpinnerSelections(spinnerRequiredPairs)) {
                 // Proceed to the next screen
                 val intent = Intent(this@DisplayQRDataActivity, AnimalPreferenceActivity::class.java)
-
                 startActivity(intent)
+
+                // Request Health Services Permission (triggered after switch)
+                HealthServicesUtils.requestHealthServices(this)
             } else {
                 Toast.makeText(this@DisplayQRDataActivity, "Please complete all required fields.", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun validateSelections(spinnerRequiredPairs: List<Pair<Spinner, TextView>>): Boolean {
-        var allValid = true
-
-        spinnerRequiredPairs.forEach { (spinner, requiredTextView) ->
-            if (spinner.selectedItem == "None") {
-                requiredTextView.visibility = TextView.VISIBLE // Show "Required" label
-                allValid = false
-            } else {
-                requiredTextView.visibility = TextView.GONE // Hide "Required" label
-            }
-        }
-
-        return allValid
-    }
-
-    private fun saveAgeRangeToPreferences(key: String, ageRange: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString(key, ageRange)
-        editor.apply() // Save asynchronously
-        Toast.makeText(this, "Saved age range for $key: $ageRange", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun fetchLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    // Use the location data here
-                    Toast.makeText(
-                        this,
-                        "Latitude: ${location.latitude}, Longitude: ${location.longitude}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Toast.makeText(this, "Unable to retrieve location", Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }
@@ -227,20 +177,13 @@ class DisplayQRDataActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Permission granted, fetch location
-                fetchLocation()
-            } else {
-                // Permission denied
-                Toast.makeText(
-                    this,
-                    "Location permission is required for the application to function correctly.",
-                    Toast.LENGTH_LONG
-                ).show()
-                btnSwitchToAnimalPreference.isEnabled = false
-                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
+        HealthServicesUtils.handleHealthPermissionResult(requestCode, grantResults, this)
+    }
+
+    private fun saveAgeRangeToPreferences(key: String, ageRange: String) {
+        PreferencesUtils.saveToPreferences(this, key, ageRange)
+        Toast.makeText(this, "Saved age range for $key: $ageRange", Toast.LENGTH_SHORT).show()
+
+
     }
 }
