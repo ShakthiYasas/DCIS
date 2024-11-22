@@ -7,7 +7,9 @@ public class ContextCordinator {
     // Initiates the mobile edge device.
     // Accepts: Visitor configurations and the animal preferences.
     // Returns: References to the mobile edge resources.
-    public static JSONObject setupEdge() { return new JSONObject();}
+    public static JSONObject setupEdge(JSONObject config) {
+        return new JSONObject();
+    }
 
     // Sets visitor's location data into the Siddhi LocStream.
     // Accepts: Temporal location of the visitor.

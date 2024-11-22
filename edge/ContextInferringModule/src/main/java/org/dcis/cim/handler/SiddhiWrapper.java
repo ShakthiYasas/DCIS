@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
+import org.dcis.ccm.proto.CCMRequest;
+import org.dcis.ccm.proto.CCMResponse;
 import org.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,15 +17,16 @@ import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.stream.output.StreamCallback;
 
 import org.dcis.cim.proto.CIMResponse;
+import org.dcis.grpc.client.CCMChannel;
+import org.dcis.ccm.proto.CCMServiceGrpc;
 import org.dcis.cim.proto.SiddhiRequest.DOMAIN;
 import org.dcis.cim.proto.SituationDescription;
 
 public final class SiddhiWrapper {
     private String appName;
-    private ExecutorService executor;
     private static SiddhiWrapper instance;
+    private final ExecutorService executor;
     private static SiddhiManager siddhiManager;
-
 
     private final Map<String,StreamCallback> callbacks;
     private SiddhiWrapper() {
@@ -86,11 +89,14 @@ public final class SiddhiWrapper {
 
                 executor.submit(() -> {
                     try {
-                        // TODO: This static description should be retrieved from cache.
-                        SituationDescription description = SituationDescription.newBuilder().build();
+                        CCMServiceGrpc.CCMServiceBlockingStub stub =
+                                CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());
+                        CCMResponse response = stub.lookupCache(CCMRequest.newBuilder()
+                                        .setOperation(CCMRequest.OPERATION.READ)
+                                        .setIdentifier("exhaustSituation").build());
 
-                        HashMap<String,Object> dataMap = new ObjectMapper().readValue(data, HashMap.class);
-                        double prob = ContextReasoner.infer(description, dataMap);
+                        double prob = ContextReasoner.infer(response.getSituation(),
+                                new ObjectMapper().readValue(data, HashMap.class));
                         InputHandler contextHandler =
                                 siddhiApp.getInputHandler("ContextStream");
                         contextHandler.send(new Object[]{prob, event.getLong("timestamp")});
