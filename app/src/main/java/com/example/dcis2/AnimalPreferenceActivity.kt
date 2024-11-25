@@ -1,7 +1,9 @@
 package com.example.dcis2
 
 import AnimalAdapter
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.AdapterView
@@ -15,6 +17,8 @@ class AnimalPreferenceActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var selectedCategories: MutableSet<String>
+    private lateinit var btnSelectAll: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,17 +54,50 @@ class AnimalPreferenceActivity : AppCompatActivity() {
             } else {
                 selectedCategories.add(selectedCategory)
             }
+
+            // Update button state when toggling categories
+            updateSelectAllButtonState(animalCategories)
+
             adapter.notifyDataSetChanged() // Refresh the grid view
         }
+
+
+        // "Select All" button logic
+        btnSelectAll = findViewById(R.id.btnAll)
+        btnSelectAll.setOnClickListener {
+            if (selectedCategories.size == animalCategories.size) {
+                // If all are selected, deselect all
+                selectedCategories.clear()
+            } else {
+                // If not all are selected, select all
+                selectedCategories.clear()
+                selectedCategories.addAll(animalCategories.map { it.name })
+            }
+
+            // Update UI
+            adapter.notifyDataSetChanged()
+            updateSelectAllButtonState(animalCategories)
+        }
+        // Initial button state update
+        updateSelectAllButtonState(animalCategories)
 
         // Save preferences button (optional)
         val btnSavePreferences = findViewById<Button>(R.id.btnSavePreferences)
         btnSavePreferences.setOnClickListener {
             saveAnimalPreferences()
             Toast.makeText(this, "Preferences Saved", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@AnimalPreferenceActivity, TestDataRetrievalActivity::class.java)
+            startActivity(intent)
         }
     }
 
+    private fun updateSelectAllButtonState(animalCategories: List<AnimalCategory>) {
+        if (selectedCategories.size == animalCategories.size) {
+            btnSelectAll.text = "Deselect All"
+        } else {
+            btnSelectAll.text = "Select All"
+        }
+    }
     private fun saveAnimalPreferences() {
         val editor = sharedPreferences.edit()
         editor.putStringSet("PreferredAnimalCategories", selectedCategories)
