@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+
+package org.dcis.cam.proto;
+
+message CAMResponse {
+  int32 status = 1;
+  optional string body = 2;
+}
+
+message CAMRequest {
+  enum TYPE {
+    LOCATION = 0;
+    HEALTH = 1;
+    ANIMAL = 2;
+  }
+  optional string data = 1;
+  optional TYPE dataType = 2;
+  optional string identifier = 3;
+}
+
+service CAMService {
+  rpc setContext(CAMRequest) returns (CAMResponse);
+  rpc getFromProvider(CAMRequest) returns (CAMResponse);
+  rpc validateBluetooth(CAMRequest) returns (CAMResponse);
+}
