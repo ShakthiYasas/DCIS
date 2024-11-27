@@ -17,6 +17,8 @@ message CCMRequest {
   enum OPERATION {
     LOOKUP = 0;
     READ = 1;
+    EVICT = 2;
+    FORCEEVICT = 3;
   }
   optional string data = 1;
   optional string identifier = 2;

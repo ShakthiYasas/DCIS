@@ -20,6 +20,10 @@
             <version>1.0-DEV</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>4.28.3</version>
+        </dependency>
     </dependencies>
-
 </project>

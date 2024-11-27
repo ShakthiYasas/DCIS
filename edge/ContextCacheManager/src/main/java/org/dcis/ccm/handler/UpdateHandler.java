@@ -1,5 +1,6 @@
 package org.dcis.ccm.handler;
 
+import org.dcis.ccm.cache.ContextCache;
 import org.dcis.ccm.proto.CCMRequest;
 import org.dcis.ccm.proto.CCMResponse;
 
@@ -16,6 +17,8 @@ public final class UpdateHandler {
     }
 
     public CCMResponse updateContext (CCMRequest request) {
-        return CCMResponse.newBuilder().build();
+        ContextCache cache = ContextCache.getInstance();
+        cache.add(request.getIdentifier(), request.getData());
+        return CCMResponse.newBuilder().setStatus(200).build();
     }
 }

@@ -23,6 +23,7 @@ import org.dcis.cim.proto.SiddhiRequest.DOMAIN;
 import org.dcis.cim.proto.SituationDescription;
 
 public final class SiddhiWrapper {
+
     private String appName;
     private static SiddhiWrapper instance;
     private final ExecutorService executor;
