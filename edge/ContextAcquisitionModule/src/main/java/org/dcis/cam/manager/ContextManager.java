@@ -1,6 +1,13 @@
 package org.dcis.cam.manager;
 
 import org.dcis.cam.proto.CAMRequest;
+import org.dcis.ccm.proto.CCMRequest;
+import org.dcis.cim.proto.SiddhiRequest;
+import org.dcis.cim.proto.CIMServiceGrpc;
+import org.dcis.ccm.proto.CCMServiceGrpc;
+
+import org.dcis.grpc.client.CIMChannel;
+import org.dcis.grpc.client.CCMChannel;
 
 public final class ContextManager {
 
@@ -16,15 +23,31 @@ public final class ContextManager {
     }
 
     public void acquire(CAMRequest request) {
+        Object stub;
         switch(request.getDataType()) {
             case CAMRequest.TYPE.LOCATION -> {
-                // Send to CIM
+                stub = CIMServiceGrpc.newFutureStub(CIMChannel.getInstance().getChannel());
+                ((CIMServiceGrpc.CIMServiceFutureStub)stub)
+                        .addEvent(SiddhiRequest.newBuilder()
+                        .setDomain(SiddhiRequest.DOMAIN.LOCATION)
+                        .setJson(request.getData())
+                        .build());
             }
             case CAMRequest.TYPE.HEALTH -> {
-                // Send to CIM
+                stub = CIMServiceGrpc.newFutureStub(CIMChannel.getInstance().getChannel());
+                ((CIMServiceGrpc.CIMServiceFutureStub)stub)
+                        .addEvent(SiddhiRequest.newBuilder()
+                            .setDomain(SiddhiRequest.DOMAIN.HEALTH)
+                            .setJson(request.getData())
+                        .build());
             }
             case CAMRequest.TYPE.ANIMAL -> {
-                // Cache
+                 stub = CCMServiceGrpc.newFutureStub(CCMChannel.getInstance().getChannel());
+                ((CCMServiceGrpc.CCMServiceFutureStub)stub)
+                        .updateCache(CCMRequest.newBuilder()
+                                .setIdentifier("animal")
+                                .setData(request.getData())
+                        .build());
             }
         }
     }

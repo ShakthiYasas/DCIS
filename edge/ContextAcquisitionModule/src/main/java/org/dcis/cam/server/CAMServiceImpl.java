@@ -2,6 +2,7 @@ package org.dcis.cam.server;
 
 import io.grpc.stub.StreamObserver;
 
+import org.dcis.cam.manager.CPManager;
 import org.dcis.cam.proto.CAMRequest;
 import org.dcis.cam.proto.CAMResponse;
 import org.dcis.cam.proto.CAMServiceGrpc;
@@ -30,10 +31,11 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
         responseObserver.onCompleted();
     }
 
-    public void validateBluetooth(CAMRequest request,
+    public void verifyProvider(CAMRequest request,
                            StreamObserver<CAMResponse> responseObserver) {
         try {
-            responseObserver.onNext(CAMResponse.newBuilder().setStatus(200).build());
+            responseObserver.onNext(CPManager.getInstance()
+                    .verifyProvider(request));
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }
