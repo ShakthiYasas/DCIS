@@ -1,6 +1,10 @@
 package org.dcis.cim.handler;
 
 import java.util.Map;
+import java.util.HashMap;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import csiro.perccom.csto.util.CstoUtil;
 import ltu.ecstra.context.result.ReasoningResult;
@@ -12,6 +16,11 @@ import org.dcis.cim.proto.SituationDescription;
 import org.dcis.cim.proto.WeightedAttributeDescription;
 
 public class ContextReasoner {
+    public static double infer(SituationDescription description, String data)
+            throws JsonProcessingException {
+        return infer(description, new ObjectMapper().readValue(data, HashMap.class));
+    }
+
     public static double infer(SituationDescription description, Map<String,Object> data) {
         try {
             String situationName = CstoUtil.convertToAlnum(

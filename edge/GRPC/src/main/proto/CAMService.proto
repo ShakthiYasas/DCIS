@@ -24,5 +24,6 @@ message CAMRequest {
 service CAMService {
   rpc setContext(CAMRequest) returns (CAMResponse);
   rpc verifyProvider(CAMRequest) returns (CAMResponse);
+  rpc getDescription(CAMRequest) returns (CAMResponse);
   rpc getFromProvider(CAMRequest) returns (CAMResponse);
 }

@@ -4,8 +4,11 @@ import okhttp3.*;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+import java.io.FileInputStream;
+
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
 
 public class CPInvoker {
 
@@ -13,11 +16,23 @@ public class CPInvoker {
     // tag: Enclosure identifier tag.
     public String fetch(String tag)
             throws IOException, ExecutionException, InterruptedException {
-        JSONObject description = new JSONObject();
-        String url = "http://localhost:5000/enclosures/" + tag;
-        description.put("url", url);
 
-        return fetch(description);
+        Properties appProps = new Properties();
+        appProps.load(new FileInputStream("api.properties"));
+
+        JSONObject description = new JSONObject();
+        description.put("protocol", "GET");
+
+        if(tag.equals("weather")) {
+            String url = appProps.getProperty("weather");
+            description.put("url", url);
+            return fetch(description);
+        }
+        else {
+            String url = appProps.getProperty("enclosure") + tag;
+            description.put("url", url);
+            return fetch(description);
+        }
     }
 
     // Fetches from a given context provider.
@@ -33,13 +48,12 @@ public class CPInvoker {
         OkHttpClient client = builder.build();
         ResponseFuture fu_res = new ResponseFuture();
 
-        Request request = null;
+        Request.Builder request = null;
         switch(description.getString("protocol")) {
             case "GET" -> {
                 request = new Request.Builder()
                         .url(description.getString("url"))
-                        .get()
-                        .build();
+                        .get();
             }
             case "POST" -> {
                 RequestBody body = RequestBody.create(
@@ -48,12 +62,16 @@ public class CPInvoker {
 
                 request = new Request.Builder()
                         .url(description.getString("url"))
-                        .post(body)
-                        .build();
+                        .post(body);
+
+                if(description.has("authorization")) {
+                    request.addHeader("Authorization",
+                            "Bearer " + description.getString("authorization"));
+                }
             }
         }
 
-        Call call = client.newCall(request);
+        Call call = client.newCall(request.build());
         call.enqueue(fu_res);
         Response response = fu_res.future.get();
 

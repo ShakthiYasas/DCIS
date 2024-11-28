@@ -3,8 +3,21 @@ package org.dcis.cim.server;
 import org.dcis.cim.proto.*;
 import io.grpc.stub.StreamObserver;
 import org.dcis.cim.handler.SiddhiWrapper;
+import org.dcis.cim.handler.ContextReasoner;
 
 public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
+
+    public void infer(CIMRequest request,
+                            StreamObserver<CIMResponse> responseObserver){
+        try {
+            double prob = ContextReasoner.infer(request.getDescription(), request.getData());
+            responseObserver.onNext(CIMResponse.newBuilder()
+                            .setProb(prob).setStatus(200).build());
+        } catch (Exception ex) {
+            responseObserver.onError(ex);
+        }
+        responseObserver.onCompleted();
+    }
 
     public void startSiddhi(SiddhiRequest request,
                                  StreamObserver<CIMResponse> responseObserver){

@@ -14,7 +14,19 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
                            StreamObserver<CAMResponse> responseObserver) {
         try {
             ContextManager.getInstance().acquire(request);
-            responseObserver.onNext(CAMResponse.newBuilder().setStatus(200).build());
+            responseObserver.onNext(CAMResponse.newBuilder()
+                    .setStatus(200).build());
+        } catch (Exception ex) {
+            responseObserver.onError(ex);
+        }
+        responseObserver.onCompleted();
+    }
+
+    public void getDescription(CAMRequest request,
+                               StreamObserver<CAMResponse> responseObserver) {
+        try {
+            responseObserver.onNext(CPManager.getInstance()
+                    .getProvider(request.getIdentifier()));
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }
@@ -24,7 +36,8 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
     public void getFromProvider(CAMRequest request,
                            StreamObserver<CAMResponse> responseObserver) {
         try {
-            responseObserver.onNext(CAMResponse.newBuilder().setStatus(200).build());
+            responseObserver.onNext(CAMResponse.newBuilder()
+                    .setStatus(200).build());
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

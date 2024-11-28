@@ -88,7 +88,7 @@ public final class SiddhiWrapper {
                         event.getLong("timestamp")
                 });
 
-                executor.submit(() -> {
+                executor.execute(() -> {
                     try {
                         CCMServiceGrpc.CCMServiceBlockingStub stub =
                                 CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());
