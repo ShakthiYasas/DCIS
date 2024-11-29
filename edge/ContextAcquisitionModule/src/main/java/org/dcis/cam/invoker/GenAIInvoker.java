@@ -15,7 +15,7 @@ public class GenAIInvoker {
     private static GenAIInvoker instance;
 
     final String enclosure_prompt = "Write me a notification message in a %s friendly tone " +
-            "that the %s being active at this time is only %.1f percent";
+            "that the %s being active at this time is %s %.1f percent";
 
     private GenAIInvoker() {}
 
@@ -44,7 +44,9 @@ public class GenAIInvoker {
         JSONObject message = new JSONObject();
 
         message.put("role", "user");
-        message.put("content", String.format(enclosure_prompt, audience, animal, probability));
+        message.put("content",
+                String.format(enclosure_prompt, audience, animal,
+                        probability > 0.7 ? "" : "only", probability));
         messages.put(0, message);
 
         body.put("messages", messages);
