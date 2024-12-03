@@ -43,20 +43,19 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.camera.view)
-    implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
-    implementation ("androidx.appcompat:appcompat:1.3.1")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.8.4")
-
+    implementation (libs.zxing.android.embedded)
+    implementation (libs.androidx.appcompat.v131)
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.location)
 
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation ("junit:junit:4.13.2")
-    testImplementation ("org.mockito:mockito-core:4.10.0")
 
     testImplementation (libs.junit)
     testImplementation (libs.mockito.core)
+
+    implementation (libs.play.services.location.v2101)
+
 
 }

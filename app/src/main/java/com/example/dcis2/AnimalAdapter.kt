@@ -40,4 +40,6 @@ class AnimalAdapter(
 
         return view
     }
+
+    
 }
