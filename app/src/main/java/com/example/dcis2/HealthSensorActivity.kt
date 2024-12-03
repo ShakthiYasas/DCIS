@@ -4,10 +4,16 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dcis2.utility.HealthSensorUtils
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.fitness.Fitness
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.fitness.data.Field
+import org.dcis.ContextCordinator
 
 class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
 
@@ -15,10 +21,10 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     private var heartRateSensor: Sensor? = null
     private lateinit var heartRateTextView: TextView
     private lateinit var stepCountTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_health_sensor)
-
         // Initialize UI elements
         heartRateTextView = findViewById(R.id.heartRateTextView)
         stepCountTextView = findViewById(R.id.stepCountTextView)
@@ -55,6 +61,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+
     override fun onResume() {
         super.onResume()
         heartRateSensor?.let {
@@ -75,8 +82,30 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
             }
         }
     }
+    fun readStepCountData() {
+        val fitnessOptions = FitnessOptions.builder()
+            .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE, FitnessOptions.ACCESS_READ)
+            .build()
+
+        val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
+
+        Fitness.getHistoryClient(this, account)
+            .readDailyTotal(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+            .addOnSuccessListener { dataSet ->
+                val stepCount = dataSet.dataPoints.firstOrNull()?.getValue(Field.FIELD_STEPS)?.asInt()
+                stepCount?.let {
+                    // Display step count
+                    println("Step Count: $it")
+                }
+            }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+            }
+    }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Handle sensor accuracy changes if needed
     }
+
+
 }
