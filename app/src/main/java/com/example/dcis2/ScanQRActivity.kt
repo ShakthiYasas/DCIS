@@ -2,11 +2,14 @@ package com.example.dcis2
 
 import android.Manifest
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.dcis2.ultility.PreferencesUtils
+import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
@@ -50,6 +53,8 @@ class ScanQRActivity: AppCompatActivity()  {
                 // Display the scanned result
                 Toast.makeText(this@ScanQRActivity, "Scanned: ${result.text}", Toast.LENGTH_LONG).show()
                 // You can handle the result further as needed
+                // Simulate resetting SharedPreferences every time a new QR code is scanned
+                PreferencesUtils.resetPreferences(this@ScanQRActivity)
 
                 // Start the DisplayQRDataActivity and pass the scanned data
                 val intent = Intent(this@ScanQRActivity, DisplayQRDataActivity::class.java)

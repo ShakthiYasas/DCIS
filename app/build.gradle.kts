@@ -43,20 +43,28 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.camera.view)
-    implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
-    implementation ("androidx.appcompat:appcompat:1.3.1")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.8.4")
-
+    implementation (libs.zxing.android.embedded)
+    implementation (libs.androidx.appcompat.v131)
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.location)
+    implementation(files("library/ContextCordinator.jar"))
 
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation ("junit:junit:4.13.2")
-    testImplementation ("org.mockito:mockito-core:4.10.0")
 
     testImplementation (libs.junit)
     testImplementation (libs.mockito.core)
+
+    implementation (libs.play.services.location.v2101)
+    implementation (libs.play.services.fitness)
+
+    implementation (libs.play.services.auth)  // Google Sign-In API
+    implementation ("com.google.android.gms:play-services-fitness:21.0.0") // Google Fit API
+    implementation ("com.google.android.material:material:1.6.0") // For Material components like buttons
+
+    implementation(files("com/example/dcis2/libs/ContextCordinator.jar"))
+    implementation(files("java/com/example/dcis2/libs/ContextCordinator.jar"))
+
 
 }
