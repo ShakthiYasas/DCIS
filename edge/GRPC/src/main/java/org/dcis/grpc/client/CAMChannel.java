@@ -3,22 +3,22 @@ package org.dcis.grpc.client;
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 
-public class CIMChannel {
-    private static volatile CIMChannel instance;
+public class CAMChannel {
+    private static volatile CAMChannel instance;
     private final Channel channel;
 
-    private CIMChannel() {
+    private CAMChannel() {
         channel = ManagedChannelBuilder
-                .forAddress("cim", 8100)
+                .forAddress("cam", 8300)
                 .usePlaintext()
                 .build();
     }
 
-    public static CIMChannel getInstance() {
+    public static CAMChannel getInstance() {
         if (instance == null) {
-            synchronized (CIMChannel.class) {
+            synchronized (CAMChannel.class) {
                 if (instance == null) {
-                    instance = new CIMChannel();
+                    instance = new CAMChannel();
                 }
             }
         }

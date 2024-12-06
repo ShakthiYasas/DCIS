@@ -5,16 +5,50 @@ option java_generic_services = true;
 
 package org.dcis.cim.proto;
 
+message CIMRequest {
+  string data = 1;
+  optional SituationDescription description = 2;
+}
+
 message CIMResponse {
-  string body = 1;
-  int32 status = 2;
+  int32 status = 1;
+  optional double prob = 2;
+  optional string body = 3;
 }
 
 message SiddhiRequest {
+  enum DOMAIN {
+    LOCATION = 0;
+    HEALTH = 1;
+  }
   string json = 1;
-  string function = 2;
+  optional string name = 2;
+  optional DOMAIN domain = 3;
+  optional string function = 4;
+}
+
+message SituationDescription {
+  string situationName = 1;
+  repeated WeightedAttributeDescription attributes = 2;
+}
+
+message WeightedAttributeDescription {
+  AttributeDescription attribute = 1;
+  int32 weight = 2;
+}
+
+message AttributeDescription {
+  string attributeName = 1;
+  repeated RegionDescription regions = 2;
+}
+
+message RegionDescription {
+  string regionValue = 1;
+  double regionBelief = 2;
 }
 
 service CIMService {
-  rpc registerInSiddhi (SiddhiRequest) returns (CIMResponse);
+  rpc infer(CIMRequest) returns (CIMResponse);
+  rpc addEvent (SiddhiRequest) returns (CIMResponse);
+  rpc startSiddhi (SiddhiRequest) returns (CIMResponse);
 }

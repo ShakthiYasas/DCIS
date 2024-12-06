@@ -5,16 +5,29 @@ option java_generic_services = true;
 
 package org.dcis.ccm.proto;
 
+import "CIMService.proto";
+
 message CCMResponse {
-  string body = 1;
-  int32 status = 2;
+  int32 status = 1;
+  optional string body = 2;
+  optional org.dcis.cim.proto.SituationDescription situation = 3;
 }
 
 message CCMRequest {
-  string identifier = 1;
-  string operation = 2;
+  enum OPERATION {
+    LOOKUP = 0;
+    READ = 1;
+    EVICT = 2;
+    FORCEEVICT = 3;
+  }
+  optional string data = 1;
+  optional string identifier = 2;
+  optional OPERATION operation = 3;
 }
 
 service CCMService {
+  rpc updateCache(CCMRequest) returns (CCMResponse);
   rpc lookupCache (CCMRequest) returns (CCMResponse);
+  rpc storeInCache(CCMRequest) returns (CCMResponse);
+  rpc deleteInCache(CCMRequest) returns (CCMResponse);
 }
