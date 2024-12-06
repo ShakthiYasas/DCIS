@@ -5,9 +5,15 @@ option java_generic_services = true;
 
 package org.dcis.cim.proto;
 
+message CIMRequest {
+  string data = 1;
+  optional SituationDescription description = 2;
+}
+
 message CIMResponse {
   int32 status = 1;
-  optional string body = 2;
+  optional double prob = 2;
+  optional string body = 3;
 }
 
 message SiddhiRequest {
@@ -42,6 +48,7 @@ message RegionDescription {
 }
 
 service CIMService {
+  rpc infer(CIMRequest) returns (CIMResponse);
   rpc addEvent (SiddhiRequest) returns (CIMResponse);
   rpc startSiddhi (SiddhiRequest) returns (CIMResponse);
 }
