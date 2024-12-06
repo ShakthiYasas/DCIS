@@ -50,5 +50,6 @@ message RegionDescription {
 service CIMService {
   rpc infer(CIMRequest) returns (CIMResponse);
   rpc addEvent (SiddhiRequest) returns (CIMResponse);
+  rpc setQuery (SiddhiRequest) returns (CIMResponse);
   rpc startSiddhi (SiddhiRequest) returns (CIMResponse);
 }

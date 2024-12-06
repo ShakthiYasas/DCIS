@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+
+package org.dcis.csm.proto;
+
+message CSMRequest {
+  enum TYPE {
+    LOG = 0;
+    BACKUP = 1;
+  };
+  string data = 1;
+  optional TYPE type = 2;
+}
+
+message CSMResponse {
+  int32 status = 1;
+}
+
+service CSMService {
+  rpc sendToApp(CSMRequest) returns (CSMResponse);
+  rpc sendToServer(CSMRequest) returns (CSMResponse);
+}

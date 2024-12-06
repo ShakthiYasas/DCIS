@@ -20,7 +20,6 @@ import org.dcis.cim.proto.CIMResponse;
 import org.dcis.grpc.client.CCMChannel;
 import org.dcis.ccm.proto.CCMServiceGrpc;
 import org.dcis.cim.proto.SiddhiRequest.DOMAIN;
-import org.dcis.cim.proto.SituationDescription;
 
 public final class SiddhiWrapper {
 
@@ -112,43 +111,42 @@ public final class SiddhiWrapper {
 
     // data: Parameter values for the query.
     // domain: The aspect of the visitor being monitored.
-    public void setQuery(DOMAIN domain, String data) {
-        JSONObject event = new JSONObject(data);
+    public void setQuery(DOMAIN domain, String callback_name) {
         SiddhiAppRuntime siddhiApp = siddhiManager.getSiddhiAppRuntime(this.appName);
+
         switch (domain) {
             case DOMAIN.LOCATION -> {
-                String topic = event.getString("tag");
-
                 // Stationary time retrieval.
-                siddhiApp.query("from every e1=LocStream[tag == \"" + topic + "\" and distance > 5] " +
-                        "-> e2=LocStream[tag == \"" + topic + "\" and distance <=5] " +
+                siddhiApp.query("from every e1=LocStream[tag == \"" + callback_name + "\" and distance > 5] " +
+                        "-> e2=LocStream[tag == \"" + callback_name + "\" and distance <=5] " +
                         "-> e3=LocStream[timestamp > e2.timestamp and  " +
-                        "distance >= 5 and tag == \"" + topic + "\"]\n" +
+                        "distance >= 5 and tag == \"" + callback_name + "\"]\n" +
                                 "select min(e3[0].timestamp - e1[last].timestamp) as duration, e3.tag as tag\n" +
                                 "order by e1.timestamp\n" +
-                                "insert into \"" + topic + "\"_leave;");
+                                "insert into \"" + callback_name + "\"_leave;");
 
                 StreamCallback callback_ref = new StreamCallback() {
                     @Override
                     public void receive(Event[] events) {
                         long stationary_time = (long) events[events.length-1].getData(0);
                         String tag = (String) events[events.length-1].getData(1);
+                        // Removing the event monitor for the
+                        removeCallback(tag);
                         // TODO: Optimise the recommendation model, evict animal context, notify next enclosure.
                     }
                 };
-                siddhiApp.addCallback(topic + "_leave", callback_ref);
-                callbacks.put(topic, callback_ref);
+                siddhiApp.addCallback(callback_name + "_leave", callback_ref);
+                callbacks.put(callback_name, callback_ref);
             }
             case DOMAIN.HEALTH -> {
                 StreamCallback callback_ref = null;
-                String topic = event.getString("callback_name").toLowerCase();
 
-                if(topic.equals("abnormalheart")) {
+                if(callback_name.equals("abnormalheart")) {
                     // Abnormal heart rate warning.
                     siddhiApp.query("from BioStream#window.timeBatch(10 min, 0) \n" +
                             "select avg(heart_rate) as avgHeartRate, max(heart_rate) as maxHeartRate \n" +
                             "having avgHeartRate > 120.0 \n" +
-                            "insert into " + event.getString("callback_name") + ";");
+                            "insert into " + callback_name + ";");
 
                     callback_ref = new StreamCallback() {
                         @Override
@@ -158,14 +156,14 @@ public final class SiddhiWrapper {
                     };
 
                 }
-                else if(topic.equals("exhausted")) {
+                else if(callback_name.equals("exhausted")) {
                     // Exhaustion warning based on probability.
                     siddhiApp.query("from every e1=ContextStream, " +
                             "e2=ContextStream[e1.exhaustProb < exhaustProb and (timestamp - e1.timestamp) < 300000], " +
                             "e3=ContextStream[(timestamp - e1.timestamp) > 300000 " +
                             "and e1.exhaustProb < exhaustProb and exhaustProb > 0.8] \n" +
                             "select e1.exhaustProb as startProb, e3.exhaustProb as finProb, e3.timestamp \n" +
-                            "insert into " + event.getString("callback_name") + ";");
+                            "insert into " + callback_name + ";");
                     callback_ref = new StreamCallback() {
                         @Override
                         public void receive(Event[] events) {
@@ -173,8 +171,8 @@ public final class SiddhiWrapper {
                         }
                     };
                 }
-                siddhiApp.addCallback(event.getString("callback_name"), callback_ref);
-                callbacks.put(event.getString("callback_name"), callback_ref);
+                siddhiApp.addCallback(callback_name, callback_ref);
+                callbacks.put(callback_name, callback_ref);
             }
         }
     }

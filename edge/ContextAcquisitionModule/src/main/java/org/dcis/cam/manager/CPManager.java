@@ -1,15 +1,11 @@
 package org.dcis.cam.manager;
 
 import org.dcis.cam.invoker.GenAIInvoker;
+import org.dcis.cim.proto.*;
 import org.json.JSONObject;
 import com.google.protobuf.util.JsonFormat;
 
 import org.dcis.grpc.client.CIMChannel;
-
-import org.dcis.cim.proto.CIMRequest;
-import org.dcis.cim.proto.CIMResponse;
-import org.dcis.cim.proto.CIMServiceGrpc;
-import org.dcis.cim.proto.SituationDescription;
 
 import org.dcis.cam.invoker.CPInvoker;
 import org.dcis.grpc.client.CCMChannel;
@@ -120,6 +116,15 @@ public final class CPManager {
         if(response.getStatus() == 200) {
             JSONObject meta = new JSONObject(response.getBody());
             if(meta.getString("hash").equals(request.getIdentifier())) {
+                // Setting the stationary time assessment.
+                executor.execute(() -> {
+                    CIMServiceGrpc.CIMServiceBlockingStub cache_stub =
+                            CIMServiceGrpc.newBlockingStub(CIMChannel.getInstance().getChannel());
+                    cache_stub.setQuery(SiddhiRequest.newBuilder()
+                                    .setDomain(SiddhiRequest.DOMAIN.LOCATION)
+                                    .setName(meta.getString("tag")).build());
+                });
+
                 return CAMResponse.newBuilder()
                         .setBody(meta.getString("session"))
                         .setStatus(200).build();
