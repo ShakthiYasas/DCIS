@@ -18,7 +18,10 @@ public final class CachingHandler {
 
     public CCMResponse cacheContext (CCMRequest request) {
         ContextCache cache = ContextCache.getInstance();
-        cache.add(request.getIdentifier(), request.getData());
+        String key = request.getIdentifier();
+        if(cache.lookup(key))
+            cache.addGhost(key);
+        cache.add(key, request.getData());
         return CCMResponse.newBuilder().setStatus(200).build();
     }
 }

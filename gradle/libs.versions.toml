@@ -13,6 +13,7 @@ constraintlayout = "2.2.0"
 cameraView = "1.4.0"
 mockitoCore = "4.10.0"
 navigationUiKtx = "2.8.4"
+playServicesAuth = "21.2.0"
 playServicesLocation = "21.3.0"
 playServicesLocationVersion = "21.0.1"
 zxingAndroidEmbedded = "4.2.0"
@@ -31,6 +32,8 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesLocationVersion" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 play-services-location-v2101 = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocationVersion" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }

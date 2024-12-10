@@ -75,7 +75,7 @@ public final class ContextCache implements CacheInterface {
     public void addGhost (String key) {
         SoftReference<Object> reference = new SoftReference<>(get(key));
 
-        long expiryTime = System.currentTimeMillis() + 10000;
+        long expiryTime = System.currentTimeMillis() + 5000;
         cleaningUpQueue.put(new CacheObject(key, reference, expiryTime));
         remove(key);
     }

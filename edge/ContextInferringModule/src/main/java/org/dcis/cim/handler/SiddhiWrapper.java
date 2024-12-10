@@ -49,7 +49,7 @@ public final class SiddhiWrapper {
             this.appName = name;
             String appString =
                     "@app:name(\"" + name + "\") \n" +
-                    "define stream LocStream (latitude double, longitude double); \n" +
+                    "define stream LocStream (tag string, timestamp long, distance double, latitude double, longitude double); \n" +
                     "define stream BioStream (temperature double, heart_rate double); \n" +
                     "define stream ContextStream (exhaustProb double);";
             SiddhiAppRuntime siddhiAppRuntime = siddhiManager
@@ -74,10 +74,11 @@ public final class SiddhiWrapper {
             case DOMAIN.LOCATION -> {
                 inputHandler = siddhiApp.getInputHandler("LocStream");
                 inputHandler.send(new Object[]{
+                        event.getString("tag"),
+                        event.getLong("timestamp"),
+                        event.getDouble("distance"),
                         event.getDouble("latitude"),
                         event.getDouble("longitude"),
-                        event.getLong("timestamp"),
-                        event.getString("animal")
                 });
             }
             case DOMAIN.HEALTH -> {
@@ -88,7 +89,7 @@ public final class SiddhiWrapper {
                         event.getLong("timestamp")
                 });
 
-                executor.submit(() -> {
+                executor.execute(() -> {
                     try {
                         CCMServiceGrpc.CCMServiceBlockingStub stub =
                                 CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());
@@ -116,7 +117,27 @@ public final class SiddhiWrapper {
         SiddhiAppRuntime siddhiApp = siddhiManager.getSiddhiAppRuntime(this.appName);
         switch (domain) {
             case DOMAIN.LOCATION -> {
+                String topic = event.getString("tag");
 
+                // Stationary time retrieval.
+                siddhiApp.query("from every e1=LocStream[tag == \"" + topic + "\" and distance > 5] " +
+                        "-> e2=LocStream[tag == \"" + topic + "\" and distance <=5] " +
+                        "-> e3=LocStream[timestamp > e2.timestamp and  " +
+                        "distance >= 5 and tag == \"" + topic + "\"]\n" +
+                                "select min(e3[0].timestamp - e1[last].timestamp) as duration, e3.tag as tag\n" +
+                                "order by e1.timestamp\n" +
+                                "insert into \"" + topic + "\"_leave;");
+
+                StreamCallback callback_ref = new StreamCallback() {
+                    @Override
+                    public void receive(Event[] events) {
+                        long stationary_time = (long) events[events.length-1].getData(0);
+                        String tag = (String) events[events.length-1].getData(1);
+                        // TODO: Optimise the recommendation model, evict animal context, notify next enclosure.
+                    }
+                };
+                siddhiApp.addCallback(topic + "_leave", callback_ref);
+                callbacks.put(topic, callback_ref);
             }
             case DOMAIN.HEALTH -> {
                 StreamCallback callback_ref = null;
@@ -128,6 +149,7 @@ public final class SiddhiWrapper {
                             "select avg(heart_rate) as avgHeartRate, max(heart_rate) as maxHeartRate \n" +
                             "having avgHeartRate > 120.0 \n" +
                             "insert into " + event.getString("callback_name") + ";");
+
                     callback_ref = new StreamCallback() {
                         @Override
                         public void receive(Event[] events) {
