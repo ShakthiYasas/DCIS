@@ -33,12 +33,6 @@ class DisplayQRDataActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
         btnSwitchToAnimalPreference = findViewById(R.id.bSuttonGoButton)
 
-        // Check and request location permissions
-        if (LocationUtils.checkAndRequestLocationPermission(this)) {
-            LocationUtils.fetchLocation(this) { latitude, longitude ->
-                Toast.makeText(this, "Location: $latitude, $longitude", Toast.LENGTH_LONG).show()
-            }
-        }
 
         // Retrieve the JSON string passed from MainActivity
         val qrData = intent.getStringExtra("qr_data") ?: "{}"

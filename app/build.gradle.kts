@@ -62,9 +62,4 @@ dependencies {
     implementation (libs.play.services.auth)  // Google Sign-In API
     implementation ("com.google.android.gms:play-services-fitness:21.0.0") // Google Fit API
     implementation ("com.google.android.material:material:1.6.0") // For Material components like buttons
-
-    implementation(files("com/example/dcis2/libs/ContextCordinator.jar"))
-    implementation(files("java/com/example/dcis2/libs/ContextCordinator.jar"))
-
-
 }

@@ -29,12 +29,8 @@ import java.util.UUID
 class TestDataRetrievalActivity : AppCompatActivity() {
     private val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // Replace with your UUID
 
-    private lateinit var geofencingClient: GeofencingClient
-    private lateinit var geofencePendingIntent: PendingIntent
     private lateinit var sharedPreferences: android.content.SharedPreferences
-    private lateinit var sendJsonButton: Button
 
-    private lateinit var headerTextView: TextView
     private lateinit var showJsonButton: Button
     private lateinit var retrievedDataTextView: TextView
     private lateinit var navigateToHealthSensorButton: Button
@@ -42,13 +38,6 @@ class TestDataRetrievalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data_retrival_test)
 
-//        geofencingClient = LocationServices.getGeofencingClient(this)
-//        geofencePendingIntent = PendingIntent.getBroadcast(
-//            this,
-//            0,
-//            Intent(this, GeofenceBroadcastReceiver::class.java),
-//            PendingIntent.FLAG_UPDATE_CURRENT
-//        )
         // Initialize the TextView
         retrievedDataTextView = findViewById(R.id.retrievedDataTextView)
         showJsonButton = findViewById(R.id.showJsonButton)
