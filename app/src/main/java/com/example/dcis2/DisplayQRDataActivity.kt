@@ -15,7 +15,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.view.View
 import android.widget.AdapterView
-import com.example.dcis2.ultility.LocationUtils
 import com.example.dcis2.ultility.PreferencesUtils
 import com.example.dcis2.ultility.SpinnerValidationUtils
 import com.example.dcis2.utility.HealthServicesUtils

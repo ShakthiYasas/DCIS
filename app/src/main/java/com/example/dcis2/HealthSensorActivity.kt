@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.dcis2.ultility.LocationUtils
 import com.example.dcis2.utility.HealthSensorUtils
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
@@ -37,15 +36,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var heartRateTextView: TextView
     private lateinit var stepCountTextView: TextView
 
-    private lateinit var geofencingClient: GeofencingClient
-    private lateinit var geofenceList2: ArrayList<Geofence>
-    private val geofencePendingIntent: PendingIntent by lazy {
-        val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
-        PendingIntent.getBroadcast(
-            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-        )
-    }
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+ivate val LOCATION_PERMISSION_REQUEST_CODE = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_health_sensor)
@@ -71,11 +62,9 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
                 Toast.makeText(this, "Location: $latitude, $longitude", Toast.LENGTH_LONG).show()
             }
         }
-
-
         geofencingClient = LocationServices.getGeofencingClient(this)
 
-        // Set up Oakland Zoo geofence
+//        // Set up Oakland Zoo geofence
         val geofenceList = listOf(
             createGeofence("oakland_zoo_enc", 37.4220936, -122.083922, 60f) // Oakland Zoo geofence
         )
@@ -84,37 +73,36 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
             .addGeofences(geofenceList)
             .build()
 
-        geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent)
-            .addOnSuccessListener {
-                Log.d("Geofencing", "NEW Geofences added successfully")
-            }
-            .addOnFailureListener { exception ->
-                if (exception is ApiException) {
-                    // Handle the ApiException, e.g., check the status code
-                    when (exception.statusCode) {
-                        GeofenceStatusCodes.GEOFENCE_NOT_AVAILABLE -> {
-                            // Location services might be disabled
-                        }
-                        // ... handle other status codes
-                    }
-                }
-            }
-        addGeofences(geofenceList)
+//        geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent)
+//            .addOnSuccessListener {
+//                Log.d("Geofencing", "NEW Geofences added successfully")
+//            }
+//            .addOnFailureListener { exception ->
+//                if (exception is ApiException) {
+//                    // Handle the ApiException, e.g., check the status code
+//                    when (exception.statusCode) {
+//                        GeofenceStatusCodes.GEOFENCE_NOT_AVAILABLE -> {
+//                            // Location services might be disabled
+//                        }
+//                        // ... handle other status codes
+//                    }            }
+//
+//            }
+//        addGeofences(geofenceList)
 
         geofenceList2 = ArrayList()
-
-        // Example Geofence37.773628, -122.154722
-        geofenceList2.add(createGeofence("Home", 37.7749, -122.4194, 150f))
-        geofenceList2.add(createGeofence("oakland_zoo_enc", 37.773628, -122.154722, 60f))
-        geofenceList2.add(createGeofence("Google_Head_quarter", 37.4220936, -122.083922, 60f))
-
         // Check permissions
         if (hasLocationPermissions()) {
             setupGeofences()
         } else {
             requestLocationPermissions()
         }
-        testGeofence();
+
+        // Example Geofence37.773628, -122.154722
+        geofenceList2.add(createGeofence("Home", 37.7749, -122.4194, 150f))
+        geofenceList2.add(createGeofence("oakland_zoo_enc", 37.773628, -122.154722, 60f))
+        geofenceList2.add(createGeofence("Google_Head_quarter", 37.4220936, -122.083922, 60f))
+
     }
     private fun fetchHealthData() {
         // Check if heart rate sensor is available and retrieve data
@@ -156,26 +144,6 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
             }
         }
     }
-    fun readStepCountData() {
-        val fitnessOptions = FitnessOptions.builder()
-            .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE, FitnessOptions.ACCESS_READ)
-            .build()
-
-        val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
-
-        Fitness.getHistoryClient(this, account)
-            .readDailyTotal(DataType.TYPE_STEP_COUNT_CUMULATIVE)
-            .addOnSuccessListener { dataSet ->
-                val stepCount = dataSet.dataPoints.firstOrNull()?.getValue(Field.FIELD_STEPS)?.asInt()
-                stepCount?.let {
-                    // Display step count
-                    println("Step Count: $it")
-                }
-            }
-            .addOnFailureListener { e ->
-                e.printStackTrace()
-            }
-    }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Handle sensor accuracy changes if needed
@@ -204,7 +172,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION),
             LOCATION_PERMISSION_REQUEST_CODE
         )
     }
@@ -215,19 +183,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
             .addGeofences(geofences)
             .build()
     }
-    private fun testGeofence() {
-        val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
-        intent.action = "com.example.dcis2.TEST"
-        val broadcastReceiver = GeofenceBroadcastReceiver()
 
-        // Simulate geofence enter
-        intent.putExtra("testTransition", Geofence.GEOFENCE_TRANSITION_ENTER)
-        broadcastReceiver.onReceive(this, intent)
-
-        // Simulate geofence exit
-        intent.putExtra("testTransition", Geofence.GEOFENCE_TRANSITION_EXIT)
-        broadcastReceiver.onReceive(this, intent)
-    }
     private fun createGeofence(id: String, lat: Double, lng: Double, radius: Float): Geofence {
         return Geofence.Builder()
             .setRequestId(id)
@@ -275,7 +231,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     private fun hasLocationPermissions(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
         } else {
             TODO("VERSION.SDK_INT < Q")
         }
@@ -287,7 +243,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
                 this,
                 arrayOf(
                     android.Manifest.permission.ACCESS_FINE_LOCATION,
-                    android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 ),
                 LOCATION_PERMISSION_REQUEST_CODE
             )

@@ -49,6 +49,7 @@ dependencies {
     implementation (libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.location)
     implementation(files("library/ContextCordinator.jar"))
+    implementation(libs.play.services.maps)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -62,4 +63,6 @@ dependencies {
     implementation (libs.play.services.auth)  // Google Sign-In API
     implementation ("com.google.android.gms:play-services-fitness:21.0.0") // Google Fit API
     implementation ("com.google.android.material:material:1.6.0") // For Material components like buttons
+
+    implementation(libs.play.services.location)
 }

@@ -17,6 +17,7 @@ playServicesAuth = "21.2.0"
 playServicesLocation = "21.3.0"
 playServicesLocationVersion = "21.0.1"
 zxingAndroidEmbedded = "4.2.0"
+playServicesMaps = "19.0.0"
 
 [libraries]
 androidx-appcompat-v131 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
@@ -37,6 +38,7 @@ play-services-fitness = { module = "com.google.android.gms:play-services-fitness
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 play-services-location-v2101 = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocationVersion" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
