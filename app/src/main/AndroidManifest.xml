@@ -37,6 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="" />
         <receiver android:name=".GeofenceBroadcastReceiver"/>
         <activity android:name=".DisplayQRDataActivity" />
         <activity android:name=".AnimalPreferenceActivity" />
@@ -44,8 +47,6 @@
         <activity android:name=".TestDataRetrievalActivity" />
         <activity android:name=".HealthSensorActivity" />
         <activity android:name=".GeoFenceActivity" />
-
-
     </application>
 
 </manifest>
