@@ -39,7 +39,7 @@
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="${googleApiKey}" />
         <receiver android:name=".GeofenceBroadcastReceiver"/>
         <activity android:name=".DisplayQRDataActivity" />
         <activity android:name=".AnimalPreferenceActivity" />

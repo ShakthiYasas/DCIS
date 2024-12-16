@@ -36,9 +36,8 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
             // Device doesn't have a heart rate sensor
             println("Heart Rate Sensor not available.")
         }
+
         // Check and request location permissions
-
-
 
     }
     private fun fetchHealthData() {

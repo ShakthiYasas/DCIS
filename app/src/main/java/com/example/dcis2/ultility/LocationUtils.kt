@@ -2,6 +2,7 @@ package com.example.dcis2.ultility
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -30,7 +31,7 @@ object LocationUtils {
         }
     }
 
-    fun fetchLocation(activity: Activity, onLocationRetrieved: (latitude: Double, longitude: Double) -> Unit) {
+    fun fetchLocation(activity: Context, onLocationRetrieved: (latitude: Double, longitude: Double) -> Unit) {
         val fusedLocationClient: FusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity)
         if (ContextCompat.checkSelfPermission(
