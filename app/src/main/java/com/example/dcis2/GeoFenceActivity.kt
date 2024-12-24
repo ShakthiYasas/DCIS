@@ -2,10 +2,7 @@ package com.example.dcis2
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -16,8 +13,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.launch
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -55,21 +50,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
     }
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your
-                // app.
-                Toast.makeText(this, "Notification permission granted", Toast.LENGTH_SHORT).show()
-            } else {
-                // Explain to the user that the feature is unavailable because the
-                // features requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-                Toast.makeText(this, "Notification permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -83,15 +63,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         Handler(Looper.getMainLooper()).postDelayed({
             addGeofences() // Call your geofence addition logic here
         }, 2000)
-        requestNotificationPermission()
-        val channel = NotificationChannel(
-            "geofence_channel",
-            "High priority notifications",
-            NotificationManager.IMPORTANCE_HIGH
-        )
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
 
     }
 
@@ -321,36 +292,5 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
 
 
     }
-    private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "geofence_channel"
-            val channelName = "Geofence Notifications"
-            val channelDescription = "Notifications for geofence events"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, channelName, importance).apply {
-                description = channelDescription
-            }
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-    private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                // Notification permission is already granted
-                Toast.makeText(this, "Notification permission already granted", Toast.LENGTH_SHORT).show()
-            } else {
-                // Request notification permission
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        } else {
-            // No need to request permission for older versions
-            Toast.makeText(this, "Notification permission not required", Toast.LENGTH_SHORT).show()
-        }
-}
 
 }
