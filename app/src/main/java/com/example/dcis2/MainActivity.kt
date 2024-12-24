@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
         // Set click listener on the button
         btnScanQR.setOnClickListener {
-            val intent = Intent(this, GeoFenceActivity::class.java)
+            val intent = Intent(this, HealthSensorActivity::class.java)
             startActivity(intent)
             finish() // Optionally close the splash screen
         }

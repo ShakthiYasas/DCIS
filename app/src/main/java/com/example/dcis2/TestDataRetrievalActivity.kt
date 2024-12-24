@@ -88,21 +88,7 @@ class TestDataRetrievalActivity : AppCompatActivity() {
             "" // Return empty string if no data exists
         }
     }
-    private fun createGeofence(enclosureId: String, latitude: Double, longitude: Double, radius: Float): Geofence {
-        return Geofence.Builder()
-            .setRequestId(enclosureId)
-            .setCircularRegion(latitude, longitude, radius)
-            .setExpirationDuration(Geofence.NEVER_EXPIRE) // Geofence never expires
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
-            .build()
-    }
 
-    private fun buildGeofencingRequest(geofences: List<Geofence>): GeofencingRequest {
-        return GeofencingRequest.Builder()
-            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-            .addGeofences(geofences)
-            .build()
-    }
     private fun getSharedPreferencesAsJson(): JSONObject {
         val sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
         val allEntries = sharedPreferences.all

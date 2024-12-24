@@ -40,4 +40,11 @@
         android:textColor="@android:color/black"
         android:layout_marginTop="16dp"/>
 
+    <Button
+        android:id="@+id/geofenceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Geofence"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>

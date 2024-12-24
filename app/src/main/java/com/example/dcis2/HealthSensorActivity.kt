@@ -1,10 +1,12 @@
 package com.example.dcis2
 
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dcis2.utility.HealthSensorUtils
@@ -16,14 +18,14 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     private var heartRateSensor: Sensor? = null
     private lateinit var heartRateTextView: TextView
     private lateinit var stepCountTextView: TextView
-
+    private lateinit var geofenceButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_health_sensor)
         // Initialize UI elements
         heartRateTextView = findViewById(R.id.heartRateTextView)
         stepCountTextView = findViewById(R.id.stepCountTextView)
-
+        geofenceButton = findViewById(R.id.geofenceButton)
         // Check if health sensors are available and fetch data
         fetchHealthData()
         // Initialize SensorManager
@@ -37,8 +39,11 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
             println("Heart Rate Sensor not available.")
         }
 
-        // Check and request location permissions
-
+        // Set up button click listener
+        geofenceButton.setOnClickListener {
+            val intent = Intent(this, GeoFenceActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun fetchHealthData() {
         // Check if heart rate sensor is available and retrieve data

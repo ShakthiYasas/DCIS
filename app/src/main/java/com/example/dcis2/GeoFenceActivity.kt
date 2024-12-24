@@ -78,8 +78,8 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val eiffel = LatLng(28.637754756292722, 77.2170082721981)
-        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(eiffel, 16f))
+        val eiffel = LatLng(-37.78472222, 144.95333333)
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(eiffel, 20f))
 
         enableUserLocation()
 
@@ -258,19 +258,22 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             )
             return
         }
-        Log.d("Geofencing", "CHECK PERMISSION  GRANTED")
 
         // Add Geofence objects to the list
         geofenceList.add(createGeofence("Meerkats", -37.78472222, 144.95333333, 20f))
         geofenceList.add(createGeofence("AmazonBirds", -37.78472222, 144.95333333, 20f))
         geofenceList.add(createGeofence("Penguins", -37.78388889, 144.95222222, 20f))
         geofenceList.add(createGeofence("Lions", - 37.78333333, 144.95166667, 20f))
-        geofenceList.add(createGeofence("GiantTortoises", - 37.78333333, 144.952027778, 20f))
-        geofenceList.add(createGeofence("Koalas", - 37.78444444, 144.95027778, 15f))
+        geofenceList.add(createGeofence("GiantTortoises", - 37.78333333, 144.95027778, 20f))
+        geofenceList.add(createGeofence("Koalas", - 37.78444444, 144.95027778, 20f))
         geofenceList.add(createGeofence("Elephants", - 37.78583333, 144.94972222, 20f))
         geofenceList.add(createGeofence("Orangutans", -37.78527778, 144.9511111, 20f))
-        geofenceList.add(createGeofence("Elephants", - 37.78583333, 144.94972222, 20f))
         geofenceList.add(createGeofence("Entrance&Exit", - 37.78527778, 144.95305556, 20f))
+        geofenceList.add(createGeofence("Node1", - 37.7972222, 144.95277778, 20f))
+        geofenceList.add(createGeofence("Node2", - 37.78444444, 144.95222222, 20f))
+        geofenceList.add(createGeofence("Node3", - 37.78416667, 144.95222222, 20f))
+        geofenceList.add(createGeofence("Node4", - 37.78416667, 144.95166667, 20f))
+        geofenceList.add(createGeofence("Node5", - 37.78361111, 144.95138889, 20f))
 
         val geofencingRequest = GeofencingRequest.Builder()
             .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
