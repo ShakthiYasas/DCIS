@@ -16,6 +16,8 @@ navigationUiKtx = "2.8.4"
 playServicesAuth = "21.2.0"
 playServicesLocation = "21.3.0"
 playServicesLocationVersion = "21.0.1"
+pubnubJava = "10.3.2"
+pubnubKotlin = "10.0.0"
 zxingAndroidEmbedded = "4.2.0"
 playServicesMaps = "19.0.0"
 
@@ -37,6 +39,8 @@ play-services-auth = { module = "com.google.android.gms:play-services-auth", ver
 play-services-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesLocationVersion" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 play-services-location-v2101 = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocationVersion" }
+pubnub-java = { module = "com.pubnub:pubnub-java", version.ref = "pubnubJava" }
+pubnub-kotlin = { module = "com.pubnub:pubnub-kotlin", version.ref = "pubnubKotlin" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 

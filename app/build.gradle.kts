@@ -51,6 +51,7 @@ dependencies {
     implementation (libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.location)
     implementation(files("library/ContextCordinator.jar"))
+
     implementation(libs.play.services.maps)
 
     androidTestImplementation(libs.androidx.junit)
@@ -67,4 +68,5 @@ dependencies {
     implementation ("com.google.android.material:material:1.6.0") // For Material components like buttons
 
     implementation(libs.play.services.location)
+    implementation (libs.pubnub.kotlin)
 }

@@ -41,7 +41,7 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
 
         // Set up button click listener
         geofenceButton.setOnClickListener {
-            val intent = Intent(this, GeoFenceActivity::class.java)
+            val intent = Intent(this, PubNubActivity::class.java)
             startActivity(intent)
         }
     }

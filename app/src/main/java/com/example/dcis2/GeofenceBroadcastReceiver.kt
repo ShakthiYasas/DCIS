@@ -212,15 +212,10 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }
 
     }
+
     private fun speakText(text: String) {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
-    override fun onDestroy() {
-        if (tts != null) {
-            tts?.stop()
-            tts?.shutdown()
-        }
-        super.onDestroy()
-    }
+
 
 }

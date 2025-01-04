@@ -18,4 +18,5 @@
     <string name="welcome_to_zoo_map_finder">Welcome to Zoo Map Finder</string>
     <string name="scan_qr_code_btn">Scan QR Code</string>
     <string name="all">All</string>
+    <string name="waiting_for_messages">Waiting for messages...</string>
 </resources>

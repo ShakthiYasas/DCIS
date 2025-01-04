@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
@@ -33,6 +34,7 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
     private var mMap: GoogleMap? = null
     private var geofencingClient: GeofencingClient? = null
     private lateinit var geofenceHelper: GeofenceHelper
+    private lateinit var pubnubButton: Button
 
     companion object {
         private const val TAG = "MainActivity"
@@ -54,6 +56,8 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_geofence2)
+        pubnubButton = findViewById(R.id.geofenceButton)
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
@@ -63,6 +67,12 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         Handler(Looper.getMainLooper()).postDelayed({
             addGeofences() // Call your geofence addition logic here
         }, 2000)
+
+        // Set up button click listener
+        pubnubButton.setOnClickListener {
+            val intent = Intent(this, PubNubActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
