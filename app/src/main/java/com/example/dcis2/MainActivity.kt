@@ -49,8 +49,23 @@ class MainActivity : AppCompatActivity() {
             add(35L)
         }
 
-        // Publishing a message to the provided channel
-        channel.publish(myMessage).async { result ->
+//        // Publishing a message to the provided channel
+//        channel.publish(myMessage).async { result ->
+//            result.onFailure { exception ->
+//                println("Error while publishing")
+//                exception.printStackTrace()
+//            }.onSuccess { value ->
+//                println("Message sent, timetoken: ${value.timetoken}")
+//                println("From main activity ")
+//
+//            }
+//        }
+
+        channel.publish(
+            message = myMessage,
+            shouldStore = true,
+            ttl = 10,
+        ).async { result ->
             result.onFailure { exception ->
                 println("Error while publishing")
                 exception.printStackTrace()
@@ -59,17 +74,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        channel.publish(
-            message = myMessage,
-        ).async { result ->
-            result.onFailure { exception ->
-                println("Error while publishing")
-                exception.printStackTrace()
-            }.onSuccess { value ->
-                println("Message sent, timetoken: ${value.timetoken}")
-                println("From main activity ")
-            }
-        }
     }
 
 }
