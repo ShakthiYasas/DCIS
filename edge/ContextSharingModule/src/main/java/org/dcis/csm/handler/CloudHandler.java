@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.dcis.csm.proto.CSMRequest;
 
 public class CloudHandler {
-    public int fetch(CSMRequest.TYPE type, String data)
+    public int persist(CSMRequest.TYPE type, String data)
             throws IOException {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 

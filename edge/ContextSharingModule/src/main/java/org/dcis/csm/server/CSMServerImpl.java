@@ -24,7 +24,7 @@ public class CSMServerImpl extends CSMServiceGrpc.CSMServiceImplBase{
         try {
             CloudHandler server = new CloudHandler();
             responseObserver.onNext(CSMResponse.newBuilder()
-                    .setStatus(server.fetch(request.getType(),request.getData())).build());
+                    .setStatus(server.persist(request.getType(),request.getData())).build());
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

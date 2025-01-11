@@ -49,7 +49,7 @@ public final class SiddhiWrapper {
             String appString =
                     "@app:name(\"" + name + "\") \n" +
                     "define stream LocStream (tag string, timestamp long, distance double, latitude double, longitude double); \n" +
-                    "define stream BioStream (temperature double, heart_rate double); \n" +
+                    "define stream BioStream (body_temperature double, heart_rate double); \n" +
                     "define stream ContextStream (exhaustProb double);";
             SiddhiAppRuntime siddhiAppRuntime = siddhiManager
                     .createSiddhiAppRuntime(appString);
@@ -83,7 +83,7 @@ public final class SiddhiWrapper {
             case DOMAIN.HEALTH -> {
                 inputHandler = siddhiApp.getInputHandler("BioStream");
                 inputHandler.send(new Object[]{
-                        event.getDouble("temperature"),
+                        event.getDouble("body_temperature"),
                         event.getDouble("heart_rate"),
                         event.getLong("timestamp")
                 });
