@@ -10,6 +10,8 @@ import org.dcis.cam.proto.CAMServiceGrpc;
 import org.dcis.cam.manager.ContextManager;
 
 public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
+    // Front end push context information directly.
+    // Response: Only the status of the operation.
     public void setContext(CAMRequest request,
                            StreamObserver<CAMResponse> responseObserver) {
         try {
@@ -22,6 +24,8 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    // Front end detects nearing an enclosure and request pre-fetching.
+    // Response: Context-aware message about what to expect at the enclosure.
     public void getDescription(CAMRequest request,
                                StreamObserver<CAMResponse> responseObserver) {
         try {
@@ -33,22 +37,25 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
         responseObserver.onCompleted();
     }
 
-    public void getFromProvider(CAMRequest request,
+    // Front end detects a BLE device that is broadcasting context and requests to verify it with prefetched metadata.
+    // Response: The status of the operation. 200 if verified, 404 if unauthorised, 400 if no such BLE device.
+    public void verifyProvider(CAMRequest request,
                            StreamObserver<CAMResponse> responseObserver) {
         try {
-            responseObserver.onNext(CAMResponse.newBuilder()
-                    .setStatus(200).build());
+            responseObserver.onNext(CPManager.getInstance()
+                    .verifyProvider(request));
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }
         responseObserver.onCompleted();
     }
 
-    public void verifyProvider(CAMRequest request,
-                           StreamObserver<CAMResponse> responseObserver) {
+    // Retrieve the external context information.
+    public void getFromProvider(CAMRequest request,
+                                StreamObserver<CAMResponse> responseObserver) {
         try {
-            responseObserver.onNext(CPManager.getInstance()
-                    .verifyProvider(request));
+            responseObserver.onNext(CAMResponse.newBuilder()
+                    .setStatus(200).build());
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }
