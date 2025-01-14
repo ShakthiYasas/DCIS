@@ -1,5 +1,8 @@
 package org.dcis.cim.handler;
 
+import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
@@ -7,8 +10,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.dcis.ccm.proto.CCMRequest;
 import org.dcis.ccm.proto.CCMResponse;
-import org.json.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.dcis.cim.services.CallBackService;
 
 import io.siddhi.core.event.Event;
 import io.siddhi.core.SiddhiManager;
@@ -28,8 +30,13 @@ public final class SiddhiWrapper {
     private final ExecutorService executor;
     private static SiddhiManager siddhiManager;
 
+    private long lastENotification;
+    private long lastAHRNotification;
+
     private final Map<String,StreamCallback> callbacks;
     private SiddhiWrapper() {
+        lastENotification = 0;
+        lastAHRNotification = 0;
         callbacks = new HashMap<>();
         executor = Executors.newSingleThreadExecutor();
     }
@@ -132,7 +139,20 @@ public final class SiddhiWrapper {
                         String tag = (String) events[events.length-1].getData(1);
                         // Removing the event monitor for the
                         removeCallback(tag);
-                        // TODO: Optimise the recommendation model, evict animal context, notify next enclosure.
+
+                        // TODO: Optimise the recommendation model.
+
+                        // Notify about the next best enclosure to visit as of now.
+                        CallBackService cbService = new CallBackService();
+                        cbService.sendNotification("Next Enclosure");
+
+                        // Evicting the animal context.
+                        CCMServiceGrpc.CCMServiceBlockingStub stub =
+                                CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());
+                        stub.deleteInCache(CCMRequest.newBuilder()
+                                .setOperation(CCMRequest.OPERATION.EVICT)
+                                .setIdentifier("animal")
+                                .build());
                     }
                 };
                 siddhiApp.addCallback(callback_name + "_leave", callback_ref);
@@ -151,7 +171,14 @@ public final class SiddhiWrapper {
                     callback_ref = new StreamCallback() {
                         @Override
                         public void receive(Event[] events) {
-                            // TODO: Invoke relevant method.
+                            // Send a notification about the condition given
+                            // a notification has not been sent for the last 10 minutes.
+                            long currenttime = System.currentTimeMillis();
+                            if(lastAHRNotification == 0 || (currenttime - lastAHRNotification) > 600000){
+                                lastAHRNotification = currenttime;
+                                CallBackService cbService = new CallBackService();
+                                cbService.sendWarning("health","abnormalheart");
+                            }
                         }
                     };
 
@@ -167,7 +194,14 @@ public final class SiddhiWrapper {
                     callback_ref = new StreamCallback() {
                         @Override
                         public void receive(Event[] events) {
-                            // TODO: Invoke relevant method.
+                            // Send a notification about the condition given
+                            // a notification has not been sent for the last 10 minutes.
+                            long currenttime = System.currentTimeMillis();
+                            if(lastENotification == 0 || (currenttime - lastENotification) > 600000) {
+                                lastENotification = currenttime;
+                                CallBackService cbService = new CallBackService();
+                                cbService.sendWarning("health", "exhausted");
+                            }
                         }
                     };
                 }
