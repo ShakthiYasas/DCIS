@@ -28,9 +28,10 @@ data class EnclosureLocation(val latitude: Double, val longitude: Double)
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
     private val handler = Handler(Looper.getMainLooper())
-    private val locationUpdateInterval: Long = 60000 // 1 minute
+    private val locationUpdateInterval: Long = 30000 // 30 seconds
     private var currentEnclosureTag: String? = null // Track the current enclosure tag
     private var tts: TextToSpeech? = null
+    private var isTtsInitialized = false
 
     private val geofenceMessages = mapOf(
         "Meerkats" to EnclosureLocation(-37.78472222, 144.95333333),
@@ -54,6 +55,27 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         Location.distanceBetween(lat1, lon1, lat2, lon2, results)
         return results[0] // Distance in meters
     }
+
+    private fun createLocationJson(enclosureTag: String, distance: Float, latitude: Double? = null, longitude: Double? = null, enclosureLatitude: Double? = null, enclosureLongitude: Double? = null): JSONObject {
+        val locationJson = JSONObject()
+        locationJson.put("enclosureTag", enclosureTag)
+        locationJson.put("distance", distance.toDouble())
+        return locationJson
+    }
+    private fun fetchLocationAndSend(context: Context, enclosureTag: String, action: String) {
+        currentEnclosureTag = enclosureTag // Store the current enclosure tag
+        LocationUtils.fetchLocation(context) { latitude, longitude ->
+            val enclosureLocation = geofenceMessages[enclosureTag.removeSuffix("_enc")]
+            val distance = enclosureLocation?.let {
+                calculateDistance(latitude, longitude, it.latitude, it.longitude)
+            } ?: 0f // Handle case where enclosure location is not found
+            val locationJson = createLocationJson(enclosureTag, distance,latitude, longitude)
+            Log.d("GeofenceReceiver", "Location JSON: $locationJson")
+            ContextCordinator.setLocation(locationJson)
+            showNotification(context, enclosureTag, latitude, longitude, distance)
+        }
+    }
+
     private fun initializeTTS(context: Context) {
         tts = TextToSpeech(context) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -68,31 +90,6 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             }
         }
     }
-    private fun createLocationJson(enclosureTag: String, distance: Float, latitude: Double? = null, longitude: Double? = null, enclosureLatitude: Double? = null, enclosureLongitude: Double? = null): JSONObject {
-        val locationJson = JSONObject()
-        locationJson.put("enclosureTag", enclosureTag)
-        locationJson.put("distance", distance)
-        latitude?.let { locationJson.put("latitude", it) }
-        longitude?.let { locationJson.put("longitude", it) }
-        enclosureLatitude?.let { locationJson.put("enclosureLatitude", it) }
-        enclosureLongitude?.let { locationJson.put("enclosureLongitude", it) }
-        return locationJson
-    }
-
-    private fun fetchLocationAndSend(context: Context, enclosureTag: String, action: String) {
-        currentEnclosureTag = enclosureTag // Store the current enclosure tag
-        LocationUtils.fetchLocation(context) { latitude, longitude ->
-            val enclosureLocation = geofenceMessages[enclosureTag.removeSuffix("_enc")]
-            val distance = enclosureLocation?.let {
-                calculateDistance(latitude, longitude, it.latitude, it.longitude)
-            } ?: 0f // Handle case where enclosure location is not found
-            val locationJson = createLocationJson(enclosureTag, distance,latitude, longitude)
-            Log.d("GeofenceReceiver", "Location JSON: $locationJson")
-            ContextCordinator.setLocation(locationJson)
-        }
-    }
-
-
     private fun startPeriodicLocationUpdates(context: Context, enclosureTag: String) {
         currentEnclosureTag = enclosureTag // Store the current enclosure tag
         handler.postDelayed(object : Runnable {
@@ -118,19 +115,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         handler.removeCallbacksAndMessages(null)
         currentEnclosureTag = null // Clear the current enclosure tag
     }
-    private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "geofence_channel"
-            val channelName = "Geofence Notifications"
-            val channelDescription = "Notifications for geofence events"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, channelName, importance).apply {
-                description = channelDescription
-            }
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+
     private fun showNotification(context: Context, enclosureTag: String, latitude: Double?, longitude: Double?, distance: Float) {
         val channelId = "geofence_channel"
         val notificationId = System.currentTimeMillis().toInt() // Unique ID for each notification
@@ -138,10 +123,9 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         val notificationBuilder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_launcher_background) // Replace with your notification icon
             .setContentTitle("Geofence Triggered")
-            .setContentText("You are near $enclosureTag. Distance: ${distance}m, Lat: ${latitude}, Lon: ${longitude}")
+            .setContentText("You are near $enclosureTag. Distance: $distance meter")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setAutoCancel(true) // Dismiss notification when tapped
-
+            .setAutoCancel(true) // Dismiss notificat=ion when tapped
 
         val notificationManager = NotificationManagerCompat.from(context)
         if (ActivityCompat.checkSelfPermission(
@@ -160,7 +144,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }
 
 
-        val notificationText = "You are near $enclosureTag. Distance: ${distance}m, Lat: ${latitude}, Lon: ${longitude}"
+        val notificationText = "You are near $enclosureTag. Distance: $distance"
         notificationBuilder.setContentText(notificationText)
 
         // Speak the notification text
@@ -177,6 +161,10 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             Log.e("GeofenceReceiver", "Error in geofencing event. Error code: $errorCode. Intent extras: ")
             return
         }
+        if (!isTtsInitialized) {
+            initializeTTS(context)
+            isTtsInitialized = true
+        }
 
         val geofenceTransition = geofencingEvent.geofenceTransition
         val triggeringGeofences = geofencingEvent.triggeringGeofences ?: emptyList()
@@ -185,19 +173,19 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             Log.d("GeofenceReceiver", "Triggered geofence: ${geofence.requestId}")
 
             for (geofence in triggeringGeofences) {
-                val enclosureTag = "${geofence.requestId}_enc"
+                val enclosureTag = geofence.requestId
                 val areaMessage = geofenceMessages[geofence.requestId] ?: "Unknown Area"
 
                 when (geofenceTransition) {
                     Geofence.GEOFENCE_TRANSITION_ENTER -> {
                         Log.d("GeofenceReceiver", "Entered $areaMessage")
                         fetchLocationAndSend(context, enclosureTag, "enter")
-//                        startPeriodicLocationUpdates(context, enclosureTag)
+                        startPeriodicLocationUpdates(context, enclosureTag)
                         Toast.makeText(context, "Welcome to $areaMessage!", Toast.LENGTH_LONG).show()
                     }
                     Geofence.GEOFENCE_TRANSITION_DWELL ->{
                         Toast.makeText(context, "Continue to stay at $areaMessage!", Toast.LENGTH_LONG).show()
-//                        startPeriodicLocationUpdates(context, enclosureTag)
+                        startPeriodicLocationUpdates(context, enclosureTag)
                     }
 
                     Geofence.GEOFENCE_TRANSITION_EXIT -> {
@@ -216,6 +204,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     private fun speakText(text: String) {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
-
-
+//    fun onDestroy() {
+//        if (tts != null) {
+//            tts?.stop()
+//            tts?.shutdown()
+//        }
+//        super.onDestroy() }
+//
+//
 }

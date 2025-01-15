@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
         // Set click listener on the button
         btnScanQR.setOnClickListener {
-            val intent = Intent(this, PubNubActivity::class.java)
+            val intent = Intent(this, ScanQRActivity::class.java)
             startActivity(intent)
             finish() // Optionally close the splash screen
         }

@@ -6,8 +6,6 @@ import org.json.JSONObject
 import com.google.gson.JsonObject
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
-import com.pubnub.api.enums.PNStatusCategory
-import com.pubnub.api.models.consumer.PNStatus
 import com.pubnub.api.models.consumer.pubsub.PNMessageResult
 import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult
 import com.pubnub.api.models.consumer.pubsub.PNSignalResult
@@ -16,9 +14,14 @@ import com.pubnub.api.models.consumer.pubsub.message_actions.PNMessageActionResu
 import com.pubnub.api.models.consumer.pubsub.objects.PNObjectEventResult
 import com.pubnub.api.v2.callbacks.EventListener
 import com.pubnub.api.v2.subscriptions.SubscriptionOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+
 class PubNubActivity : AppCompatActivity() {
 
     private lateinit var textView: TextView
+    private var isConnected = false
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,8 @@ class PubNubActivity : AppCompatActivity() {
                 println("Message sent, timetoken: ${value.timetoken}")
             }
         }
+        // Activate the subscription to start receiving events
+        subscription.subscribe()
 
         // Add a listener to the subscription for handling various event types
         subscription.addListener(object : EventListener {
@@ -95,7 +100,6 @@ class PubNubActivity : AppCompatActivity() {
             }
         })
 
-        // Activate the subscription to start receiving events
-        subscription.subscribe()
+
     }
 }

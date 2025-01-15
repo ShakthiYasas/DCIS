@@ -2,7 +2,10 @@ package com.example.dcis2
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -11,7 +14,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
@@ -34,7 +36,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
     private var mMap: GoogleMap? = null
     private var geofencingClient: GeofencingClient? = null
     private lateinit var geofenceHelper: GeofenceHelper
-    private lateinit var pubnubButton: Button
 
     companion object {
         private const val TAG = "MainActivity"
@@ -44,6 +45,7 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         private const val FINE_LOCATION_ACCESS_REQUEST_CODE = 10001
         private const val BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002
     }
+
     val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -56,7 +58,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_geofence2)
-        pubnubButton = findViewById(R.id.geofenceButton)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -67,13 +68,7 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         Handler(Looper.getMainLooper()).postDelayed({
             addGeofences() // Call your geofence addition logic here
         }, 2000)
-
-        // Set up button click listener
-        pubnubButton.setOnClickListener {
-            val intent = Intent(this, PubNubActivity::class.java)
-            startActivity(intent)
-        }
-
+        createNotificationChannel(this)
     }
 
     /**
@@ -301,6 +296,19 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         }
 
 
+    }
+    private fun createNotificationChannel(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "geofence_channel"
+            val channelName = "Geofence Notifications"
+            val channelDescription = "Notifications for geofence events"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance).apply {
+                description = channelDescription
+            }
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
 }
