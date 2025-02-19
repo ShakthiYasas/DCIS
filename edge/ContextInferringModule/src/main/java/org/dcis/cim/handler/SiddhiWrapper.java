@@ -144,7 +144,10 @@ public final class SiddhiWrapper {
 
                         // Notify about the next best enclosure to visit as of now.
                         CallBackService cbService = new CallBackService();
-                        cbService.sendNotification("Next Enclosure");
+                        JSONObject message = new JSONObject();
+                        message.put("visited_enclosure", tag);
+                        message.put("next_enclosure", "Suggested next enclosure.");
+                        cbService.sendNotification(message.toString());
 
                         // Evicting the animal context.
                         CCMServiceGrpc.CCMServiceBlockingStub stub =
