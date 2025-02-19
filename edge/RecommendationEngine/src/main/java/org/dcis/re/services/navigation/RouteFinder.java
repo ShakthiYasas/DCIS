@@ -9,11 +9,11 @@ public class RouteFinder <T extends GraphNode> {
 
     public RouteFinder(Graph<T> graph, Scorer<T> nextNodeScorer, Scorer<T> targetScorer) {
         this.graph = graph;
-        this.nextNodeScorer = nextNodeScorer;
         this.targetScorer = targetScorer;
+        this.nextNodeScorer = nextNodeScorer;
     }
 
-    public List<T> findRoute(T from, T to, Set<T> visited) {
+    public List<T> findRoute(T from, T to) {
         Map<T, RouteNode<T>> allNodes = new HashMap<>();
         Queue<RouteNode> openSet = new PriorityQueue<>();
 
