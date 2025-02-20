@@ -1,26 +1,29 @@
 package org.dcis.re.services.navigation;
 
+import org.dcis.re.services.navigation.melbourne.CAScorer;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class RouteFinder <T extends GraphNode> {
     private final Graph<T> graph;
-    private final Scorer<T> targetScorer;
-    private final Scorer<T> nextNodeScorer;
 
-    public RouteFinder(Graph<T> graph, Scorer<T> nextNodeScorer, Scorer<T> targetScorer) {
+    public RouteFinder(Graph<T> graph) {
         this.graph = graph;
-        this.targetScorer = targetScorer;
-        this.nextNodeScorer = nextNodeScorer;
     }
 
     // 1. Finding the shortest path between two nodes.
-    public List<T> findRoute(T from, T to) {
+    public List<T> findRoute(String fromNode, String toNode) {
+        T from = graph.getNode(fromNode);
+        T to = graph.getNode(toNode);
+
         Map<T, RouteNode<T>> allNodes = new HashMap<>();
         Queue<RouteNode> openSet = new PriorityQueue<>();
 
+        Scorer<T> scorer = (Scorer<T>) new CAScorer();
+
         RouteNode<T> start = new RouteNode<>(
-                from, null, 0d, targetScorer.computeCost(from, to));
+                from, null, 0d, scorer.computeCost(from, to));
         allNodes.put(from, start);
         openSet.add(start);
 
@@ -30,7 +33,7 @@ public class RouteFinder <T extends GraphNode> {
                 List<T> route = new ArrayList<>();
                 RouteNode<T> current = next;
                 do {
-                    route.add(0, current.getCurrent());
+                    route.addFirst(current.getCurrent());
                     current = allNodes.get(current.getPrevious());
                 } while (current != null);
 
@@ -39,14 +42,14 @@ public class RouteFinder <T extends GraphNode> {
 
             graph.getConnections(next.getCurrent()).forEach(connection -> {
                 double newScore = next.getRouteScore() +
-                        nextNodeScorer.computeCost(next.getCurrent(), connection);
+                        scorer.computeCost(next.getCurrent(), connection);
                 RouteNode<T> nextNode = allNodes.getOrDefault(connection, new RouteNode<>(connection));
                 allNodes.put(connection, nextNode);
 
                 if (nextNode.getRouteScore() > newScore) {
                     nextNode.setPrevious(next.getCurrent());
                     nextNode.setRouteScore(newScore);
-                    nextNode.setEstimatedScore(newScore + targetScorer.computeCost(connection, to));
+                    nextNode.setEstimatedScore(newScore + scorer.computeCost(connection, to));
                     openSet.add(nextNode);
                 }
             });
@@ -56,15 +59,15 @@ public class RouteFinder <T extends GraphNode> {
     }
 
     // 2. The initial itinerary generation for a user.
-    public List<T> generateItinerary(T from, Map<T,Integer> preferred) {
-        List<T> nodesToVisit = new ArrayList<>(preferred.keySet());
+    public List<T> generateItinerary(String from, Map<String,Integer> preferred) {
+        List<String> nodesToVisit = new ArrayList<>(preferred.keySet());
         nodesToVisit.sort(Comparator.comparingInt(preferred::get));
 
-        List<T> allNodes = new ArrayList<>(nodesToVisit);
+        List<String> allNodes = new ArrayList<>(nodesToVisit);
         allNodes.add(from);
 
-        Map<T, Map<String, Double>> shortestPaths = new HashMap<>();
-        for (T node : allNodes) shortestPaths.put(node, dijkstra(node));
+        Map<String, Map<String, Double>> shortestPaths = new HashMap<>();
+        for (String node : allNodes) shortestPaths.put(node, dijkstra(node));
 
         List<List<String>> permutations = generatePermutations(nodesToVisit);
         double minLatency = Double.MAX_VALUE;
@@ -72,9 +75,9 @@ public class RouteFinder <T extends GraphNode> {
 
         for (List<String> perm : permutations) {
             List<String> path = new ArrayList<>();
-            path.add(from.getId());
+            path.add(from);
             path.addAll(perm);
-            path.add(from.getId());
+            path.add(from);
 
             double latency = calculatePathLatency(path, shortestPaths);
             if (latency < minLatency) {
@@ -98,7 +101,7 @@ public class RouteFinder <T extends GraphNode> {
         }
     }
 
-    private Map<String, Double> dijkstra(T start) {
+    private Map<String, Double> dijkstra(String start) {
         Map<String, Double> latencies = new HashMap<>();
         PriorityQueue<Node> pq = new PriorityQueue<>(
                 Comparator.comparingDouble(node -> node.latency));
@@ -106,8 +109,8 @@ public class RouteFinder <T extends GraphNode> {
         for (Object node: graph.getAllNodes())
             latencies.put(((T)node).getId(), Double.MAX_VALUE);
 
-        latencies.put(start.getId(), 0.0);
-        pq.add(new Node(start.getId(), 0.0));
+        latencies.put(start, 0.0);
+        pq.add(new Node(start, 0.0));
 
         while (!pq.isEmpty()) {
             Node current = pq.poll();
@@ -131,15 +134,15 @@ public class RouteFinder <T extends GraphNode> {
         return latencies;
     }
 
-    private List<List<String>> generatePermutations(List<T> nodes) {
+    private List<List<String>> generatePermutations(List<String> nodes) {
         List<List<String>> result = new ArrayList<>();
         if (nodes.isEmpty()) {
             result.add(new ArrayList<>());
             return result;
         }
 
-        String firstNode = nodes.getFirst().getId();
-        List<T> remainingNodes = nodes.subList(1, nodes.size());
+        String firstNode = nodes.getFirst();
+        List<String> remainingNodes = nodes.subList(1, nodes.size());
         List<List<String>> permutationsOfRemainder = generatePermutations(remainingNodes);
 
         for (List<String> perm : permutationsOfRemainder) {
@@ -152,12 +155,12 @@ public class RouteFinder <T extends GraphNode> {
         return result;
     }
 
-    private double calculatePathLatency(List<String> path, Map<T, Map<String, Double>> shortestPaths) {
+    private double calculatePathLatency(List<String> path, Map<String, Map<String, Double>> shortestPaths) {
         double latency = 0;
         for (int i = 0; i < path.size() - 1; i++) {
             String fromNode = path.get(i);
             String toNode = path.get(i + 1);
-            latency += shortestPaths.get(graph.getNode(fromNode)).get(toNode);
+            latency += shortestPaths.get(graph.getNode(fromNode).getId()).get(toNode);
         }
         return latency;
     }

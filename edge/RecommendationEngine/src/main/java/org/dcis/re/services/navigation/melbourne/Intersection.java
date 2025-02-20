@@ -18,10 +18,12 @@ public class Intersection implements GraphNode {
         return id;
     }
 
+    @Override
     public double getLatitude() {
         return latitude;
     }
 
+    @Override
     public double getLongitude() {
         return longitude;
     }

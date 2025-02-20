@@ -1,26 +1,48 @@
 package org.dcis.re.services;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.dcis.re.services.navigation.Graph;
 import org.dcis.re.services.navigation.GraphNode;
 import org.dcis.re.services.navigation.RouteFinder;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 public class OptimalRouteService {
     public static void setVisited(String id) {
         Graph.getInstance().setVisited(id);
     }
 
-    public static List<GraphNode> getRoute(String start, String end) {
-        // RouteFinder navigator = new RouteFinder();
-        // return navigator.findRoute(graph.getNode(start), graph.getNode(end));
-        return new ArrayList<>();
+    public static String getItinerary(String from, Map<String,Integer> preferred) {
+        RouteFinder<?> navigator = new RouteFinder<>(Graph.getInstance());
+        List<?> itinerary = navigator.generateItinerary(from, preferred);
+
+        JSONArray response = new JSONArray();
+        for(Object node: itinerary){
+            JSONObject nodeItem = new JSONObject();
+            nodeItem.put("id", ((GraphNode)node).getId());
+            nodeItem.put("latitude", ((GraphNode)node).getLatitude());
+            nodeItem.put("longitude", ((GraphNode)node).getLongitude());
+            response.put(nodeItem);
+        }
+
+        return response.toString();
     }
 
-    public static List<GraphNode> getItinerary(List<GraphNode> preferred) {
-        // RouteFinder navigator = new RouteFinder();
-        // return navigator.findRoute(graph.getNode(start), graph.getNode(end));
-        return new ArrayList<>();
+    public static String getRoute(String start, String end) {
+        RouteFinder<?> navigator = new RouteFinder<>(Graph.getInstance());
+        List<?> route = navigator.findRoute(start, end);
+
+        JSONArray response = new JSONArray();
+        for(Object node: route){
+            JSONObject nodeItem = new JSONObject();
+            nodeItem.put("id", ((GraphNode)node).getId());
+            nodeItem.put("latitude", ((GraphNode)node).getLatitude());
+            nodeItem.put("longitude", ((GraphNode)node).getLongitude());
+            response.put(nodeItem);
+        }
+
+        return response.toString();
     }
 }

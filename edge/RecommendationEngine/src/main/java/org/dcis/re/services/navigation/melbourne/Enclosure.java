@@ -21,16 +21,19 @@ public class Enclosure implements GraphNode {
     public String getId() {
         return id;
     }
-    public String getName() {
-        return name;
-    }
 
+    @Override
     public double getLatitude() {
         return latitude;
     }
 
+    @Override
     public double getLongitude() {
         return longitude;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setVisited() {

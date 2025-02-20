@@ -11,9 +11,21 @@ message REResponse {
 }
 
 message RERequest {
-  repeated string visited = 1;
+  string visited = 1;
+}
+
+message RouteRequest {
+  string to = 1;
+  string from = 2;
+}
+
+message ItineraryRequest {
+  string from = 1;
+  map<string,int32> preferred = 2;
 }
 
 service REService {
-  rpc getRoute(RERequest) returns (REResponse);
+  rpc setVisited(RERequest) returns (REResponse);
+  rpc getRoute(RouteRequest) returns (REResponse);
+  rpc getItinerary(ItineraryRequest) returns (REResponse);
 }
