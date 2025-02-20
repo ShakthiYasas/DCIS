@@ -17,4 +17,10 @@ public class OptimalRouteService {
         // return navigator.findRoute(graph.getNode(start), graph.getNode(end));
         return new ArrayList<>();
     }
+
+    public static List<GraphNode> getItinerary(List<GraphNode> preferred) {
+        // RouteFinder navigator = new RouteFinder();
+        // return navigator.findRoute(graph.getNode(start), graph.getNode(end));
+        return new ArrayList<>();
+    }
 }

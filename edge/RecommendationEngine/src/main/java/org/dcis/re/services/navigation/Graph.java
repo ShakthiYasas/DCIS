@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 public class Graph<T extends GraphNode> {
     private final Set<T> nodes;
+    private final Map<String, Double> latencyDict;
     private final Map<String, Set<String>> connections;
 
     private static Graph instance = null;
 
     private Graph() {
         this.nodes = createNodes();
+        this.latencyDict = createLatencies();
         this.connections = createConnections();
     }
 
@@ -23,12 +25,20 @@ public class Graph<T extends GraphNode> {
         return instance;
     }
 
+    public List<T> getAllNodes() {
+        return nodes.stream().toList();
+    }
+
     public T getNode(String id) {
         return nodes.stream()
                 .filter(node -> node.getId().equals(id) & isVisited(node))
                 .findFirst()
                 .orElseThrow(()
                         -> new IllegalArgumentException("No node found for the given ID."));
+    }
+
+    public Map<String, Double> getLatencyDict() {
+        return this.latencyDict;
     }
 
     public void setVisited(String id) {
@@ -44,11 +54,24 @@ public class Graph<T extends GraphNode> {
                 .collect(Collectors.toSet());
     }
 
+    public Set<T> getConnections(String nodeId) {
+        return connections.get(nodeId).stream()
+                .map(this::getNode)
+                .collect(Collectors.toSet());
+    }
+
     private boolean isVisited(T node) {
         if (node instanceof Enclosure){
             return !((Enclosure) node).getVisited();
         }
         return true;
+    }
+
+    public double getLatency(String from, String to) {
+        String key = from + to;
+        if(!latencyDict.containsKey(key))
+            key = to + from;
+        return latencyDict.get(key);
     }
 
     private Set<T> createNodes() {
@@ -79,6 +102,51 @@ public class Graph<T extends GraphNode> {
         nodeSet.add((T) new Intersection("entexit", -37.78527778, 144.95305556));
 
         return nodeSet;
+    }
+
+    private Map<String, Double> createLatencies() {
+        Map<String, Double> dict = new HashMap<>();
+
+        dict.put("entexitnode1",39.1);
+        dict.put("entexitmeerkat_enc",50.0);
+
+        dict.put("node1node2",34.5);
+        dict.put("node1node11",185.07);
+        dict.put("node1bird_enc",155.92);
+
+        dict.put("node2node3",33.0);
+        dict.put("node2orangutan_enc",66.4);
+
+        dict.put("node3node4",30.89);
+        dict.put("node3node9",163.53);
+        dict.put("node3bird_enc",63.46);
+        dict.put("node3penguin_enc",255.96);
+
+        dict.put("node4node5",50.11);
+        dict.put("node4penguin_enc",55.57);
+
+        dict.put("node5node6",42.05);
+        dict.put("node5tortoise_enc",51.0);
+
+        dict.put("node6node7",27.23);
+        dict.put("node6lion_enc",25.57);
+
+        dict.put("node7node8",205.75);
+        dict.put("node7lion_enc",407.44);
+        dict.put("node7tortoise_enc",41.85);
+
+        dict.put("node8node9",69.36);
+        dict.put("node8elephant_enc",115.98);
+
+        dict.put("node9elephant_enc",19.4);
+
+        dict.put("node10node11",30.0);
+        dict.put("node10elephant_enc",27.9);
+        dict.put("node10orangutan_enc",138.98);
+
+        dict.put("node11elephant_enc",152.55);
+
+        return dict;
     }
 
     private Map<String, Set<String>> createConnections() {
