@@ -3,10 +3,8 @@ package org.dcis.cim.handler;
 import org.dcis.cam.proto.CAMRequest;
 import org.dcis.cam.proto.CAMResponse;
 import org.dcis.cam.proto.CAMServiceGrpc;
-import org.dcis.csm.proto.CSMRequest;
-import org.dcis.csm.proto.CSMServiceGrpc;
 import org.dcis.grpc.client.CAMChannel;
-import org.dcis.grpc.client.CSMChannel;
+
 import org.dcis.re.proto.RERequest;
 import org.dcis.re.proto.REResponse;
 import org.dcis.grpc.client.REChannel;
@@ -22,8 +20,12 @@ public class RecommenderWrapper {
     private String currentItinerary;
     private static RecommenderWrapper instance;
     private Map<String, Integer> currentPreferance;
+    private final Map<String, Double> avgDuration;
 
-    private RecommenderWrapper() {}
+    private RecommenderWrapper() {
+        avgDuration = new HashMap<>();
+        setDurations();
+    }
 
     public static synchronized RecommenderWrapper getInstance() {
         if(instance == null) {
@@ -63,6 +65,22 @@ public class RecommenderWrapper {
         return currentItinerary;
     }
 
+    public String recommendAlternative(String tag, double waitTime) {
+        double range = avgDuration.get(tag);
+        if(waitTime >= range) {
+            // Provide a recommendation because the visitor has stayed longer than usual.
+            REServiceGrpc.REServiceBlockingStub stub =
+                    REServiceGrpc.newBlockingStub(REChannel.getInstance().getChannel());
+            REResponse response = stub.getAlternates(RERequest.newBuilder()
+                    .setVisited(tag).setCount(2)
+                    .build());
+
+            if(response.getStatus() == 200)
+                return response.getBody();
+        }
+        return null;
+    }
+
     private Map<String, Integer> getSortedPrefernances(List<String> preferred) {
         PriorityQueue<Pair<String,Double>> pq = new PriorityQueue<>(
                 Comparator.comparingDouble(Pair::getValue1));
@@ -92,5 +110,17 @@ public class RecommenderWrapper {
             return context.getDouble("context");
         }
         return 0.0;
+    }
+
+    // The values here are the max value for the 95% confidence interval.
+    private void setDurations() {
+        avgDuration.put("bird_enc", 254.7);
+        avgDuration.put("lion_enc", 69.15);
+        avgDuration.put("koala_enc", 144.3);
+        avgDuration.put("penguin_enc", 202.8);
+        avgDuration.put("meerkat_enc", 221.4);
+        avgDuration.put("elephant_enc", 509.4);
+        avgDuration.put("tortoise_enc", 69.17);
+        avgDuration.put("orangutan_enc", 382.05);
     }
 }

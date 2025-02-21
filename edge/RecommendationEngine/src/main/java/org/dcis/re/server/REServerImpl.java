@@ -4,6 +4,7 @@ import io.grpc.stub.StreamObserver;
 
 import org.dcis.re.proto.*;
 import org.dcis.re.services.OptimalRouteService;
+import org.dcis.re.services.RecommendationService;
 
 public class REServerImpl extends REServiceGrpc.REServiceImplBase{
     public void setVisited(RERequest request,
@@ -39,6 +40,20 @@ public class REServerImpl extends REServiceGrpc.REServiceImplBase{
                             .setBody(OptimalRouteService
                                     .getRoute(request.getFrom(),request.getTo()))
                             .setStatus(200).build());
+        } catch (Exception ex) {
+            responseObserver.onError(ex);
+        }
+        responseObserver.onCompleted();
+    }
+
+    public void getAlternates(RERequest request,
+                         StreamObserver<REResponse> responseObserver){
+        try {
+            RecommendationService recser = new RecommendationService();
+            responseObserver.onNext(REResponse.newBuilder()
+                    .setBody(recser.recommendForVisitor(
+                            request.getVisited(), request.getCount()))
+                    .setStatus(200).build());
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

@@ -165,8 +165,18 @@ public final class SiddhiWrapper {
                                 .setIdentifier("animal")
                                 .build());
 
-                        // TODO: Use the stationary time to recommend a similar animal.
-
+                        // Using the stationary time feature to recommend a similar animal.
+                        // Using a collaborative filter.
+                        executor.execute(() -> {
+                            try {
+                                String alternate = recommender.recommendAlternative(
+                                        tag, stationary_time/1000.0);
+                                if(alternate != null)
+                                    cbService.sendNotification(alternate);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
                     }
                 };
                 siddhiApp.addCallback(callback_name + "_leave", callback_ref);

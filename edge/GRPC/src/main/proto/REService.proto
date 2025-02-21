@@ -12,6 +12,7 @@ message REResponse {
 
 message RERequest {
   string visited = 1;
+  optional int32 count = 2;
 }
 
 message RouteRequest {
@@ -28,5 +29,6 @@ message ItineraryRequest {
 service REService {
   rpc setVisited(RERequest) returns (REResponse);
   rpc getRoute(RouteRequest) returns (REResponse);
+  rpc getAlternates(RERequest) returns (REResponse);
   rpc getItinerary(ItineraryRequest) returns (REResponse);
 }

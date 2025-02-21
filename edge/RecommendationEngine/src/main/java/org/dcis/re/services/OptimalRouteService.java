@@ -31,6 +31,10 @@ public class OptimalRouteService {
     }
 
     public static String getRoute(String start, String end) {
+        return (getRouteArray(start,end)).toString();
+    }
+
+    public static JSONArray getRouteArray(String start, String end) {
         RouteFinder<?> navigator = new RouteFinder<>(Graph.getInstance());
         List<?> route = navigator.findRoute(start, end);
 
@@ -43,6 +47,6 @@ public class OptimalRouteService {
             response.put(nodeItem);
         }
 
-        return response.toString();
+        return response;
     }
 }
