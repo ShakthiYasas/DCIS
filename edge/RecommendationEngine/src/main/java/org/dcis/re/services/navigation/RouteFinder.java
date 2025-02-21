@@ -59,7 +59,7 @@ public class RouteFinder <T extends GraphNode> {
     }
 
     // 2. The initial itinerary generation for a user.
-    public List<T> generateItinerary(String from, Map<String,Integer> preferred) {
+    public List<T> generateItinerary(String from, Map<String,Integer> preferred, Boolean oneway) {
         List<String> nodesToVisit = new ArrayList<>(preferred.keySet());
         nodesToVisit.sort(Comparator.comparingInt(preferred::get));
 
@@ -77,7 +77,7 @@ public class RouteFinder <T extends GraphNode> {
             List<String> path = new ArrayList<>();
             path.add(from);
             path.addAll(perm);
-            path.add(from);
+            path.add(oneway ? "entexit" : from);
 
             double latency = calculatePathLatency(path, shortestPaths);
             if (latency < minLatency) {

@@ -1,5 +1,6 @@
 package org.dcis.cim.server;
 
+import org.dcis.cim.handler.RecommenderWrapper;
 import org.dcis.cim.proto.*;
 import io.grpc.stub.StreamObserver;
 import org.dcis.cim.handler.SiddhiWrapper;
@@ -46,6 +47,19 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         try {
             SiddhiWrapper.getInstance().setQuery(request.getDomain(), request.getName());
             responseObserver.onNext(CIMResponse.newBuilder().setStatus(200).build());
+        } catch (Exception ex) {
+            responseObserver.onError(ex);
+        }
+        responseObserver.onCompleted();
+    }
+
+    public void getInitialItinerary(ItineraryRequest request,
+                         StreamObserver<CIMResponse> responseObserver){
+        try {
+            responseObserver.onNext(CIMResponse.newBuilder()
+                            .setBody(RecommenderWrapper.getInstance()
+                                    .getStartingItenerary(request.getPreferencesList()))
+                            .setStatus(200).build());
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

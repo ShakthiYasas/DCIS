@@ -14,9 +14,9 @@ public class OptimalRouteService {
         Graph.getInstance().setVisited(id);
     }
 
-    public static String getItinerary(String from, Map<String,Integer> preferred) {
+    public static String getItinerary(String from, Map<String,Integer> preferred, Boolean oneway) {
         RouteFinder<?> navigator = new RouteFinder<>(Graph.getInstance());
-        List<?> itinerary = navigator.generateItinerary(from, preferred);
+        List<?> itinerary = navigator.generateItinerary(from, preferred, oneway);
 
         JSONArray response = new JSONArray();
         for(Object node: itinerary){

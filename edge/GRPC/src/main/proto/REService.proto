@@ -22,6 +22,7 @@ message RouteRequest {
 message ItineraryRequest {
   string from = 1;
   map<string,int32> preferred = 2;
+  bool onway = 3;
 }
 
 service REService {

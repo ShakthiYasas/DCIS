@@ -22,7 +22,9 @@ public class REServerImpl extends REServiceGrpc.REServiceImplBase{
         try {
             responseObserver.onNext(REResponse.newBuilder()
                             .setBody(OptimalRouteService
-                                    .getItinerary(request.getFrom(),request.getPreferredMap()))
+                                    .getItinerary(request.getFrom(),
+                                            request.getPreferredMap(),
+                                            request.getOnway()))
                             .setStatus(200).build());
         } catch (Exception ex) {
             responseObserver.onError(ex);

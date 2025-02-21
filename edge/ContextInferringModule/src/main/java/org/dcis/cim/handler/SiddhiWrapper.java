@@ -140,13 +140,19 @@ public final class SiddhiWrapper {
                         // Removing the event monitor for the
                         removeCallback(tag);
 
-                        // TODO: Optimise the recommendation model.
+                        RecommenderWrapper recommender = RecommenderWrapper.getInstance();
+                        // Setting the leaving enclosure as visited.
+                        recommender.setVisitedNode(tag);
+                        // Retrieving a new itinerary based on current location and updated context.
+                        String newItinerary = recommender.retrieveItinerary(tag,null,true);
+                        // Use the stationary time to recommend a similar animal.
 
                         // Notify about the next best enclosure to visit as of now.
                         CallBackService cbService = new CallBackService();
                         JSONObject message = new JSONObject();
                         message.put("visited_enclosure", tag);
-                        message.put("next_enclosure", "Suggested next enclosure.");
+                        message.put("itinerary", newItinerary);
+
                         cbService.sendNotification(message.toString());
 
                         // Evicting the animal context.
