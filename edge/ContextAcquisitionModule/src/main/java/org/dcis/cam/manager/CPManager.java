@@ -2,6 +2,9 @@ package org.dcis.cam.manager;
 
 import org.dcis.cam.invoker.GenAIInvoker;
 import org.dcis.cim.proto.*;
+import org.dcis.csm.proto.CSMRequest;
+import org.dcis.csm.proto.CSMServiceGrpc;
+import org.dcis.grpc.client.CSMChannel;
 import org.json.JSONObject;
 import com.google.protobuf.util.JsonFormat;
 
@@ -50,6 +53,22 @@ public final class CPManager {
         return getProbableContext(animal, json.getJSONObject("situation"));
     }
 
+    // Fetches the backup context from the Cloud Server.
+    // type: Entity type of which the context needs to be fetched.
+    // tag: Identifier of the entity. For enclosures its, e.g., lion_enc.
+    // returns: JSON response containing the latest context.
+    public CAMResponse getBackUpContext(String tag)
+            throws Exception {
+        CPInvoker invoker = new CPInvoker();
+        String response = invoker.fetchBackup(tag);
+        if(response == null)
+            return CAMResponse.newBuilder().setStatus(400).build();
+        return CAMResponse.newBuilder()
+                .setBody(response)
+                .setStatus(200).build();
+    }
+
+    // Storing context in cache.
     private void cacheProvider(String description) {
         CCMServiceGrpc.CCMServiceFutureStub stub =
                 CCMServiceGrpc.newFutureStub(CCMChannel.getInstance().getChannel());
@@ -59,6 +78,9 @@ public final class CPManager {
                         .build());
     }
 
+    // Calculate the probability of a situation using CST.
+    // animal: Name of the animal of which the situation is inferred.
+    // situFunc: The defined situation model according to CST.
     private CAMResponse getProbableContext(String animal, JSONObject situFunc)
             throws Exception {
         CIMServiceGrpc.CIMServiceBlockingStub stub =
@@ -71,12 +93,25 @@ public final class CPManager {
                 .setDescription(situBuilder)
                 .setData(getContext()).build());
 
+        executor.execute(() -> {
+                CSMServiceGrpc.CSMServiceFutureStub fu_stub =
+                            CSMServiceGrpc.newFutureStub(CSMChannel.getInstance().getChannel());
+                JSONObject data = new JSONObject();
+                data.put("enclosure", animal+"_enc");
+                data.put("context", response.getProb());
+                fu_stub.sendToServer(CSMRequest.newBuilder()
+                                .setType(CSMRequest.TYPE.BACKUP)
+                                .setData(data.toString()).build());
+            }
+        );
+
         return CAMResponse.newBuilder()
                 .setBody(GenAIInvoker.getInstance()
                         .generateNotification(animal, response.getProb()))
                 .setStatus(200).build();
     }
 
+    // Retrieve the weather data from provider.
     private String getContext() throws Exception {
         CCMServiceGrpc.CCMServiceBlockingStub stub =
                 CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());

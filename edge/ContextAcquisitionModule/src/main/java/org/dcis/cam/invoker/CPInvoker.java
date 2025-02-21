@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 public class CPInvoker {
 
-    // Fetches from the Cloud.
+    // Fetches from the Cloud or the context provider.
     // tag: Enclosure identifier tag.
     public String fetch(String tag)
             throws IOException, ExecutionException, InterruptedException {
@@ -33,6 +33,21 @@ public class CPInvoker {
             description.put("url", url);
             return fetch(description);
         }
+    }
+
+    // Fetches backed up context from the Cloud.
+    // tag: Enclosure identifier tag.
+    public String fetchBackup(String tag)
+            throws IOException, ExecutionException, InterruptedException {
+
+        Properties appProps = new Properties();
+        appProps.load(new FileInputStream("api.properties"));
+
+        JSONObject description = new JSONObject();
+        description.put("protocol", "GET");
+        String url = appProps.getProperty("backedup_context") + tag;
+        description.put("url", url);
+        return fetch(description);
     }
 
     // Fetches from a given context provider.

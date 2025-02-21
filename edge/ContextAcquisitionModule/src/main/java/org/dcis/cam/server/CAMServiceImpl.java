@@ -50,12 +50,13 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
         responseObserver.onCompleted();
     }
 
-    // Retrieve the external context information.
-    public void getFromProvider(CAMRequest request,
+    // Retrieves the latest context about an entity persisted in the Cloud Server.
+    // Response: JSON object containing the probability that an animal is currently active.
+    public void getBackUpContext(CAMRequest request,
                                 StreamObserver<CAMResponse> responseObserver) {
         try {
-            responseObserver.onNext(CAMResponse.newBuilder()
-                    .setStatus(200).build());
+            responseObserver.onNext(CPManager.getInstance()
+                    .getBackUpContext(request.getIdentifier()));
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

@@ -1,5 +1,12 @@
 package org.dcis.cim.handler;
 
+import org.dcis.cam.proto.CAMRequest;
+import org.dcis.cam.proto.CAMResponse;
+import org.dcis.cam.proto.CAMServiceGrpc;
+import org.dcis.csm.proto.CSMRequest;
+import org.dcis.csm.proto.CSMServiceGrpc;
+import org.dcis.grpc.client.CAMChannel;
+import org.dcis.grpc.client.CSMChannel;
 import org.dcis.re.proto.RERequest;
 import org.dcis.re.proto.REResponse;
 import org.dcis.grpc.client.REChannel;
@@ -8,6 +15,7 @@ import org.dcis.re.proto.ItineraryRequest;
 
 import java.util.*;
 import org.javatuples.Pair;
+import org.json.JSONObject;
 
 public class RecommenderWrapper {
 
@@ -72,8 +80,17 @@ public class RecommenderWrapper {
         return sortedPreference;
     }
 
-    // TODO: Call the server for context.
     private Double retrieveContext(String tag) {
-        return 0.6;
+        CAMServiceGrpc.CAMServiceBlockingStub stub =
+                CAMServiceGrpc.newBlockingStub(CAMChannel.getInstance().getChannel());
+        CAMResponse response = stub.getBackUpContext(CAMRequest.newBuilder()
+                        .setDataType(CAMRequest.TYPE.ANIMAL)
+                        .setIdentifier(tag).build());
+
+        if(response.getStatus() == 200){
+            JSONObject context = new JSONObject(response.getBody());
+            return context.getDouble("context");
+        }
+        return 0.0;
     }
 }

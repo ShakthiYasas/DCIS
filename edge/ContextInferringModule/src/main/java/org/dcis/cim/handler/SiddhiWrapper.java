@@ -49,6 +49,7 @@ public final class SiddhiWrapper {
         return instance;
     }
 
+    // Creates the Siddhi instance for this app.
     // name: Name of the SiddhiApp.
     public CIMResponse createSiddhiApp(String name) {
         try{
@@ -70,6 +71,7 @@ public final class SiddhiWrapper {
         }
     }
 
+    // Adds a data acquisition event to the Siddhi app.
     // data: The event data for the input stream.
     // domain: The aspect of the visitor being monitored.
     public void addEvent(DOMAIN domain, String data) throws InterruptedException {
@@ -116,6 +118,7 @@ public final class SiddhiWrapper {
         }
     }
 
+    // Creates a Siddhi query that results in a call back.
     // data: Parameter values for the query.
     // domain: The aspect of the visitor being monitored.
     public void setQuery(DOMAIN domain, String callback_name) {
@@ -145,7 +148,6 @@ public final class SiddhiWrapper {
                         recommender.setVisitedNode(tag);
                         // Retrieving a new itinerary based on current location and updated context.
                         String newItinerary = recommender.retrieveItinerary(tag,null,true);
-                        // Use the stationary time to recommend a similar animal.
 
                         // Notify about the next best enclosure to visit as of now.
                         CallBackService cbService = new CallBackService();
@@ -162,6 +164,9 @@ public final class SiddhiWrapper {
                                 .setOperation(CCMRequest.OPERATION.EVICT)
                                 .setIdentifier("animal")
                                 .build());
+
+                        // TODO: Use the stationary time to recommend a similar animal.
+
                     }
                 };
                 siddhiApp.addCallback(callback_name + "_leave", callback_ref);
@@ -220,6 +225,7 @@ public final class SiddhiWrapper {
         }
     }
 
+    // Removes an existing callback from the Siddhi instance.
     // name: Name of the Siddhi output stream.
     public void removeCallback(String name) {
         siddhiManager.getSiddhiAppRuntime(this.appName)
@@ -227,6 +233,7 @@ public final class SiddhiWrapper {
         callbacks.remove(name);
     }
 
+    // Removes the Siddhi instance for this app.
     public void shutDownSiddhiApp() {
         siddhiManager.getSiddhiAppRuntime(this.appName)
                 .shutdown();
