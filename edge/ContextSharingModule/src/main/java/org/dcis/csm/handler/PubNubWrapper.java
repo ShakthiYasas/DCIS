@@ -1,18 +1,13 @@
 package org.dcis.csm.handler;
 
-import org.jetbrains.annotations.NotNull;
-
 import org.json.JSONObject;
 import java.util.Properties;
 import java.io.FileInputStream;
 
 import com.pubnub.api.UserId;
 import com.pubnub.api.java.PubNub;
-import com.pubnub.api.enums.PNStatusCategory;
 import com.pubnub.api.java.v2.PNConfiguration;
 import com.pubnub.api.java.v2.entities.Channel;
-import com.pubnub.api.models.consumer.PNStatus;
-import com.pubnub.api.java.v2.callbacks.StatusListener;
 
 public final class PubNubWrapper {
 
