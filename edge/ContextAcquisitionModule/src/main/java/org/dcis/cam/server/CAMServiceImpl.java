@@ -2,6 +2,7 @@ package org.dcis.cam.server;
 
 import io.grpc.stub.StreamObserver;
 
+import org.dcis.cam.invoker.GenAIInvoker;
 import org.dcis.cam.manager.CPManager;
 import org.dcis.cam.proto.CAMRequest;
 import org.dcis.cam.proto.CAMResponse;
@@ -57,6 +58,20 @@ public class CAMServiceImpl extends CAMServiceGrpc.CAMServiceImplBase {
         try {
             responseObserver.onNext(CPManager.getInstance()
                     .getBackUpContext(request.getIdentifier()));
+        } catch (Exception ex) {
+            responseObserver.onError(ex);
+        }
+        responseObserver.onCompleted();
+    }
+
+    // Sets the audience in GenAI Invoker & retrieves the exhaust situation function definition.
+    // Response: JSON object containing the exhaustSituation definition.
+    public void retrieveSituations(CAMRequest request,
+                                 StreamObserver<CAMResponse> responseObserver) {
+        try {
+            GenAIInvoker.getInstance().setAudience(request.getData());
+            responseObserver.onNext(CPManager.getInstance()
+                    .getSituationDefintion(request.getIdentifier()));
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

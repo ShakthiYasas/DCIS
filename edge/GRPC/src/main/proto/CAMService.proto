@@ -27,4 +27,5 @@ service CAMService {
   rpc getDescription(CAMRequest) returns (CAMResponse);
   rpc getFromProvider(CAMRequest) returns (CAMResponse);
   rpc getBackUpContext(CAMRequest) returns (CAMResponse);
+  rpc retrieveSituations(CAMRequest) returns (CAMResponse);
 }

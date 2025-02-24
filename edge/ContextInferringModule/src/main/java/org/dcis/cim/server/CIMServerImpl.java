@@ -31,6 +31,17 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    public void stopSiddhi(SiddhiRequest request,
+                            StreamObserver<CIMResponse> responseObserver){
+        try {
+            SiddhiWrapper.getInstance().shutDownSiddhiApp();
+            responseObserver.onNext(CIMResponse.newBuilder().setStatus(200).build());
+        } catch (Exception ex) {
+            responseObserver.onError(ex);
+        }
+        responseObserver.onCompleted();
+    }
+
     public void addEvent(SiddhiRequest request,
                          StreamObserver<CIMResponse> responseObserver){
         try {

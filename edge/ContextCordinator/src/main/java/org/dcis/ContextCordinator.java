@@ -2,7 +2,11 @@ package org.dcis;
 
 import org.dcis.services.AcquisitionServices;
 import org.dcis.services.EventServices;
+import org.dcis.services.SetupService;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class ContextCordinator {
     /**
@@ -19,7 +23,7 @@ public class ContextCordinator {
      * @return  References to the mobile edge resources.
      **/
     public static JSONObject setupEdge(JSONObject config) {
-        return new JSONObject();
+        return SetupService.setupEdge(config);
     }
 
     /** Sets visitor's location data into the Siddhi LocStream.
@@ -61,11 +65,21 @@ public class ContextCordinator {
     /** Sets the context of the animal shared by the BLE of the enclosure.
      * @param   context
      *          Context of the animal shared by the BLE.
-     * @return  None.
      */
     public static void setAnimalContext(JSONObject context) {
         AcquisitionServices.shareWithBackEnd("animal", context);
     }
 
-    public static JSONObject getRecommendation() { return new JSONObject(); }
+    /** Retrives the itinerary recommendations.
+     * @return  The initial itinerary for the visitor.
+     */
+    public static JSONArray getRecommendation(List<String> preferences) {
+        return AcquisitionServices.getInitialItinerary(preferences);
+    }
+
+    /** Disables all the edge services.
+     */
+    public static void disableEdge() {
+        SetupService.deactivate();
+    }
 }

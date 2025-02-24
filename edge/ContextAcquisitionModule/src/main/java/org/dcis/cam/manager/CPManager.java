@@ -47,7 +47,7 @@ public final class CPManager {
 
         CPInvoker invoker = new CPInvoker();
         String response = invoker.fetch(animal);
-        executor.execute(() -> cacheProvider(response));
+        executor.execute(() -> cacheProvider(response, "enclosure"));
 
         JSONObject json = new JSONObject(response);
         return getProbableContext(animal, json.getJSONObject("situation"));
@@ -68,12 +68,27 @@ public final class CPManager {
                 .setStatus(200).build();
     }
 
+    // Fetches and stored the situation functions in cache for later use.
+    // identifier: Name of the situation function.
+    // returns: None.
+    public CAMResponse getSituationDefintion(String identifier)
+            throws Exception {
+        CPInvoker invoker = new CPInvoker();
+        String response = invoker.fetchSituation(identifier);
+        if(response != null) {
+            cacheProvider(response, "exhaustSituation");
+            return CAMResponse.newBuilder()
+                    .setStatus(200).build();
+        }
+        return CAMResponse.newBuilder().setStatus(400).build();
+    }
+
     // Storing context in cache.
-    private void cacheProvider(String description) {
+    private void cacheProvider(String description, String key) {
         CCMServiceGrpc.CCMServiceFutureStub stub =
                 CCMServiceGrpc.newFutureStub(CCMChannel.getInstance().getChannel());
         stub.storeInCache(CCMRequest.newBuilder()
-                        .setIdentifier("enclosure")
+                        .setIdentifier(key)
                         .setData(description)
                         .build());
     }

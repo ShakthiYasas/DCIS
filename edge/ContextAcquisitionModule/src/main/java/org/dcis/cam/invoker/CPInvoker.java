@@ -50,6 +50,19 @@ public class CPInvoker {
         return fetch(description);
     }
 
+    public String fetchSituation(String identifier)
+            throws IOException, ExecutionException, InterruptedException {
+
+        Properties appProps = new Properties();
+        appProps.load(new FileInputStream("api.properties"));
+
+        JSONObject description = new JSONObject();
+        description.put("protocol", "GET");
+        String url = appProps.getProperty("situation_definition") + identifier;
+        description.put("url", url);
+        return fetch(description);
+    }
+
     // Fetches from a given context provider.
     // description: Metadata about the provider.
     public String fetch(JSONObject description)

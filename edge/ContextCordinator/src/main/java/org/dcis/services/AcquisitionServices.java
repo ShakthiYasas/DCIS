@@ -1,11 +1,18 @@
 package org.dcis.services;
 
+import org.dcis.cim.proto.CIMResponse;
+import org.dcis.cim.proto.CIMServiceGrpc;
+import org.dcis.cim.proto.ItineraryRequest;
+import org.dcis.grpc.client.CIMChannel;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.dcis.cam.proto.CAMRequest;
 import org.dcis.cam.proto.CAMResponse;
 import org.dcis.grpc.client.CAMChannel;
 import org.dcis.cam.proto.CAMServiceGrpc;
+
+import java.util.List;
 
 public class AcquisitionServices {
     public static void shareWithBackEnd(String key, JSONObject data) {
@@ -50,5 +57,18 @@ public class AcquisitionServices {
         }
         body.put("error", "Couldn't prefetch the metadata.");
         return body;
+    }
+
+    public static JSONArray getInitialItinerary(List<String> preferences) {
+        CIMServiceGrpc.CIMServiceBlockingStub stub =
+                CIMServiceGrpc.newBlockingStub(CIMChannel.getInstance().getChannel());
+        CIMResponse response = stub.getInitialItinerary(
+                ItineraryRequest.newBuilder()
+                        .addAllPreferences(preferences)
+                        .build());
+        if(response.getStatus() == 200)
+            return new JSONArray(response.getBody());
+
+        return new JSONArray();
     }
 }
