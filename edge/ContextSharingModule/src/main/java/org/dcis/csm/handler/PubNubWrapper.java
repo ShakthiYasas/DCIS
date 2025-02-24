@@ -34,6 +34,9 @@ public final class PubNubWrapper {
         return instance;
     }
 
+    // Sends data to the front end application, asynchronously.
+    // message: The information (a String converted JSON object) that needs to be sent.
+    // returns: None. Send and forget.
     public void sendToApp(String message) {
         JSONObject jsonMessage = new JSONObject(message);
         channel.publish(jsonMessage);

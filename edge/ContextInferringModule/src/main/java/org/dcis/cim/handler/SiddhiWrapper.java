@@ -51,6 +51,7 @@ public final class SiddhiWrapper {
 
     // Creates the Siddhi instance for this app.
     // name: Name of the SiddhiApp.
+    // returns: Status response.
     public CIMResponse createSiddhiApp(String name) {
         try{
             this.appName = name;
@@ -74,6 +75,7 @@ public final class SiddhiWrapper {
     // Adds a data acquisition event to the Siddhi app.
     // data: The event data for the input stream.
     // domain: The aspect of the visitor being monitored.
+    // returns: None.
     public void addEvent(DOMAIN domain, String data) throws InterruptedException {
         InputHandler inputHandler;
         JSONObject event = new JSONObject(data);
@@ -119,8 +121,9 @@ public final class SiddhiWrapper {
     }
 
     // Creates a Siddhi query that results in a call back.
-    // data: Parameter values for the query.
+    // callback_name: Name of the callback. For enclosures, name is the tag.
     // domain: The aspect of the visitor being monitored.
+    // returns: None.
     public void setQuery(DOMAIN domain, String callback_name) {
         SiddhiAppRuntime siddhiApp = siddhiManager.getSiddhiAppRuntime(this.appName);
 
@@ -237,6 +240,7 @@ public final class SiddhiWrapper {
 
     // Removes an existing callback from the Siddhi instance.
     // name: Name of the Siddhi output stream.
+    // returns: None.
     public void removeCallback(String name) {
         siddhiManager.getSiddhiAppRuntime(this.appName)
                 .removeCallback(callbacks.get(name));

@@ -20,6 +20,10 @@ public final class LookupHandler {
         return instance;
     }
 
+    // Looks up whether a given piece of context information is already cached using a key.
+    // request: Key of the context information and type of context.
+    // returns: Status. 200 is cached, 404 if not cached or stale, 400 if the lookup operation requested is invalid,
+    // or 500 in case of an internal error.
     public CCMResponse lookUp (CCMRequest request) {
         ContextCache cache = ContextCache.getInstance();
         switch(request.getOperation()) {

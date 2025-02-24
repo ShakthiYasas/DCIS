@@ -16,6 +16,9 @@ public final class EvictionHandler {
         return instance;
     }
 
+    // Evicts a piece of context by key either permanently or temporarily.
+    // request: Key and type of eviction requested.
+    // returns: Response with the status. 200 if successful and 400 if the eviction operation requested is invalid.
     public CCMResponse evictContext (CCMRequest request) {
         ContextCache cache = ContextCache.getInstance();
         switch(request.getOperation()) {

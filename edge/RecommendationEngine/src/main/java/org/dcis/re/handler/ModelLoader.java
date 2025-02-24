@@ -29,6 +29,8 @@ public class ModelLoader {
         return containerClient.getBlobClient(appProps.getProperty("blob-name"));
     }
 
+    // Downloads the trained recommendation model into the local edge device.
+    // returns: Boolean status of the success of the operation. True if succeeded.
     public Boolean downloadModel() {
         try {
             BlobClient blobClient = setupTunnel();

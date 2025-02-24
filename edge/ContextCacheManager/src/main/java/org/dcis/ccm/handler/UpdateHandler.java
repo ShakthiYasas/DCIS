@@ -16,6 +16,9 @@ public final class UpdateHandler {
         return instance;
     }
 
+    // Updates a given piece of context information.
+    // request: Request containing the identifier and the new piece of context information.
+    // returns: Response with the status.
     public CCMResponse updateContext (CCMRequest request) {
         ContextCache cache = ContextCache.getInstance();
         cache.add(request.getIdentifier(), request.getData());

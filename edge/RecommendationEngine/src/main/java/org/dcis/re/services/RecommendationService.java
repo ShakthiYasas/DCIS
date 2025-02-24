@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RecommendationService {
+
     private Map<String, Map<String, Double>> loadModel()
             throws IOException, ClassNotFoundException {
         File f = new File("animal_model.ser");
@@ -26,6 +27,10 @@ public class RecommendationService {
         return (Map<String, Map<String, Double>>) in.readObject();
     }
 
+    // Retrieve recommendations of alternate enclosures based on the last most enthusiastically visited enclosure..
+    // visitedAnimal: The last visited animal enclosure tag.
+    // top: The number of recommendations expected.
+    // returns: String converted JSON Array of enclosures and the route to them from the current location.
     public String recommendForVisitor(String visitedAnimal, int top) throws IOException, ClassNotFoundException {
         Map<String, Map<String, Double>> animalPreferences = loadModel();
         JSONArray jarray = new JSONArray();

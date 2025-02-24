@@ -8,6 +8,9 @@ import org.dcis.csm.proto.CSMResponse;
 import org.dcis.csm.proto.CSMServiceGrpc;
 
 public class CSMServerImpl extends CSMServiceGrpc.CSMServiceImplBase{
+
+    // Sends given message to the Front End application to be displayed as a notification.
+    // Response: None. Status only.
     public void sendToApp(CSMRequest request,
                           StreamObserver<CSMResponse> responseObserver){
         try {
@@ -19,6 +22,8 @@ public class CSMServerImpl extends CSMServiceGrpc.CSMServiceImplBase{
         responseObserver.onCompleted();
     }
 
+    // Sends given piece of information to the Server to persist or backup.
+    // Response: None. Status only.
     public void sendToServer(CSMRequest request,
                           StreamObserver<CSMResponse> responseObserver){
         try {

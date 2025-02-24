@@ -9,6 +9,11 @@ import java.util.concurrent.TimeUnit;
 import org.dcis.csm.proto.CSMRequest;
 
 public class CloudHandler {
+
+    // Sends data and logs to the server to be stored, logged, or backed up.
+    // type: The type of operation that needs to be executed in the server.
+    // data: The piece of data.
+    // returns: HTTP response code for the operation.
     public int persist(CSMRequest.TYPE type, String data)
             throws IOException {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();

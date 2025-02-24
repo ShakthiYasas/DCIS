@@ -22,6 +22,9 @@ public final class ContextManager {
         return instance;
     }
 
+    // Recieves the context information shared by the front end and stores.
+    // request: Request containing the context information.
+    // returns: None.
     public void acquire(CAMRequest request) {
         Object stub;
         switch(request.getDataType()) {

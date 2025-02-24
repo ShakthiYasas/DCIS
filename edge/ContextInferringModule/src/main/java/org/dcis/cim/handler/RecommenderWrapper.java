@@ -34,6 +34,9 @@ public class RecommenderWrapper {
         return instance;
     }
 
+    // Flags an enclosure as visited.
+    // tag: Identification tag of the enclosure.
+    // returns: None.
     public void setVisitedNode(String tag) {
         REServiceGrpc.REServiceBlockingStub stub =
                 REServiceGrpc.newBlockingStub(REChannel.getInstance().getChannel());
@@ -41,11 +44,19 @@ public class RecommenderWrapper {
                         .setVisited(tag).build());
     }
 
+    // Creates the initial itinerary for a visitor.
+    // preferred: The list of enclosure tags that the visitor would like to visit.
+    // returns: String converted JSON Array of nodes to visit (including intersections).
     public String getStartingItenerary(List<String> preferred) {
         return retrieveItinerary("entexit",
                 getSortedPrefernances(preferred), false);
     }
 
+    // Creates the initial and post visit alternate itineraries for a visitor.
+    // tag: The identification tag of the node that the visitor is currently at.
+    // preferred: The list of enclosure tags that the visitor would like to visit.
+    // oneWay: Whether or not the visitor need to return to the current node. Always True for post visit alternate itineraries.
+    // returns: String converted JSON Array of nodes to visit (including intersections).
     public String retrieveItinerary(String tag, Map<String, Integer> preferred, Boolean oneWay) {
         if(preferred == null){
             currentPreferance.remove(tag);
@@ -65,6 +76,10 @@ public class RecommenderWrapper {
         return currentItinerary;
     }
 
+    // Recommends an alternative enclosure to visit based on similarity of preference to the last visited enclosure.
+    // tag: The identifier tag of the last visited enclosure.
+    // waitTime: The wait time in seconds at the last visited enclosure.
+    // returns: String converted JSON Array containing the top recommended enclosures to visit next.
     public String recommendAlternative(String tag, double waitTime) {
         double range = avgDuration.get(tag);
         if(waitTime >= range) {

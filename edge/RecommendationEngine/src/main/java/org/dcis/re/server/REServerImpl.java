@@ -7,6 +7,9 @@ import org.dcis.re.services.OptimalRouteService;
 import org.dcis.re.services.RecommendationService;
 
 public class REServerImpl extends REServiceGrpc.REServiceImplBase{
+
+    // Flags an enclosure as visited.
+    // Response: None. Status only.
     public void setVisited(RERequest request,
                            StreamObserver<REResponse> responseObserver){
         try {
@@ -18,6 +21,8 @@ public class REServerImpl extends REServiceGrpc.REServiceImplBase{
         responseObserver.onCompleted();
     }
 
+    // Calculates and shares the initial and subsequent alternate itineraries.
+    // Response: String converted JSON Array of enclosures and intersections.
     public void getItinerary(ItineraryRequest request,
                              StreamObserver<REResponse> responseObserver){
         try {
@@ -33,6 +38,8 @@ public class REServerImpl extends REServiceGrpc.REServiceImplBase{
         responseObserver.onCompleted();
     }
 
+    // Calculates the shortest path between 2 enclosures.
+    // Response: String converted JSON Array of enclosures and intersections.
     public void getRoute(RouteRequest request,
                          StreamObserver<REResponse> responseObserver){
         try {
@@ -46,6 +53,8 @@ public class REServerImpl extends REServiceGrpc.REServiceImplBase{
         responseObserver.onCompleted();
     }
 
+    // Retrieve recommendations of alternate enclosures based on the last most enthusiastically visited enclosure.
+    // Response: Prioritized list of enclosure tags.
     public void getAlternates(RERequest request,
                          StreamObserver<REResponse> responseObserver){
         try {

@@ -8,6 +8,8 @@ import org.dcis.cim.handler.ContextReasoner;
 
 public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
 
+    // Calculates the probability of a situation given a situation model and context information.
+    // Response: Probability of the situation.
     public void infer(CIMRequest request,
                             StreamObserver<CIMResponse> responseObserver){
         try {
@@ -20,6 +22,8 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    // Creates and starts a Siddhi instance.
+    // Response: None. Status only.
     public void startSiddhi(SiddhiRequest request,
                                  StreamObserver<CIMResponse> responseObserver){
         try {
@@ -31,6 +35,8 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    // Stops the existing Siddhi instance.
+    // Response: None. Status only.
     public void stopSiddhi(SiddhiRequest request,
                             StreamObserver<CIMResponse> responseObserver){
         try {
@@ -42,6 +48,8 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    // Adds an event (data) in to the Siddhi stream.
+    // Response: None. Status only.
     public void addEvent(SiddhiRequest request,
                          StreamObserver<CIMResponse> responseObserver){
         try {
@@ -53,6 +61,8 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    // Sets a new Siddhi query and its associated callback.
+    // Response: None. Status only.
     public void setQuery(SiddhiRequest request,
                          StreamObserver<CIMResponse> responseObserver){
         try {
@@ -64,6 +74,8 @@ public class CIMServerImpl extends CIMServiceGrpc.CIMServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    // Creates the initial itinerary for the visitor based on context and the preferences.
+    // Response: The order list of destinations and their geolocations.
     public void getInitialItinerary(ItineraryRequest request,
                          StreamObserver<CIMResponse> responseObserver){
         try {
