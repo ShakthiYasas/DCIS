@@ -59,10 +59,8 @@ public class REServerImpl extends REServiceGrpc.REServiceImplBase{
                          StreamObserver<REResponse> responseObserver){
         try {
             RecommendationService recser = new RecommendationService();
-            responseObserver.onNext(REResponse.newBuilder()
-                    .setBody(recser.recommendForVisitor(
-                            request.getVisited(), request.getCount()))
-                    .setStatus(200).build());
+            responseObserver.onNext(recser.recommendForVisitor(
+                            request.getVisited(), request.getCount()));
         } catch (Exception ex) {
             responseObserver.onError(ex);
         }

@@ -76,47 +76,52 @@ public final class SiddhiWrapper {
     // data: The event data for the input stream.
     // domain: The aspect of the visitor being monitored.
     // returns: None.
-    public void addEvent(DOMAIN domain, String data) throws InterruptedException {
+    public void addEvent(DOMAIN domain, String data) {
         InputHandler inputHandler;
         JSONObject event = new JSONObject(data);
         SiddhiAppRuntime siddhiApp = siddhiManager.getSiddhiAppRuntime(this.appName);
-        switch(domain){
-            case DOMAIN.LOCATION -> {
-                inputHandler = siddhiApp.getInputHandler("LocStream");
-                inputHandler.send(new Object[]{
-                        event.getString("tag"),
-                        event.getLong("timestamp"),
-                        event.getDouble("distance"),
-                        event.getDouble("latitude"),
-                        event.getDouble("longitude"),
-                });
-            }
-            case DOMAIN.HEALTH -> {
-                inputHandler = siddhiApp.getInputHandler("BioStream");
-                inputHandler.send(new Object[]{
-                        event.getDouble("body_temperature"),
-                        event.getDouble("heart_rate"),
-                        event.getLong("timestamp")
-                });
 
-                executor.execute(() -> {
-                    try {
-                        CCMServiceGrpc.CCMServiceBlockingStub stub =
-                                CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());
-                        CCMResponse response = stub.lookupCache(CCMRequest.newBuilder()
-                                        .setOperation(CCMRequest.OPERATION.READ)
-                                        .setIdentifier("exhaustSituation").build());
+        try {
+            switch(domain){
+                case DOMAIN.LOCATION -> {
+                    inputHandler = siddhiApp.getInputHandler("LocStream");
+                    inputHandler.send(new Object[]{
+                            event.getString("tag"),
+                            event.getLong("timestamp"),
+                            event.getDouble("distance"),
+                            event.getDouble("latitude"),
+                            event.getDouble("longitude"),
+                    });
+                }
+                case DOMAIN.HEALTH -> {
+                    inputHandler = siddhiApp.getInputHandler("BioStream");
+                    inputHandler.send(new Object[]{
+                            event.getDouble("body_temperature"),
+                            event.getDouble("heart_rate"),
+                            event.getLong("timestamp")
+                    });
 
-                        double prob = ContextReasoner.infer(response.getSituation(),
-                                new ObjectMapper().readValue(data, HashMap.class));
-                        InputHandler contextHandler =
-                                siddhiApp.getInputHandler("ContextStream");
-                        contextHandler.send(new Object[]{prob, event.getLong("timestamp")});
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                    executor.execute(() -> {
+                        try {
+                            CCMServiceGrpc.CCMServiceBlockingStub stub =
+                                    CCMServiceGrpc.newBlockingStub(CCMChannel.getInstance().getChannel());
+                            CCMResponse response = stub.lookupCache(CCMRequest.newBuilder()
+                                    .setOperation(CCMRequest.OPERATION.READ)
+                                    .setIdentifier("exhaustSituation").build());
+
+                            double prob = ContextReasoner.infer(response.getSituation(),
+                                    new ObjectMapper().readValue(data, HashMap.class));
+                            InputHandler contextHandler =
+                                    siddhiApp.getInputHandler("ContextStream");
+                            contextHandler.send(new Object[]{prob, event.getLong("timestamp")});
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                }
             }
+        } catch (Exception ex) {
+            System.out.println("Error occurred when adding event to Siddhi: " + ex.getMessage());
         }
     }
 

@@ -14,8 +14,7 @@ public class CloudHandler {
     // type: The type of operation that needs to be executed in the server.
     // data: The piece of data.
     // returns: HTTP response code for the operation.
-    public int persist(CSMRequest.TYPE type, String data)
-            throws IOException {
+    public int persist(CSMRequest.TYPE type, String data) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         builder.connectTimeout(30, TimeUnit.SECONDS);
@@ -28,21 +27,24 @@ public class CloudHandler {
                 data);
 
         Properties appProps = new Properties();
-        appProps.load(new FileInputStream("pubsub.properties"));
+        try {
+            appProps.load(new FileInputStream("pubsub.properties"));
+            String url;
+            if(type == CSMRequest.TYPE.BACKUP)
+                url = appProps.getProperty("backup");
+            else
+                url = appProps.getProperty("logs");
 
-        String url;
-        if(type == CSMRequest.TYPE.BACKUP)
-            url = appProps.getProperty("backup");
-        else
-            url = appProps.getProperty("logs");
+            Request.Builder request = new Request.Builder()
+                    .url(url).post(body);
 
-        Request.Builder request = new Request.Builder()
-                .url(url).post(body);
+            Call call = client.newCall(request.build());
+            Response response = call.execute();
 
-        Call call = client.newCall(request.build());
-        Response response = call.execute();
-
-        return response.code();
+            return response.code();
+        } catch (Exception ex) {
+            return 500;
+        }
     }
 }
 
