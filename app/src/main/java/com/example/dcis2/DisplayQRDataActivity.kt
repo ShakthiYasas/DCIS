@@ -176,7 +176,5 @@ class DisplayQRDataActivity : AppCompatActivity() {
     private fun saveAgeRangeToPreferences(key: String, ageRange: String) {
         PreferencesUtils.saveToPreferences(this, key, ageRange)
         Toast.makeText(this, "Saved age range for $key: $ageRange", Toast.LENGTH_SHORT).show()
-
-
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.dcis2.ultility.PreferencesUtils
 import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -21,7 +22,6 @@ class ScanQRActivity: AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan_qr)
-
         // Initialize the barcode view
         barcodeView = findViewById(R.id.barcode_scanner)
 

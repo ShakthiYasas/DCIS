@@ -39,14 +39,12 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val GEOFENCE_RADIUS = 100f
         private const val GEOFENCE_ID = "SOME_GEOFENCE_ID"
-
         private const val FINE_LOCATION_ACCESS_REQUEST_CODE = 10001
         private const val BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002
     }
 
-    val geofencePendingIntent: PendingIntent by lazy {
+    private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
@@ -54,10 +52,11 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_geofence2)
+        setContentView(R.layout.activity_geofence)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -161,7 +160,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
                     android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                handleMapLongClick(latLng)
             } else {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         this,
@@ -183,16 +181,9 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
                 }
             }
         } else {
-            handleMapLongClick(latLng)
         }
     }
 
-    private fun handleMapLongClick(latLng: LatLng) {
-        mMap?.clear()
-        addMarker(latLng)
-        addCircle(latLng, GEOFENCE_RADIUS)
-        addGeofence(latLng, GEOFENCE_RADIUS)
-    }
 
     @SuppressLint("MissingPermission")
     private fun addGeofence(latLng: LatLng, radius: Float) {
@@ -218,19 +209,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             }
     }
 
-    private fun addMarker(latLng: LatLng) {
-        val markerOptions = MarkerOptions().position(latLng)
-        mMap?.addMarker(markerOptions)
-    }
-    private fun addCircle(latLng: LatLng, radius: Float) {
-        val circleOptions = CircleOptions()
-        circleOptions.center(latLng)
-        circleOptions.radius(radius.toDouble())
-        circleOptions.strokeColor(Color.argb(255, 255, 0, 0))
-        circleOptions.fillColor(Color.argb(64, 255, 0, 0))
-        circleOptions.strokeWidth(4f)
-        mMap?.addCircle(circleOptions)
-    }
     private fun createGeofence(id: String, lat: Double, lng: Double, radius: Float): Geofence {
         return Geofence.Builder()
             .setRequestId(id)
@@ -306,9 +284,9 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             val channel = NotificationChannel(channelId, channelName, importance).apply {
                 description = channelDescription
             }
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
-
 }

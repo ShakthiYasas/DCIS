@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dcis2.ultility.isNetworkAvailable
 import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 
@@ -30,9 +29,9 @@ class MainActivity : AppCompatActivity() {
         }
         // Set click listener on the button
         btnScanQR.setOnClickListener {
-            val intent = Intent(this, ScanQRActivity::class.java)
+            val intent = Intent(this, UserProfileActivity::class.java)
             startActivity(intent)
-            finish() // Optionally close the splash screen
+            finish()
         }
 
 
@@ -48,19 +47,6 @@ class MainActivity : AppCompatActivity() {
             add(32L)
             add(35L)
         }
-
-//        // Publishing a message to the provided channel
-//        channel.publish(myMessage).async { result ->
-//            result.onFailure { exception ->
-//                println("Error while publishing")
-//                exception.printStackTrace()
-//            }.onSuccess { value ->
-//                println("Message sent, timetoken: ${value.timetoken}")
-//                println("From main activity ")
-//
-//            }
-//        }
-
         channel.publish(
             message = myMessage,
             shouldStore = true,
