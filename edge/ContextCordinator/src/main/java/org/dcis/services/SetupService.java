@@ -53,7 +53,7 @@ public class SetupService {
         }
 
         response.put("status", 500);
-        response.put("message", "One or more errored during setup");
+        response.put("message", "One or more errors occurred during setup");
         return response;
     }
 

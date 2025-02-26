@@ -38,6 +38,7 @@ public class GenAIInvoker {
         appProps.load(new FileInputStream("api.properties"));
 
         JSONObject description = new JSONObject();
+        description.put("protocol", "POST");
         description.put("url", appProps.getProperty("opeai_url"));
         description.put("authorization", appProps.getProperty("openai_apikey"));
 

@@ -87,7 +87,7 @@ public class RecommenderWrapper {
             REServiceGrpc.REServiceBlockingStub stub =
                     REServiceGrpc.newBlockingStub(REChannel.getInstance().getChannel());
             REResponse response = stub.getAlternates(RERequest.newBuilder()
-                    .setVisited(tag).setCount(2)
+                    .setVisited(tag).setCount(3)
                     .build());
 
             if(response.getStatus() == 200)

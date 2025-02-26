@@ -70,7 +70,7 @@ public class ContextCordinator {
         AcquisitionServices.shareWithBackEnd("animal", context);
     }
 
-    /** Retrives the itinerary recommendations.
+    /** Retrieves  the itinerary recommendations.
      * @return  The initial itinerary for the visitor.
      */
     public static JSONArray getRecommendation(List<String> preferences) {

@@ -51,6 +51,7 @@ public class AcquisitionServices {
                 .setIdentifier(tag)
                 .build());
         JSONObject body = new JSONObject();
+        body.put("status", response.getStatus());
         if(response.getStatus() == 200) {
             body.put("message", response.getBody());
             return body;
