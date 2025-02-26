@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-
         val configBuilder = com.pubnub.api.v2.PNConfiguration.builder(UserId("DieuBangMach"), "sub-c-7d85620f-647f-486c-9a23-cf41747ac989").apply {
             publishKey = "pub-c-e7ffdee8-0e46-42c6-ba0f-23d971d2d21b"
         }

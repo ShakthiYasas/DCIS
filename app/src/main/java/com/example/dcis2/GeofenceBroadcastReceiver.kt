@@ -1,13 +1,10 @@
 package com.example.dcis2
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -34,20 +31,21 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     private var isTtsInitialized = false
 
     private val geofenceMessages = mapOf(
-        "Meerkats" to EnclosureLocation(-37.78472222, 144.95333333),
-        "AmazonBirds" to EnclosureLocation(-37.78472222, 144.95333333),
-        "Penguins" to EnclosureLocation(-37.78388889,  144.95222222),
-        "Lions" to EnclosureLocation(-37.78333333,  144.95166667),
-        "GiantsTortoises" to EnclosureLocation(-37.78333333 ,  144.952027778),
-        "Koalas" to EnclosureLocation(-37.78444444,   144.95027778),
-        "Elephants" to EnclosureLocation(- 37.78583333,   144.94972222),
-        "Orangutans" to EnclosureLocation(-37.78527778,  144.9511111),
-        "Entrance&Exit" to EnclosureLocation(- 37.78527778,  144.95305556),
+        "meerkat_enc" to EnclosureLocation(-37.78472222, 144.95333333),
+        "bird_enc" to EnclosureLocation(-37.78472222, 144.95333333),
+        "penguin_enc" to EnclosureLocation(-37.78388889,  144.95222222),
+        "lion_enc" to EnclosureLocation(-37.78333333,  144.95166667),
+        "tortoise_enc" to EnclosureLocation(-37.78333333 ,  144.952027778),
+        "koala_enc" to EnclosureLocation(-37.78444444,   144.95027778),
+        "elephant_enc" to EnclosureLocation(- 37.78583333,   144.94972222),
+        "orangutan_enc" to EnclosureLocation(-37.78527778,  144.9511111),
+        "entexit" to EnclosureLocation(- 37.78527778,  144.95305556),
         "Node1" to EnclosureLocation(- 37.7972222,144.95277778),
         "Node2" to EnclosureLocation(- 37.78444444,144.95277778),
         "Node3" to EnclosureLocation(- 37.78416667,144.95222222),
         "Node4" to EnclosureLocation(- 37.78416667,144.95222222),
         "Node5" to EnclosureLocation(- 37.7836111,144.95138889),
+
         )
 
     fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
@@ -114,6 +112,8 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     private fun stopPeriodicLocationUpdates() {
         handler.removeCallbacksAndMessages(null)
         currentEnclosureTag = null // Clear the current enclosure tag
+//        ContextCordinator.setLocation(locationJson)
+
     }
 
     private fun showNotification(context: Context, enclosureTag: String, latitude: Double?, longitude: Double?, distance: Float) {
@@ -180,7 +180,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
                     Geofence.GEOFENCE_TRANSITION_ENTER -> {
                         Log.d("GeofenceReceiver", "Entered $areaMessage")
                         fetchLocationAndSend(context, enclosureTag, "enter")
-                        startPeriodicLocationUpdates(context, enclosureTag)
+//                      startPeriodicLocationUpdates(context, enclosureTag)
                         Toast.makeText(context, "Welcome to $areaMessage!", Toast.LENGTH_LONG).show()
                     }
                     Geofence.GEOFENCE_TRANSITION_DWELL ->{

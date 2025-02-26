@@ -69,7 +69,6 @@ class UserProfileActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("profile_data", profileData.toString())
-        editor.apply()
     }
 
     private fun navigateToNextActivity() {
