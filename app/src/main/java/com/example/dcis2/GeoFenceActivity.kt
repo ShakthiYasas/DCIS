@@ -2,13 +2,9 @@ package com.example.dcis2
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +12,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -27,19 +24,15 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 
-class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback{
 
     private var mMap: GoogleMap? = null
     private var geofencingClient: GeofencingClient? = null
     private lateinit var geofenceHelper: GeofenceHelper
 
     companion object {
-        private const val TAG = "MainActivity"
-        private const val GEOFENCE_ID = "SOME_GEOFENCE_ID"
         private const val FINE_LOCATION_ACCESS_REQUEST_CODE = 10001
         private const val BACKGROUND_LOCATION_ACCESS_REQUEST_CODE = 10002
     }
@@ -53,6 +46,7 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -67,7 +61,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         Handler(Looper.getMainLooper()).postDelayed({
             addGeofences() // Call your geofence addition logic here
         }, 2000)
-        createNotificationChannel(this)
     }
 
     /**
@@ -82,18 +75,16 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val eiffel = LatLng(-37.78472222, 144.95333333)
-        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(eiffel, 20f))
+        val melbourneZoo = LatLng(-37.78472222, 144.95333333)
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(melbourneZoo, 20f))
 
         enableUserLocation()
-
-        mMap?.setOnMapLongClickListener(this)
     }
 
     private fun enableUserLocation() {
         if (ContextCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+               Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             mMap?.isMyLocationEnabled = true
@@ -101,19 +92,19 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             //Ask for permission
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                    Manifest.permission.ACCESS_FINE_LOCATION
                 )
             ) {
                 //We need to show user a dialog for displaying why the permission is needed and then ask for the permission...
                 ActivityCompat.requestPermissions(
                     this,
-                    arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     FINE_LOCATION_ACCESS_REQUEST_CODE
                 )
             } else {
                 ActivityCompat.requestPermissions(
                     this,
-                    arrayOf<String>(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     FINE_LOCATION_ACCESS_REQUEST_CODE
                 )
             }
@@ -151,64 +142,6 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
         }
     }
 
-
-    override fun onMapLongClick(latLng: LatLng) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            //We need background permission
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-            } else {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this,
-                        android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                    )
-                ) {
-                    //We show a dialog and ask for permission
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf<String>(android.Manifest.permission.ACCESS_BACKGROUND_LOCATION),
-                        BACKGROUND_LOCATION_ACCESS_REQUEST_CODE
-                    )
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf<String>(android.Manifest.permission.ACCESS_BACKGROUND_LOCATION),
-                        BACKGROUND_LOCATION_ACCESS_REQUEST_CODE
-                    )
-                }
-            }
-        } else {
-        }
-    }
-
-
-    @SuppressLint("MissingPermission")
-    private fun addGeofence(latLng: LatLng, radius: Float) {
-        val geofence: Geofence = geofenceHelper.getGeofence(
-            GEOFENCE_ID,
-            latLng,
-            radius,
-            Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT
-        )
-        val geofencingRequest: GeofencingRequest = geofenceHelper.getGeofencingRequest(geofence)
-        val pendingIntent: PendingIntent = geofenceHelper.geofencePendingIntent
-
-        geofencingClient?.addGeofences(geofencingRequest, pendingIntent)
-            ?.addOnSuccessListener {
-                Log.d(
-                    TAG,
-                    "onSuccess: Geofence Added..."
-                )
-            }
-            ?.addOnFailureListener { e ->
-                val errorMessage: String = geofenceHelper.getErrorString(e)
-                Log.d(TAG, "onFailure: $errorMessage")
-            }
-    }
-
     private fun createGeofence(id: String, lat: Double, lng: Double, radius: Float): Geofence {
         return Geofence.Builder()
             .setRequestId(id)
@@ -217,6 +150,7 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
             .build()
     }
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun addGeofences(){
         geofencingClient = LocationServices.getGeofencingClient(this)
         val geofenceList: MutableList<Geofence> = mutableListOf()
@@ -273,19 +207,5 @@ class GeoFenceActivity: FragmentActivity(), OnMapReadyCallback, GoogleMap.OnMapL
             }
         }
 
-    }
-    private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "geofence_channel"
-            val channelName = "Geofence Notifications"
-            val channelDescription = "Notifications for geofence events"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, channelName, importance).apply {
-                description = channelDescription
-            }
-            val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 }

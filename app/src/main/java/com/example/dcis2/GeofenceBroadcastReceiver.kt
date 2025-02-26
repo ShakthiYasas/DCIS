@@ -45,7 +45,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         "Node3" to EnclosureLocation(- 37.78416667,144.95222222),
         "Node4" to EnclosureLocation(- 37.78416667,144.95222222),
         "Node5" to EnclosureLocation(- 37.7836111,144.95138889),
-
+        "Node6" to EnclosureLocation(-37.7833333 ,144.9501111),
+        "Node7" to EnclosureLocation(- 37.78277778,144.95138889),
+        "Node8" to EnclosureLocation(-37.78388889 ,144.94972222),
+        "Node9" to EnclosureLocation(-37.78416667 ,144.95027778),
+        "Node10" to EnclosureLocation(-37.78583333 ,144.95000000),
+        "Node11" to EnclosureLocation(-37.78527178 ,144.95083333),
         )
 
     fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Float {
@@ -54,10 +59,13 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         return results[0] // Distance in meters
     }
 
-    private fun createLocationJson(enclosureTag: String, distance: Float, latitude: Double? = null, longitude: Double? = null, enclosureLatitude: Double? = null, enclosureLongitude: Double? = null): JSONObject {
+    private fun createLocationJson(enclosureTag: String, distance: Float, latitude: Double? = null, longitude: Double? = null): JSONObject {
         val locationJson = JSONObject()
         locationJson.put("enclosureTag", enclosureTag)
         locationJson.put("distance", distance.toDouble())
+        locationJson.put("longitude", longitude?:0)
+        locationJson.put("latitude", latitude?: 0)
+
         return locationJson
     }
     private fun fetchLocationAndSend(context: Context, enclosureTag: String, action: String) {
@@ -70,7 +78,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             val locationJson = createLocationJson(enclosureTag, distance,latitude, longitude)
             Log.d("GeofenceReceiver", "Location JSON: $locationJson")
             ContextCordinator.setLocation(locationJson)
-            showNotification(context, enclosureTag, latitude, longitude, distance)
+            showNotification(context, enclosureTag, distance)
         }
     }
 
@@ -98,11 +106,11 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
                     val distance = enclosureLocation?.let {
                         calculateDistance(latitude, longitude, it.latitude, it.longitude)
                     } ?: 0f // Handle case where enclosure location is not found
-                    val locationJson = createLocationJson(enclosureTag, distance, latitude, longitude, enclosureLocation?.latitude, enclosureLocation?.longitude)
+                    val locationJson = createLocationJson(enclosureTag, distance, latitude, longitude)
                     Log.d("GeofenceReceiver", "Periodic Location JSON: $locationJson")
                     ContextCordinator.setLocation(locationJson)
                     // Create and show notification
-                    showNotification(context, enclosureTag, latitude, longitude, distance)
+                    showNotification(context, enclosureTag, distance)
                 }
                 handler.postDelayed(this, locationUpdateInterval)
             }
@@ -116,7 +124,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
     }
 
-    private fun showNotification(context: Context, enclosureTag: String, latitude: Double?, longitude: Double?, distance: Float) {
+    private fun showNotification(context: Context, enclosureTag: String, distance: Float) {
         val channelId = "geofence_channel"
         val notificationId = System.currentTimeMillis().toInt() // Unique ID for each notification
 
@@ -171,7 +179,6 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
         for (geofence in triggeringGeofences) {
             Log.d("GeofenceReceiver", "Triggered geofence: ${geofence.requestId}")
-
             for (geofence in triggeringGeofences) {
                 val enclosureTag = geofence.requestId
                 val areaMessage = geofenceMessages[geofence.requestId] ?: "Unknown Area"
