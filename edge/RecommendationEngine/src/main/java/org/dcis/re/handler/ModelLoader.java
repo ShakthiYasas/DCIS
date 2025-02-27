@@ -2,7 +2,6 @@ package org.dcis.re.handler;
 
 import com.azure.storage.blob.*;
 import com.azure.storage.common.*;
-import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.storage.blob.options.BlobDownloadToFileOptions;
 
 import java.io.FileInputStream;
@@ -20,7 +19,6 @@ public class ModelLoader {
     private BlobClient setupTunnel() {
         BlobServiceClient blobServiceClient = new BlobServiceClientBuilder()
                 .endpoint(appProps.getProperty("endpoint"))
-                .credential(new DefaultAzureCredentialBuilder().build())
                 .buildClient();
 
         BlobContainerClient containerClient = blobServiceClient
