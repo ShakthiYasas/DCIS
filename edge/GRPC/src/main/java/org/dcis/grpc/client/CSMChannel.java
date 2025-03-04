@@ -9,7 +9,7 @@ public class CSMChannel {
 
     private CSMChannel() {
         channel = ManagedChannelBuilder
-                .forAddress("csm", 8400)
+                .forAddress("0.0.0.0", 8400)
                 .usePlaintext()
                 .build();
     }

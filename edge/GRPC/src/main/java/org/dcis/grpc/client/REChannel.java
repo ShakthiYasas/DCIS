@@ -9,7 +9,7 @@ public class REChannel {
 
     private REChannel() {
         channel = ManagedChannelBuilder
-                .forAddress("reng", 8500)
+                .forAddress("0.0.0.0", 8500)
                 .usePlaintext()
                 .build();
     }

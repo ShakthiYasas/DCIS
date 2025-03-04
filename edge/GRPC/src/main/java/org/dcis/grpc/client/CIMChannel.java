@@ -9,7 +9,7 @@ public class CIMChannel {
 
     private CIMChannel() {
         channel = ManagedChannelBuilder
-                .forAddress("cim", 8100)
+                .forAddress("0.0.0.0", 8100)
                 .usePlaintext()
                 .build();
     }

@@ -8,4 +8,4 @@ COPY target/ContextAcquisitionModule-1.0-DEV.jar /app/ContextAcquisitionModule-1
 
 EXPOSE 8300
 EXPOSE 8003
-ENTRYPOINT ["j ava", "-jar", "/app/ContextAcquisitionModule-1.0-DEV.jar"]
+ENTRYPOINT ["java", "-jar", "/app/ContextAcquisitionModule-1.0-DEV.jar"]

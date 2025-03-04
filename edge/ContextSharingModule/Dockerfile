@@ -8,4 +8,4 @@ COPY target/ContextSharingModule-1.0-DEV.jar /app/ContextSharingModule-1.0-DEV.j
 
 EXPOSE 8400
 EXPOSE 8004
-ENTRYPOINT ["j ava", "-jar", "/app/ContextSharingModule-1.0-DEV.jar"]
+ENTRYPOINT ["java", "-jar", "/app/ContextSharingModule-1.0-DEV.jar"]

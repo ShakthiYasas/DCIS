@@ -7,4 +7,4 @@ COPY target/ContextInferringModule-1.0-DEV.jar /app/ContextInferringModule-1.0-D
 
 EXPOSE 8100
 EXPOSE 8001
-ENTRYPOINT ["j ava", "-jar", "/app/ContextInferringModule-1.0-DEV.jar"]
+ENTRYPOINT ["java", "-jar", "/app/ContextInferringModule-1.0-DEV.jar"]

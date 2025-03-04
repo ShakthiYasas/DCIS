@@ -8,4 +8,4 @@ COPY target/RecommendationEngine-1.0-DEV.jar /app/RecommendationEngine-1.0-DEV.j
 
 EXPOSE 8500
 EXPOSE 8005
-ENTRYPOINT ["j ava", "-jar", "/app/RecommendationEngine-1.0-DEV.jar"]
+ENTRYPOINT ["java", "-jar", "/app/RecommendationEngine-1.0-DEV.jar"]

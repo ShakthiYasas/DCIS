@@ -1,0 +1,41 @@
+version: "1.0"
+services:
+    cam:
+        image: contextshakthi/cam:latest
+        container_name: "cam"
+        ports:
+          - "8003"
+          - "8300:8300"
+        restart: always
+
+    ccm:
+        image: contextshakthi/ccm:latest
+        container_name: "ccm"
+        ports:
+          - "8002"
+          - "8200:8200"
+        restart: always
+
+    cim:
+        image: contextshakthi/cim:latest
+        container_name: "cim"
+        ports:
+          - "8001"
+          - "8100:8100"
+        restart: always
+
+    csm:
+        image: contextshakthi/csm:latest
+        container_name: "csm"
+        ports:
+          - "8004"
+          - "8400:8400"
+        restart: always
+
+    re:
+        image: contextshakthi/re:latest
+        container_name: "re"
+        ports:
+          - "8005"
+          - "8500:8500"
+        restart: always

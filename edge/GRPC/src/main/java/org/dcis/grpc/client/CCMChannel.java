@@ -9,7 +9,7 @@ public class CCMChannel {
 
     private CCMChannel() {
         channel = ManagedChannelBuilder
-                .forAddress("ccm", 8200)
+                .forAddress("0.0.0.0", 8200)
                 .usePlaintext()
                 .build();
     }
