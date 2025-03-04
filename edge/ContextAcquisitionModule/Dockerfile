@@ -1,11 +1,10 @@
-FROM openjdk:21
+FROM --platform=linux/arm64 rootpublic/eclipse-temurin:21.0.5_11-jdk-bookworm-slim
 
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=8003,server=y,suspend=n
+WORKDIR /app
 
-COPY target/lib /app/lib
 COPY api.properties /app/api.properties
-COPY target/ContextAcquisitionModule-1.0-DEV.jar /app/ContextAcquisitionModule-1.0-DEV.jar
+COPY target/ContextAcquisitionModule-1.0-DEV-jar-with-dependencies.jar /app/ContextAcquisitionModule-1.0-DEV-jar-with-dependencies.jar
 
 EXPOSE 8300
 EXPOSE 8003
-ENTRYPOINT ["java", "-jar", "/app/ContextAcquisitionModule-1.0-DEV.jar"]
+ENTRYPOINT ["java", "-jar", "/app/ContextAcquisitionModule-1.0-DEV-jar-with-dependencies.jar"]
