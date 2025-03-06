@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("java-library")
     id("maven-publish")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "org.dcis"
@@ -37,4 +38,17 @@ publishing {
             from(components["java"])
         }
     }
+}
+
+tasks {
+    shadowJar {
+        archiveBaseName.set("ContextCordinator")
+        archiveClassifier.set("")
+        archiveVersion.set("1.0-DEV")
+        mergeServiceFiles()
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
 }

@@ -1,0 +1,891 @@
+@prefix : <http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context> .
+
+<http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context> rdf:type owl:Ontology ;
+                                                                                rdfs:comment "This is an onotology prepared for distributed context information management."@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#accessTo
+:accessTo rdf:type owl:ObjectProperty ;
+          rdfs:domain :Ticket ;
+          rdfs:range :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#address
+:address rdf:type owl:ObjectProperty ;
+         rdfs:domain :Organization ,
+                     :Place ;
+         rdfs:range :PostalAddress .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressCountry
+:addressCountry rdf:type owl:ObjectProperty ;
+                rdfs:domain :PostalAddress ;
+                rdfs:range :Country .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#adjecentHabitats
+:adjecentHabitats rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Habitat ;
+                  rdfs:range :Habitat .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#area
+:area rdf:type owl:ObjectProperty ;
+      rdfs:domain :Place ;
+      rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bioMetrics
+:bioMetrics rdf:type owl:ObjectProperty ;
+            rdfs:domain :Specie ;
+            rdfs:range :BioMetric .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bloodPressure
+:bloodPressure rdf:type owl:ObjectProperty ;
+               rdfs:domain :BioMetric ;
+               rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bodyTemperature
+:bodyTemperature rdf:type owl:ObjectProperty ;
+                 rdfs:domain :BioMetric ;
+                 rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bodyWeight
+:bodyWeight rdf:type owl:ObjectProperty ;
+            rdfs:domain :BioMetric ;
+            rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#contactPerson
+:contactPerson rdf:type owl:ObjectProperty ;
+               rdfs:domain :ContactPoint ;
+               rdfs:range :Worker .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#currentActivity
+:currentActivity rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Animal ,
+                             :Person ;
+                 rdfs:range :Activity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#diet
+:diet rdf:type owl:ObjectProperty ;
+      rdfs:domain :Animal ,
+                  :Eating ,
+                  :FeedingHours ,
+                  :Person ;
+      rdfs:range :Diet .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ecoComposition
+:ecoComposition rdf:type owl:ObjectProperty ;
+                rdfs:domain :Environment ;
+                rdfs:range :Plant .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#environmentCondition
+:environmentCondition rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Place ;
+                      rdfs:range :Environment .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#geoWithin
+:geoWithin rdf:type owl:ObjectProperty ;
+           rdfs:domain :Confinement ;
+           rdfs:range :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#healthRecord
+:healthRecord rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :Animal ,
+                          :Person ;
+              rdfs:range :HealthRecord .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#heartRate
+:heartRate rdf:type owl:ObjectProperty ;
+           rdfs:domain :BioMetric ;
+           rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#height
+:height rdf:type owl:ObjectProperty ;
+        rdfs:domain :BioMetric ;
+        rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hostLocation
+:hostLocation rdf:type owl:ObjectProperty ;
+              rdfs:domain :Activity ;
+              rdfs:range :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hoursAvailable
+:hoursAvailable rdf:type owl:ObjectProperty ;
+                rdfs:domain :ContactPoint ;
+                rdfs:range :OpenHours .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#humidity
+:humidity rdf:type owl:ObjectProperty ;
+          rdfs:domain :Environment ;
+          rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#keeper
+:keeper rdf:type owl:ObjectProperty ;
+        rdfs:domain :Enclosure ,
+                    :Habitat ,
+                    :Zoo ;
+        rdfs:range :Worker .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#legislator
+:legislator rdf:type owl:ObjectProperty ;
+            rdfs:domain :AdminstrativeArea ;
+            rdfs:range :Government .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#livesIn
+:livesIn rdf:type owl:ObjectProperty ;
+         rdfs:domain :Specie ;
+         rdfs:range :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#locatedIn
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Enclosure ;
+           rdfs:range :Habitat .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#location
+:location rdf:type owl:ObjectProperty ;
+          rdfs:domain :Place ;
+          rdfs:range :GeoLocation .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#managedBy
+:managedBy rdf:type owl:ObjectProperty ;
+           rdfs:domain :Confinement ,
+                       :PublicPlace ;
+           rdfs:range :Organization ,
+                      :Person .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#openHours
+:openHours rdf:type owl:ObjectProperty ;
+           rdfs:domain :PublicPlace ;
+           rdfs:range :OpenHours .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ownedBy
+:ownedBy rdf:type owl:ObjectProperty ;
+         rdfs:domain :PrivatePlace ;
+         rdfs:range :Organization ,
+                    :Person .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#participateIn
+:participateIn rdf:type owl:ObjectProperty ;
+               rdfs:domain :Animal ,
+                           :Person ;
+               rdfs:range :Activity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#payRate
+:payRate rdf:type owl:ObjectProperty ;
+         rdfs:domain :Worker ;
+         rdfs:range :Currency .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#placeOfVisit
+:placeOfVisit rdf:type owl:ObjectProperty ;
+              rdfs:domain :Visitor ;
+              rdfs:range :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#portionSize
+:portionSize rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Diet ;
+             rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#price
+:price rdf:type owl:ObjectProperty ;
+       rdfs:domain :Ticket ;
+       rdfs:range :Currency .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#purchasedTicket
+:purchasedTicket rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Visitor ;
+                 rdfs:range :Ticket .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#speed
+:speed rdf:type owl:ObjectProperty ;
+       rdfs:domain :Locomotion ;
+       rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#stepCount
+:stepCount rdf:type owl:ObjectProperty ;
+           rdfs:domain :Locomotion ;
+           rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#targetAudience
+:targetAudience rdf:type owl:ObjectProperty ;
+                rdfs:domain :Demonstration ;
+                rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#telephone
+:telephone rdf:type owl:ObjectProperty ;
+           rdfs:domain :Organization ,
+                       :Place ;
+           rdfs:range :Telephone .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#temperature
+:temperature rdf:type owl:ObjectProperty ;
+             rdfs:domain :Environment ;
+             rdfs:range :Measurement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#timeActive
+:timeActive rdf:type owl:ObjectProperty ;
+            rdfs:domain :Activity ;
+            rdfs:range :OpenHours .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#address
+:address rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Place ;
+         rdfs:range rdfs:Literal ,
+                    xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressCountry
+:addressCountry rdf:type owl:DatatypeProperty ;
+                rdfs:domain :PostalAddress ;
+                rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressLine1
+:addressLine1 rdf:type owl:DatatypeProperty ;
+              rdfs:domain :PostalAddress ;
+              rdfs:range rdfs:Literal ,
+                         xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressLine2
+:addressLine2 rdf:type owl:DatatypeProperty ;
+              rdfs:domain :PostalAddress ;
+              rdfs:range rdfs:Literal ,
+                         xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#areaCode
+:areaCode rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Telephone ;
+          rdfs:range rdfs:Literal ,
+                     xsd:string ,
+                     xsd:unsignedInt .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#availableLanguages
+:availableLanguages rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :ContactPoint ;
+                    rdfs:range rdfs:Literal ,
+                               xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#birthday
+:birthday rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Animal ,
+                      :Person ;
+          rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#capacity
+:capacity rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Arena ,
+                      :Confinement ;
+          rdfs:range xsd:unsignedInt .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#closes
+:closes rdf:type owl:DatatypeProperty ;
+        rdfs:domain :OpenHours ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#contractEndDate
+:contractEndDate rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :TemporaryWorker ;
+                 rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#contractStartDate
+:contractStartDate rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :TemporaryWorker ;
+                   rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#currency
+:currency rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Currency ;
+          rdfs:range rdfs:Literal ,
+                     xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#currentlyActive
+:currentlyActive rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Activity ;
+                 rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#date
+:date rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Activity ,
+                  :HealthRecord ,
+                  :Ticket ;
+      rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#dayOfWeek
+:dayOfWeek rdf:type owl:DatatypeProperty ;
+           rdfs:domain :OpenHours ;
+           rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#description
+:description rdf:type owl:DatatypeProperty ;
+             rdfs:domain owl:Thing ;
+             rdfs:range rdfs:Literal ,
+                        xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#diagnosis
+:diagnosis rdf:type owl:DatatypeProperty ;
+           rdfs:domain :HealthRecord ;
+           rdfs:range rdfs:Literal ,
+                      xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#elevation
+:elevation rdf:type owl:DatatypeProperty ;
+           rdfs:domain :GeoLocation ;
+           rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#foodType
+:foodType rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Diet ;
+          rdfs:range rdfs:Literal ,
+                     xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#gender
+:gender rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Specie ;
+        rdfs:range rdfs:Literal ,
+                   xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#genericName
+:genericName rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Specie ;
+             rdfs:range rdfs:Literal ,
+                        xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hasBarbeque
+:hasBarbeque rdf:type owl:DatatypeProperty ;
+             rdfs:domain :PicnicArea ;
+             rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hasEdibleFruit
+:hasEdibleFruit rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Plant ;
+                rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isAccessibleForFree
+:isAccessibleForFree rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :PublicPlace ;
+                     rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isAllowingPetting
+:isAllowingPetting rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :FeedingHours ;
+                   rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isEndangered
+:isEndangered rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :Animal ,
+                          :Plant ;
+              rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isFlowering
+:isFlowering rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Plant ;
+             rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isOpenAir
+:isOpenAir rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Arena ;
+           rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isPubliclyAccessible
+:isPubliclyAccessible rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Confinement ,
+                                  :PrivatePlace ;
+                      rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isSeated
+:isSeated rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Arena ;
+          rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#jobTitle
+:jobTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Worker ;
+          rdfs:range rdfs:Literal ,
+                     xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#latitude
+:latitude rdf:type owl:DatatypeProperty ;
+          rdfs:domain :GeoLocation ;
+          rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#longitude
+:longitude rdf:type owl:DatatypeProperty ;
+           rdfs:domain :GeoLocation ;
+           rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#maxCapacity
+:maxCapacity rdf:type owl:DatatypeProperty ;
+             rdfs:domain :PublicPlace ;
+             rdfs:range xsd:unsignedInt .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#name
+:name rdf:type owl:DatatypeProperty ;
+      rdfs:domain owl:Thing ;
+      rdfs:range rdfs:Literal ,
+                 xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#opens
+:opens rdf:type owl:DatatypeProperty ;
+       rdfs:domain :OpenHours ;
+       rdfs:range rdfs:Literal ,
+                  xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#payFrequency
+:payFrequency rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Worker ;
+              rdfs:range rdfs:Literal ,
+                         xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#postalcode
+:postalcode rdf:type owl:DatatypeProperty ;
+            rdfs:domain :PostalAddress ;
+            rdfs:range xsd:unsignedInt .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#scientificName
+:scientificName rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Specie ;
+                rdfs:range rdfs:Literal ,
+                           xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#situationConfidence
+:situationConfidence rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Activity ;
+                     rdfs:range xsd:double ,
+                                xsd:float .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#speciality
+:speciality rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Worker ;
+            rdfs:range rdfs:Literal ,
+                       xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#startDate
+:startDate rdf:type owl:DatatypeProperty ;
+           rdfs:domain :PermanentWorker ;
+           rdfs:range xsd:dateTime .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#targetAudience
+:targetAudience rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Demonstration ;
+                rdfs:range rdfs:Literal ,
+                           xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#telephoneNumber
+:telephoneNumber rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Telephone ;
+                 rdfs:range rdfs:Literal ,
+                            xsd:string ,
+                            xsd:unsignedInt .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ticketType
+:ticketType rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Ticket ;
+            rdfs:range rdfs:Literal ,
+                       xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#treatment
+:treatment rdf:type owl:DatatypeProperty ;
+           rdfs:domain :HealthRecord ;
+           rdfs:range rdfs:Literal ,
+                      xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#type
+:type rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Activity ,
+                  :Enclosure ,
+                  :Environment ,
+                  :Plant ,
+                  :Room ;
+      rdfs:range rdfs:Literal ,
+                 xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#unitofMeasurement
+:unitofMeasurement rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Measurement ;
+                   rdfs:range rdfs:Literal ,
+                              xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#value
+:value rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Currency ,
+                   :Measurement ;
+       rdfs:range rdfs:Literal ,
+                  xsd:double ,
+                  xsd:float ,
+                  xsd:int ,
+                  xsd:string .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#visitedDate
+:visitedDate rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Visitor ;
+             rdfs:range xsd:dateTime .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity
+:Activity rdf:type owl:Class ;
+          rdfs:subClassOf :Intangible .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea
+:AdminstrativeArea rdf:type owl:Class ;
+                   rdfs:subClassOf :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal
+:Animal rdf:type owl:Class ;
+        rdfs:subClassOf :Specie .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Arena
+:Arena rdf:type owl:Class ;
+       rdfs:subClassOf :PublicPlace .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric
+:BioMetric rdf:type owl:Class ;
+           rdfs:subClassOf :HealthEntity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#City
+:City rdf:type owl:Class ;
+      rdfs:subClassOf :AdminstrativeArea .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement
+:Confinement rdf:type owl:Class ;
+             rdfs:subClassOf :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint
+:ContactPoint rdf:type owl:Class ;
+              rdfs:subClassOf :StructuredValue .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Corporate
+:Corporate rdf:type owl:Class ;
+           rdfs:subClassOf :Organization .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Country
+:Country rdf:type owl:Class ;
+         rdfs:subClassOf :AdminstrativeArea .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#County
+:County rdf:type owl:Class ;
+        rdfs:subClassOf :AdminstrativeArea .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Currency
+:Currency rdf:type owl:Class ;
+          rdfs:subClassOf :StructuredValue .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Demonstration
+:Demonstration rdf:type owl:Class ;
+               rdfs:subClassOf :Activity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Diet
+:Diet rdf:type owl:Class ;
+      rdfs:subClassOf :HealthEntity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#DomesticAnimal
+:DomesticAnimal rdf:type owl:Class ;
+                rdfs:subClassOf :Animal .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Eating
+:Eating rdf:type owl:Class ;
+        rdfs:subClassOf :Activity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure
+:Enclosure rdf:type owl:Class ;
+           rdfs:subClassOf :Confinement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment
+:Environment rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#FeedingHours
+:FeedingHours rdf:type owl:Class ;
+              rdfs:subClassOf :OpenHours .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#GeoLocation
+:GeoLocation rdf:type owl:Class ;
+             rdfs:subClassOf :StructuredValue .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Government
+:Government rdf:type owl:Class ;
+            rdfs:subClassOf :Organization .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat
+:Habitat rdf:type owl:Class ;
+         rdfs:subClassOf :Confinement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthEntity
+:HealthEntity rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthRecord
+:HealthRecord rdf:type owl:Class ;
+              rdfs:subClassOf :HealthEntity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Intangible
+:Intangible rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Judiciary
+:Judiciary rdf:type owl:Class ;
+           rdfs:subClassOf :Organization .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Livestock
+:Livestock rdf:type owl:Class ;
+           rdfs:subClassOf :DomesticAnimal .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Locomotion
+:Locomotion rdf:type owl:Class ;
+            rdfs:subClassOf :Activity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement
+:Measurement rdf:type owl:Class ;
+             rdfs:subClassOf :StructuredValue .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours
+:OpenHours rdf:type owl:Class ;
+           rdfs:subClassOf :StructuredValue .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization
+:Organization rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PermanentWorker
+:PermanentWorker rdf:type owl:Class ;
+                 rdfs:subClassOf :Worker .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf :Specie .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Pet
+:Pet rdf:type owl:Class ;
+     rdfs:subClassOf :DomesticAnimal .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PicnicArea
+:PicnicArea rdf:type owl:Class ;
+            rdfs:subClassOf :PublicPlace .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place
+:Place rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant
+:Plant rdf:type owl:Class ;
+       rdfs:subClassOf :Specie .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress
+:PostalAddress rdf:type owl:Class ;
+               rdfs:subClassOf :ContactPoint .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PrivatePlace
+:PrivatePlace rdf:type owl:Class ;
+              rdfs:subClassOf :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace
+:PublicPlace rdf:type owl:Class ;
+             rdfs:subClassOf :Place .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Resting
+:Resting rdf:type owl:Class ;
+         rdfs:subClassOf :Activity .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Room
+:Room rdf:type owl:Class ;
+      rdfs:subClassOf :Confinement .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie
+:Specie rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#State
+:State rdf:type owl:Class ;
+       rdfs:subClassOf :AdminstrativeArea .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue
+:StructuredValue rdf:type owl:Class ;
+                 rdfs:subClassOf :Intangible .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Suburb
+:Suburb rdf:type owl:Class ;
+        rdfs:subClassOf :AdminstrativeArea .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Telephone
+:Telephone rdf:type owl:Class ;
+           rdfs:subClassOf :ContactPoint .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#TemporaryWorker
+:TemporaryWorker rdf:type owl:Class ;
+                 rdfs:subClassOf :Worker .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket
+:Ticket rdf:type owl:Class ;
+        rdfs:subClassOf :Intangible .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Visitor
+:Visitor rdf:type owl:Class ;
+         rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#WildAnimal
+:WildAnimal rdf:type owl:Class ;
+            rdfs:subClassOf :Animal .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker
+:Worker rdf:type owl:Class ;
+        rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Zoo
+:Zoo rdf:type owl:Class ;
+     rdfs:subClassOf :PublicPlace .
+
+
+###  http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ZooAnimal
+:ZooAnimal rdf:type owl:Class ;
+           rdfs:subClassOf :Animal .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
