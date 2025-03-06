@@ -628,6 +628,17 @@
     "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment"
   } ]
 }, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#feedingTime",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#FeedingHours"
+  } ]
+}, {
   "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#foodType",
   "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
@@ -839,6 +850,17 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#range" : [ {
     "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#keeperTalk",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Talk"
   } ]
 }, {
   "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#latitude",
