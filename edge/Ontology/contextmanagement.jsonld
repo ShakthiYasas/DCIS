@@ -264,6 +264,12 @@
     "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
   } ]
 }, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Talk",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
   "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Telephone",
   "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
@@ -1156,6 +1162,17 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#range" : [ {
     "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#topic",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Talk"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
   } ]
 }, {
   "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#treatment",
