@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -50,9 +51,16 @@ dependencies {
     implementation (libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.location)
-    implementation(files("library/ContextCordinator.jar"))
 
     implementation(libs.play.services.maps)
+    implementation(files("/Users/mac/Documents/DCIS/app/library/ContextCordinator 1.0 DEV_New.jar"))
+    // Manually exclude dependencies from being added separately
+    configurations.all {
+        exclude("org.json","json")
+        exclude("com.google.code.gson","gson")
+        exclude("com.google.errorprone","error_prone_annotations")
+        exclude("com.google.guava","listenablefuture")
+    }
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -62,10 +70,6 @@ dependencies {
 
     implementation (libs.play.services.location.v2101)
     implementation (libs.play.services.fitness)
-
-    implementation (libs.play.services.auth)  // Google Sign-In API
-    implementation ("com.google.android.gms:play-services-fitness:21.0.0") // Google Fit API
-    implementation ("com.google.android.material:material:1.6.0") // For Material components like buttons
 
     implementation(libs.play.services.location)
     implementation (libs.pubnub.kotlin)

@@ -15,10 +15,10 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.dcis2.ultility.LocationUtils
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
-import org.dcis.ContextCordinator
 import org.json.JSONObject
 import android.Manifest
 import android.speech.tts.TextToSpeech
+import org.dcis.ContextCordinator
 import java.util.Locale
 
 data class EnclosureLocation(val latitude: Double, val longitude: Double)
@@ -59,9 +59,10 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         return results[0] // Distance in meters
     }
 
-    private fun createLocationJson(enclosureTag: String, distance: Float, latitude: Double? = null, longitude: Double? = null): JSONObject {
+    private fun createLocationJson(enclosureTag: String,timeStamp:Long,  distance: Float, latitude: Double? = null, longitude: Double? = null): JSONObject {
         val locationJson = JSONObject()
         locationJson.put("enclosureTag", enclosureTag)
+        locationJson.put("timestamp",timeStamp)
         locationJson.put("distance", distance.toDouble())
         locationJson.put("longitude", longitude?:0)
         locationJson.put("latitude", latitude?: 0)
@@ -75,7 +76,8 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             val distance = enclosureLocation?.let {
                 calculateDistance(latitude, longitude, it.latitude, it.longitude)
             } ?: 0f // Handle case where enclosure location is not found
-            val locationJson = createLocationJson(enclosureTag, distance,latitude, longitude)
+            val timeStamp = System.currentTimeMillis()
+            val locationJson = createLocationJson(enclosureTag,timeStamp, distance,latitude, longitude)
             Log.d("GeofenceReceiver", "Location JSON: $locationJson")
             ContextCordinator.setLocation(locationJson)
             showNotification(context, enclosureTag, distance)
@@ -102,11 +104,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             override fun run() {
                 // Fetch the current location and send it to the backend
                 LocationUtils.fetchLocation(context) { latitude, longitude ->
-                    val enclosureLocation = geofenceMessages[enclosureTag.removeSuffix("_enc")]
+                    val enclosureLocation = geofenceMessages[enclosureTag]
+                    val timeStamp= System.currentTimeMillis()
                     val distance = enclosureLocation?.let {
                         calculateDistance(latitude, longitude, it.latitude, it.longitude)
                     } ?: 0f // Handle case where enclosure location is not found
-                    val locationJson = createLocationJson(enclosureTag, distance, latitude, longitude)
+                    val locationJson = createLocationJson(enclosureTag,timeStamp, distance, latitude, longitude)
                     Log.d("GeofenceReceiver", "Periodic Location JSON: $locationJson")
                     ContextCordinator.setLocation(locationJson)
                     // Create and show notification

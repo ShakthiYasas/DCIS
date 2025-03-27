@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dcis2.ultility.PreferencesUtils
 import org.json.JSONObject
 
 class UserProfileActivity : AppCompatActivity() {
@@ -39,37 +40,29 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun saveFamilyProfile() {
-        val profileData = JSONObject()
-        profileData.put("adult_1", "25-45")
-        profileData.put("adult_2", "25-45")
-        profileData.put("child_1", "5-10")
-        profileData.put("child_2", "0-5")
-        profileData.put("Number of Adults", 2)
-        profileData.put("Number of Children", 2)
-        saveProfileData(profileData)
+        PreferencesUtils.saveToPreferences(this, "Number of Adults", "2")
+        PreferencesUtils.saveToPreferences(this, "Number of children", "2")
+        PreferencesUtils.saveToPreferences(this, "adult_1", "25-45")
+        PreferencesUtils.saveToPreferences(this, "adult_2", "25-45")
+        PreferencesUtils.saveToPreferences(this, "children_1", "15-20")
+        PreferencesUtils.saveToPreferences(this, "children_2", "15-20")
     }
 
     private fun saveIndividualProfile() {
         val profileData = JSONObject()
+        PreferencesUtils.saveToPreferences(this, "Number of Adults", "1")
+        PreferencesUtils.saveToPreferences(this, "Number of children", "0")
         profileData.put("adult_1", "18-25")
-
-        saveProfileData(profileData)
+        PreferencesUtils.saveToPreferences(this, "adult_1", "25-45")
     }
 
     private fun saveGroupProfile() {
-        val profileData = JSONObject()
         for (i in 1..10) {
-            profileData.put("adult_$i", "25-45")
+            PreferencesUtils.saveToPreferences(this, "adult_$i", "25-45")
         }
-
-        saveProfileData(profileData)
     }
 
-    private fun saveProfileData(profileData: JSONObject) {
-        val sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("profile_data", profileData.toString())
-    }
+
 
     private fun navigateToNextActivity() {
         // Replace NextActivity::class.java with the actual activity you want to navigate to

@@ -36,7 +36,7 @@ class PubNubActivity : AppCompatActivity() {
         val pubnub = PubNub.create(config.build())
 
         // Define the channel you want to subscribe to
-        val channel = pubnub.channel("edgeNotification")
+        val channel = pubnub.channel("edgeNotifications")
 
         // Define subscription options if necessary (optional step, depending on SDK capabilities)
         val options = SubscriptionOptions.receivePresenceEvents() // Example option

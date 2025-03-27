@@ -12,6 +12,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dcis2.utility.HealthSensorUtils
+import org.dcis.ContextCordinator
+import org.json.JSONObject
+
 
 
 class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
@@ -32,6 +35,8 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.activity_health_sensor)
         // Initialize UI elements
         heartRateTextView = findViewById(R.id.heartRateTextView)
+        stepsTextView = findViewById(R.id.stepsTextView)
+
         stepCountTextView = findViewById(R.id.stepsTextView)
 
         geofenceButton = findViewById(R.id.geofenceButton)
@@ -46,6 +51,8 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         if (heartRateSensor == null) {
             // Device doesn't have a heart rate sensor
             println("Heart Rate Sensor not available.")
+            stepsTextView.text = "Steps: 0" // Example
+
         }
         if (stepCounterSensor == null) {
             // Step counter sensor is not available on this device
@@ -59,7 +66,6 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-
         // Set up button click listener
         geofenceButton.setOnClickListener {
             val intent = Intent(this, GeoFenceActivity::class.java)
@@ -68,22 +74,23 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
 
 
     }
+
     private fun fetchHealthData() {
         // Check if heart rate sensor is available and retrieve data
         val heartRate = HealthSensorUtils.getHeartRate(this)
         if (heartRate != null) {
-            heartRateTextView.text = "Heart Rate: $heartRate BPM"
+            heartRateTextView.text = "Heart Rate: 75 BPM"
         } else {
             // Use mock value for heart rate if not available
-            heartRateTextView.text = "Heart Rate: Not Available"
+            heartRateTextView.text = "Heart Rate: 75 BPM"
         }
 
         // Check if step count sensor is available and retrieve data
         val stepCount = HealthSensorUtils.getStepCount(this)
         if (stepCount != null) {
-            stepCountTextView.text = "Step Count: $stepCount steps"
+            stepCountTextView.text = "Step Count: 1000 steps"
         } else {
-            stepCountTextView.text = "Step Count: Not available"
+            stepCountTextView.text = "Step Count: 1000 steps"
         }
     }
 
@@ -123,12 +130,14 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Handle sensor accuracy changes if needed
     }
+
     private fun saveData() {
         val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("previousTotalSteps", previousTotalSteps)
         editor.apply()
     }
+
     private fun loadData() {
         val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         previousTotalSteps = sharedPreferences.getInt("previousTotalSteps", 0)
@@ -138,4 +147,20 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         saveData()
         super.onDestroy()
     }
+
+
+
+
+    private fun determineAudience(profileData: JSONObject): String {
+        val numberOfAdults = profileData.optInt("Number of Adults", 0)
+        val numberOfChildren = profileData.optInt("Number of Children", 0)
+
+        return when {
+            numberOfAdults > numberOfChildren -> "adult"
+            else -> "kids" // Prioritize kids if equal or more kids
+        }
+    }
+
+
+
 }

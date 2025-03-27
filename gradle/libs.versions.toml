@@ -20,6 +20,7 @@ pubnubJava = "10.3.2"
 pubnubKotlin = "10.0.0"
 zxingAndroidEmbedded = "4.2.0"
 playServicesMaps = "19.0.0"
+jetbrainsKotlinJvm = "1.9.24"
 
 [libraries]
 androidx-appcompat-v131 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
@@ -47,4 +48,5 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 

@@ -33,6 +33,48 @@
         android:text="Show JSON Data"
         android:layout_marginTop="16dp"/>
 
+    <Button
+        android:id="@+id/testIntegrationButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Integration"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/setupEdgeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Setup Edge"
+        android:layout_below="@id/testIntegrationButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/sendLocationButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Location Data"
+        android:layout_below="@id/setupEdgeButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/sendHealthButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Health Data"
+        android:layout_below="@id/sendLocationButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+    <Button
+        android:id="@+id/verifyBluetoothButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify Bluetooth"
+        android:layout_below="@id/sendHealthButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
     <!-- Button to navigate to HealthSensorActivity -->
     <Button
         android:id="@+id/navigateToHealthSensorButton"
