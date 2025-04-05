@@ -16,8 +16,13 @@ public class CAScorer implements Scorer<GraphNode> {
     @Override
     public double computeCost(GraphNode from, GraphNode to) {
         String key = from.getId() + to.getId();
-        if(!latencyDict.containsKey(key))
+        if(latencyDict.containsKey(key))
+            return (double) latencyDict.get(key);
+        else {
             key = to.getId() + from.getId();
-        return (double) latencyDict.get(key);
+            if(latencyDict.containsKey(key))
+                return (double) latencyDict.get(key);
+        }
+        return Double.POSITIVE_INFINITY;
     }
 }
