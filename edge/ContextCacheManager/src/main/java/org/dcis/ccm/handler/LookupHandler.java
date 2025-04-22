@@ -38,7 +38,7 @@ public final class LookupHandler {
                     return CCMResponse.newBuilder().setStatus(404).build();
 
                 // Transformations: Maps JSON to specific protos.
-                if(request.getIdentifier().contains("Situation")) {
+                if((request.getIdentifier().toLowerCase()).contains("situation")) {
                     try {
                         SituationDescription.Builder situBuilder = SituationDescription.newBuilder();
                         JsonFormat.parser().ignoringUnknownFields().merge((String) item, situBuilder);

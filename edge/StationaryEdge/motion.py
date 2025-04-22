@@ -1,117 +1,102 @@
-import time
-
 import cv2
+import json
+import asyncio
 import numpy as np
-from bluepy.btle import Peripheral, Advertisement, BTLEException
+from datetime import datetime
+from picamera2 import Picamera2
+from bleak import BleakAdvertiser
 
-import picamera
-import picamera.array
+# Model and config files
+MODEL_PATH = 'ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'
+CONFIG_PATH = 'ssd_mobilenet_v1_coco.pbtxt'
+HASH_KEY = 'a4b17238dd395a91'
 
-# Initialize the PiCamera
-camera = picamera.PICamera()
-camera.resolution = (640, 480)
-camera.framerate = 24
-time.sleep(2)  # Allowing the camera to warm up
+# Using Elephant classe from the COCO model. 
+ANIMAL_CLASSES = {
+    22: 'elephant'
+}
 
-# Initialize the camera for capturing images
-raw_capture = picamera.array.PiRGBArray(camera)
+BLE_NAME = 'elephant_enc'
+DETECTION_THRESHOLD = 0.5
 
-# Read the first frame to get the shape of the frames
-camera.capture(raw_capture, format="bgr")
-first_frame = raw_capture.array
+# Loading the model
+net = cv2.dnn.readNetFromTensorflow(MODEL_PATH, CONFIG_PATH)
 
-# Convert the first frame to grayscale
-first_frame_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
+# Broadcasting the context information in JSON format every 5 seconds.
+async def broadcast_json(json_data):
+    print(f'Broadcasting over BLE: {json_data}')
+    async with BleakAdvertiser() as advertiser:
+        await advertiser.advertise(name=BLE_NAME, manufacturer_data={0xFFFF: json_data.encode()})
+        await asyncio.sleep(5)
 
-# Apply Gaussian blur to reduce noise
-first_frame_gray = cv2.GaussianBlur(first_frame_gray, (21, 21), 0)
+# Detecting the specific animal.
+# Birds will be discarded.
+def detect_animals(frame):
+    h, w = frame.shape[:2]
+    blob = cv2.dnn.blobFromImage(frame, size=(300, 300), swapRB=True, crop=False)
+    net.setInput(blob)
+    output = net.forward()
 
-# Function to calculate confidence value
-def calculate_confidence(frame_diff, thresh):
-    # Flatten the thresholded image to a 1D array
-    thresh_flat = thresh.flatten()
-    
-    # Calculate the number of non-zero pixels in the thresholded image
-    non_zero_pixels = np.count_nonzero(thresh_flat)
-    
-    # Normalize to give a value between 0 and 1
-    confidence = non_zero_pixels / thresh_flat.size
-    
-    return confidence
+    animals = []
 
-# Initialize BLE advertisement
-def broadcast_confidence(confidence):
-    try:
-        # Create a Peripheral device and Advertisement
-        advertisement = Advertisement()
-        advertisement.addServiceUUID(0x1812)  # UUID for the environmental sensing service (example)
-        
-        # Broadcast the confidence value as part of the advertisement data
-        advertisement.addData(0x20, f"Confidence: {confidence:.2f}")  
-        
-        # Start the advertisement
-        advertisement.start()
-        print(f"Broadcasting Confidence: {confidence:.2f}")
-        
-    except BTLEException as e:
-        print(f"Error broadcasting BLE: {str(e)}")
+    for detection in output[0, 0, :, :]:
+        confidence = float(detection[2])
+        class_id = int(detection[1])
 
-# Loop to capture video frames
-while True:
-    # Capture the current frame
-    camera.capture(raw_capture, format="bgr")
-    frame = raw_capture.array
+        if confidence > DETECTION_THRESHOLD and class_id in ANIMAL_CLASSES:
+            box = detection[3:7] * np.array([w, h, w, h])
+            (x1, y1, x2, y2) = box.astype('int')
+            animals.append({
+                'label': ANIMAL_CLASSES[class_id],
+                'confidence': confidence,
+                'box': (x1, y1, x2, y2)
+            })
 
-    # Convert the current frame to grayscale
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    return animals
 
-    # Apply Gaussian blur to the grayscale frame
-    gray = cv2.GaussianBlur(gray, (21, 21), 0)
+# Drawing the detection boxes.
+def draw_detections(frame, animals):
+    for a in animals:
+        x1, y1, x2, y2 = a['box']
+        label = f"{a['label']} ({a['confidence']:.2f})"
+        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
-    # Compute the absolute difference between the current frame and the first frame
-    frame_diff = cv2.absdiff(first_frame_gray, gray)
+# Preparing the JSON for broadcasting.
+def create_json(animals):
+    confidence_avg = round(np.mean([a['confidence'] for a in animals]), 2) if animals else 0.0
+    return json.dumps({
+        'hashkey': HASH_KEY,
+        'confidence': confidence_avg,
+        'multiple': len(animals) > 1,
+        'timestamp': datetime.now(datetime.timezone.utc).isoformat(),
+        'movement': True if confidence_avg > DETECTION_THRESHOLD else False
+    })
 
-    # Threshold the difference to detect movement
-    _, thresh = cv2.threshold(frame_diff, 25, 255, cv2.THRESH_BINARY)
+def main():
+    picam2 = Picamera2()
+    picam2.preview_configuration.main.size = (640, 480)
+    picam2.preview_configuration.main.format = 'RGB888'
+    picam2.configure('preview')
+    picam2.start()
 
-    # Dilate the threshold image to fill in holes
-    thresh = cv2.dilate(thresh, None, iterations=2)
+    while True:
+        frame = picam2.capture_array()
 
-    # Calculate confidence score
-    confidence = calculate_confidence(frame_diff, thresh)
+        animals = detect_animals(frame)
 
-    # Find contours in the thresholded image
-    contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if animals:
+            draw_detections(frame, animals)
+            data = create_json(animals)
+            asyncio.run(broadcast_json(data))
 
-    # Loop through the contours to find areas of movement
-    for contour in contours:
-        if cv2.contourArea(contour) < 500:  
-            continue
+        cv2.imshow('Animal Motion Detection', frame)
 
-        # Get the bounding box of the moving object
-        (x, y, w, h) = cv2.boundingRect(contour)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-        # Draw a rectangle around the detected object
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    picam2.stop()
+    cv2.destroyAllWindows()
 
-        # Display confidence value on screen
-        cv2.putText(frame, f'Confidence: {confidence:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-
-        # Broadcast the confidence value via BLE
-        broadcast_confidence(confidence)
-
-        # Optional: Print movement detected message and confidence
-        print(f'Movement detected! Confidence: {confidence:.2f}')
-
-    # Display the resulting frame
-    cv2.imshow('Motion Detection with Confidence', frame)
-
-    # Update the first frame to be the current one for the next loop
-    first_frame_gray = gray
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# Release the camera and close any OpenCV windows
-camera.close()
-cv2.destroyAllWindows()
+if __name__ == "__main__":
+    main()
