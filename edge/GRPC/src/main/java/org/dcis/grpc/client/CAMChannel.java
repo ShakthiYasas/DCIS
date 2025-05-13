@@ -9,7 +9,7 @@ public class CAMChannel {
 
     private CAMChannel() {
         channel = ManagedChannelBuilder
-                .forAddress("cam", 8300)
+                .forAddress("0.0.0.0", 8300)
                 .usePlaintext()
                 .build();
     }

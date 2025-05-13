@@ -47,8 +47,15 @@ message RegionDescription {
   double regionBelief = 2;
 }
 
+message ItineraryRequest {
+  repeated string preferences = 1;
+}
+
 service CIMService {
   rpc infer(CIMRequest) returns (CIMResponse);
   rpc addEvent (SiddhiRequest) returns (CIMResponse);
+  rpc setQuery (SiddhiRequest) returns (CIMResponse);
+  rpc stopSiddhi (SiddhiRequest) returns (CIMResponse);
   rpc startSiddhi (SiddhiRequest) returns (CIMResponse);
+  rpc getInitialItinerary(ItineraryRequest) returns (CIMResponse);
 }

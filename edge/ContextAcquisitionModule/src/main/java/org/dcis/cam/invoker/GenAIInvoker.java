@@ -28,12 +28,17 @@ public class GenAIInvoker {
 
     public void setAudience (String audience) { this.audience = audience; }
 
+    // Generates a context-aware message about the approaching enclosure.
+    // animal: Name of the animal in the approaching enclosure.
+    // probability: The probability that the situation in concern at the enclosure is true.
+    // returns: JSON response containing context-aware message.
     public String generateNotification(String animal, double probability)
             throws IOException, ExecutionException, InterruptedException {
         Properties appProps = new Properties();
         appProps.load(new FileInputStream("api.properties"));
 
         JSONObject description = new JSONObject();
+        description.put("protocol", "POST");
         description.put("url", appProps.getProperty("opeai_url"));
         description.put("authorization", appProps.getProperty("openai_apikey"));
 

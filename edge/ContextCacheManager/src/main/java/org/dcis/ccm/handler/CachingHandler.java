@@ -16,6 +16,9 @@ public final class CachingHandler {
         return instance;
     }
 
+    // Caches a given piece of context information.
+    // request: Key and the context information.
+    // returns: Response with the status.
     public CCMResponse cacheContext (CCMRequest request) {
         ContextCache cache = ContextCache.getInstance();
         String key = request.getIdentifier();

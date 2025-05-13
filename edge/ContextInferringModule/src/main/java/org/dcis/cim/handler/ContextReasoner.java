@@ -21,6 +21,10 @@ public class ContextReasoner {
         return infer(description, new ObjectMapper().readValue(data, HashMap.class));
     }
 
+    // Calculates the probability of a situation using a given situation model and the context information.
+    // description: The situation model.
+    // data: Map of key-value pairs representing the context information.
+    // returns: Probability of the situation.
     public static double infer(SituationDescription description, Map<String,Object> data) {
         try {
             String situationName = CstoUtil.convertToAlnum(

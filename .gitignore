@@ -17,3 +17,5 @@ edge/.idea
 edge/ContextInferringModule/target
 edge/GRPC/target
 edge/ContextCacheManager/target
+edge/RecommendationEngine/target
+edge/ContextSharingModule/target

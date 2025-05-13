@@ -12,8 +12,9 @@ import java.util.concurrent.ExecutionException;
 
 public class CPInvoker {
 
-    // Fetches from the Cloud.
+    // Fetches from the Cloud or the context provider.
     // tag: Enclosure identifier tag.
+    // returns: JSON string containing the context information.
     public String fetch(String tag)
             throws IOException, ExecutionException, InterruptedException {
 
@@ -35,8 +36,41 @@ public class CPInvoker {
         }
     }
 
+    // Fetches backed up context from the Cloud.
+    // tag: Enclosure identifier tag.
+    // returns: JSON containing the context information.
+    public String fetchBackup(String tag)
+            throws IOException, ExecutionException, InterruptedException {
+
+        Properties appProps = new Properties();
+        appProps.load(new FileInputStream("api.properties"));
+
+        JSONObject description = new JSONObject();
+        description.put("protocol", "GET");
+        String url = appProps.getProperty("backedup_context") + tag;
+        description.put("url", url);
+        return fetch(description);
+    }
+
+    // Fetches the nessecary situation models from the Cloud.
+    // identifier: Name of the situation.
+    // returns: Situation model in JSON format.
+    public String fetchSituation(String identifier)
+            throws IOException, ExecutionException, InterruptedException {
+
+        Properties appProps = new Properties();
+        appProps.load(new FileInputStream("api.properties"));
+
+        JSONObject description = new JSONObject();
+        description.put("protocol", "GET");
+        String url = appProps.getProperty("situation_definition") + identifier;
+        description.put("url", url);
+        return fetch(description);
+    }
+
     // Fetches from a given context provider.
     // description: Metadata about the provider.
+    // returns: JSON object containing metadata regarding the BLE context provider.
     public String fetch(JSONObject description)
             throws ExecutionException, InterruptedException, IOException {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -79,5 +113,4 @@ public class CPInvoker {
             return response.body().string().trim();
         return null;
     }
-
 }

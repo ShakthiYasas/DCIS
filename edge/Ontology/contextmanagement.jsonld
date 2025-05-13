@@ -1,0 +1,1268 @@
+[ {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "This is an onotology prepared for distributed context information management."
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Intangible"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Arena",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthEntity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#City",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Corporate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Country",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#County",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Currency",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Demonstration",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Diet",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthEntity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#DomesticAnimal",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Eating",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#FeedingHours",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#GeoLocation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Government",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthEntity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthRecord",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthEntity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Intangible",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Judiciary",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Livestock",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#DomesticAnimal"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Locomotion",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PermanentWorker",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Pet",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#DomesticAnimal"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PicnicArea",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PrivatePlace",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Resting",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Room",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#State",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#StructuredValue",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Intangible"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Suburb",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Talk",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Telephone",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#TemporaryWorker",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Intangible"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Visitor",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#WildAnimal",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Zoo",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ZooAnimal",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#accessTo",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#address",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress"
+  }, {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressCountry",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Country"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressLine1",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#addressLine2",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#adjecentHabitats",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#area",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#areaCode",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Telephone"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#unsignedInt"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#availableLanguages",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bioMetrics",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#birthday",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bloodPressure",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bodyTemperature",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#bodyWeight",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#capacity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Arena"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#unsignedInt"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#closes",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#contactPerson",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#contractEndDate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#TemporaryWorker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#contractStartDate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#TemporaryWorker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#currency",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Currency"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#currentActivity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#currentlyActive",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#date",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthRecord"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#dayOfWeek",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#description",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Thing"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#diagnosis",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthRecord"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#diet",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Eating"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#FeedingHours"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Diet"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ecoComposition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#elevation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#GeoLocation"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#double"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#environmentCondition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#feedingTime",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#FeedingHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#foodType",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Diet"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#gender",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#genericName",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#geoWithin",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hasBarbeque",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PicnicArea"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hasEdibleFruit",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#healthRecord",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthRecord"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topObjectProperty"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#heartRate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#height",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#BioMetric"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hostLocation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#hoursAvailable",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ContactPoint"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#humidity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isAccessibleForFree",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isAllowingPetting",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#FeedingHours"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isEndangered",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isFlowering",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isOpenAir",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Arena"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isPubliclyAccessible",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PrivatePlace"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#isSeated",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Arena"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#jobTitle",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#keeper",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Zoo"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#keeperTalk",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Talk"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#latitude",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#GeoLocation"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#double"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#legislator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#AdminstrativeArea"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Government"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#livesIn",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#locatedIn",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Habitat"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#location",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#GeoLocation"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#longitude",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#GeoLocation"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#double"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#managedBy",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Confinement"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#maxCapacity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#unsignedInt"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#name",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Thing"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#openHours",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PublicPlace"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#opens",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ownedBy",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PrivatePlace"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#participateIn",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Animal"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#payFrequency",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#payRate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Currency"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#placeOfVisit",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Visitor"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#portionSize",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Diet"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topObjectProperty"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#postalcode",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PostalAddress"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#unsignedInt"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#price",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Currency"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#purchasedTicket",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Visitor"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#scientificName",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Specie"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#situationConfidence",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#double"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#float"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#speciality",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Worker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#speed",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Locomotion"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#startDate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#PermanentWorker"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#stepCount",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Locomotion"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#targetAudience",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Demonstration"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Person"
+  }, {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#telephone",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Organization"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Place"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Telephone"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#telephoneNumber",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Telephone"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#unsignedInt"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#temperature",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#ticketType",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Ticket"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#timeActive",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#OpenHours"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#topic",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Talk"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#treatment",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#HealthRecord"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#type",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Activity"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Enclosure"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Environment"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Plant"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Room"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#unitofMeasurement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#value",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Currency"
+  }, {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Measurement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#double"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#float"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#int"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ]
+}, {
+  "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#visitedDate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.semanticweb.org/shakthiweerasinghe/ontologies/2025/2/dcis-context#Visitor"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#dateTime"
+  } ]
+} ]
