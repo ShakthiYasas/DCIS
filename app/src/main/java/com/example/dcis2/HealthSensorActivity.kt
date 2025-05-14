@@ -1,5 +1,6 @@
 package com.example.dcis2
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dcis2.utility.HealthSensorUtils
+import kotlinx.coroutines.suspendCancellableCoroutine
 import org.dcis.ContextCordinator
 import org.json.JSONObject
 
@@ -29,19 +31,19 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     private var previousTotalSteps = 0
     private lateinit var stepsTextView: TextView
 
+    private val TAG = "STEP_COUNT_LISTENER"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_health_sensor)
         // Initialize UI elements
         heartRateTextView = findViewById(R.id.heartRateTextView)
-        stepsTextView = findViewById(R.id.stepsTextView)
 
         stepCountTextView = findViewById(R.id.stepsTextView)
 
         geofenceButton = findViewById(R.id.geofenceButton)
-        // Check if health sensors are available and fetch data
-        fetchHealthData()
+
         // Initialize SensorManager
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
@@ -51,30 +53,21 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         if (heartRateSensor == null) {
             // Device doesn't have a heart rate sensor
             println("Heart Rate Sensor not available.")
-            stepsTextView.text = "Steps: 0" // Example
-
         }
         if (stepCounterSensor == null) {
             // Step counter sensor is not available on this device
             Log.e("StepCounter", "Step counter sensor not available")
-            stepsTextView.text = "Step counter sensor not available"
         } else {
             // Load previous step count from SharedPreferences
             loadData()
         }
-//        stepsTextView = findViewById(R.id.stepsTextView)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         // Set up button click listener
         geofenceButton.setOnClickListener {
             val intent = Intent(this, GeoFenceActivity::class.java)
             startActivity(intent)
         }
-
-
     }
-
     private fun fetchHealthData() {
         // Check if heart rate sensor is available and retrieve data
         val heartRate = HealthSensorUtils.getHeartRate(this)
@@ -94,10 +87,12 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         heartRateSensor?.let {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+        stepCounterSensor?.let {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
         }
 
@@ -113,19 +108,25 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         event?.let {
-            if (it.sensor.type == Sensor.TYPE_HEART_RATE) {
-                val heartRate = it.values[0]
-                println("Heart Rate: $heartRate")
-            }
-            if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
-                totalSteps = event.values[0].toInt()
-                val currentSteps = totalSteps - previousTotalSteps
-                stepsTextView.text = "Steps: $currentSteps"
-                Log.d("StepCounter", "Total Steps: $totalSteps")
-                Log.d("StepCounter", "Current Steps: $currentSteps")
+            when (it.sensor.type) {
+                Sensor.TYPE_HEART_RATE -> {
+                    val heartRate = it.values[0]
+                    heartRateTextView.text = "Heart Rate: $heartRate BPM"
+                    Log.d("HeartRate", "Heart Rate: $heartRate")
+                }
+                Sensor.TYPE_STEP_COUNTER -> {
+                    totalSteps = it.values[0].toInt()
+                    val currentSteps = totalSteps - previousTotalSteps
+                    stepsTextView.text = "Steps: $currentSteps"
+                    Log.d("StepCounter", "Current Steps: $currentSteps")
+                }
+
+                else -> {}
             }
         }
     }
+
+
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Handle sensor accuracy changes if needed
@@ -146,19 +147,6 @@ class HealthSensorActivity : AppCompatActivity(), SensorEventListener {
     override fun onDestroy() {
         saveData()
         super.onDestroy()
-    }
-
-
-
-
-    private fun determineAudience(profileData: JSONObject): String {
-        val numberOfAdults = profileData.optInt("Number of Adults", 0)
-        val numberOfChildren = profileData.optInt("Number of Children", 0)
-
-        return when {
-            numberOfAdults > numberOfChildren -> "adult"
-            else -> "kids" // Prioritize kids if equal or more kids
-        }
     }
 
 

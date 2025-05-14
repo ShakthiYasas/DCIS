@@ -56,6 +56,7 @@ class TestDataRetrievalActivity : AppCompatActivity() {
             retrievedDataTextView.text = "No data found in SharedPreferences."
             Toast.makeText(this, "No data to display.", Toast.LENGTH_SHORT).show()
         }
+
         val setupEdgeButton = findViewById<Button>(R.id.setupEdgeButton)
         setupEdgeButton.setOnClickListener {
             setupEdge()
@@ -109,13 +110,13 @@ class TestDataRetrievalActivity : AppCompatActivity() {
         val sessionId = getSessionId()
         val healthPermission = hasHealthPermissions()
 
-        val config = JSONObject().apply {
+        val jsonObject = JSONObject().apply {
             put("audience", audience)
             put("session_id", sessionId)
             put("health_permission", healthPermission)
         }
 
-        val response = ContextCordinator.setupEdge(config)
+        val response = ContextCordinator.setupEdge(jsonObject)
         Log.d("SetupEdge", "Response: $response")
     }
     private fun sendLocationData() {
