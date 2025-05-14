@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY server.properties /app/server.properties
 COPY target/RecommendationEngine-1.0-DEV-jar-with-dependencies.jar /app/RecommendationEngine-1.0-DEV-jar-with-dependencies.jar
+COPY animal_model.ser /app/animal_model.ser
 
 EXPOSE 8500
 EXPOSE 8005
